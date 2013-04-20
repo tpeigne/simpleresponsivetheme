@@ -1,0 +1,357 @@
+/* product desc */
+
+/* primary_block ***************************************************************************** */
+#primary_block {padding-top:5px}
+
+/* pb-right-column ***************************************************************************** */
+#pb-right-column {
+
+}
+#pb-right-column  #image-block {
+    position:relative;
+    text-align : center;
+}
+#pb-right-column  #image-block .magnifier{
+    background : url('../img/magnifier-6-48.png') no-repeat;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+#pb-right-column  #image-block img {
+    cursor: pointer;
+    border: #D0D1D5 solid 1px;
+    box-shadow: 5px 5px 12px #CECCCC;
+    -webkit-box-shadow: 5px 5px 12px #CECCCC;
+    -moz-box-shadow: 5px 5px 12px #CECCCC;
+    padding: 5px;
+    background-color: white;
+}
+#pb-right-column  #image-block #view_full_size {
+    display:block;
+    cursor:pointer
+}
+
+/* miniatures */
+#pb-right-column #views_block {
+    margin: 15px auto;
+    width:266px
+}
+
+#thumbs_list {
+   float: left;
+   overflow: hidden;
+    margin-left:4px;
+   width: 216px
+}
+#thumbs_list ul#thumbs_list_frame {
+   list-style-type: none;
+   padding-left: 0
+}
+#thumbs_list li {
+   float: left;
+   height: 60px;
+   width: 72px;
+   cursor: pointer
+}
+#thumbs_list li img {
+    margin:0 6px;
+    border:1px solid #cdcdcd
+}
+
+span.view_scroll_spacer {
+   float: left;
+   height: 16px;
+   width: 21px
+}
+#view_scroll_left, #view_scroll_right {
+   float: left;
+   margin-top: 20px;
+   padding:0 4px;
+   height: 18px;
+   width: 9px;
+   text-indent: -3000px;
+   background: url(../img/thumbs_left.gif) no-repeat center center transparent
+}
+#view_scroll_right {
+    margin-left:4px;
+    background-image: url(../img/thumbs_right.gif)
+}
+
+.resetimg {padding:10px 0 0 0}
+
+/* link list */
+#usefull_link_block {
+    list-style-type:none;
+    margin-top: 20px
+}
+#usefull_link_block li {padding:2px 0;}
+#usefull_link_block li.print {
+    padding-left:20px;
+    background:url(../img/icon/print.gif) no-repeat 0 0;
+}
+#usefull_link_block li.sendtofriend {
+    padding-left:20px;
+    background:url(../img/icon/send_friend.gif) no-repeat 0 0;
+}
+#usefull_link_block li#left_share_fb{
+    padding-left:20px;
+    background:url(../img/icon/picto_fb.png) no-repeat 0 0;
+}
+
+/* pb-left-column ****************************************************************************** */
+#pb-left-column {
+
+}
+#pb-left-column h1 {
+    margin-top: 0px;
+    font-size: 1.8em;
+}
+#pb-left-column #short_description_block {color:#666}
+#pb-left-column #short_description_block .buttons_bottom_block {display:none}
+
+/* form */
+#pb-left-column  #buy_block {margin-top:10px}
+#buy_block p {
+    text-align : right;
+}
+#pb-left-column  #buy_block label {
+    display:inline-block;
+}
+
+/* short description pack */
+.short_description_pack {display:none;}
+
+/* color_picker */
+#pb-left-column #color_picker p {
+    padding-bottom:5px;
+    font-weight:bold
+}
+#attributes fieldset {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+#attributes fieldset label {
+    vertical-align:top;
+    padding-top: 8px;
+}
+#attributes .attribute_list {
+    display:inline-block;
+    margin-left: 5px;
+}
+.attribute_list #color_to_pick_list {
+    list-style-type:none;
+    margin-top: 4px;
+    margin-left: 3px;
+    margin-bottom: 0;
+}
+.attribute_list #color_to_pick_list li {
+    float:left;
+    margin:0 8px 8px 0;
+    padding:1px;
+    border:1px solid #ccc
+}
+.attribute_list #color_to_pick_list li.selected{border:1px solid #000}
+.attribute_list #color_to_pick_list a.color_pick{
+    display:block;
+    height:15px;
+    width:15px;
+}
+
+.product_attributes {
+    padding:15px 0 0 0;
+    border-top:1px solid #ccc
+}
+
+#primary_block #add_to_cart_row{
+    border-top: 1px solid #C3C3C3;
+    padding-top: 15px;
+}
+
+/* quantity_wanted */
+
+#buy_block #quantity_wanted_p,
+#buy_block #minimal_quantity_wanted_p{
+    text-align : left;
+}
+#quantity_wanted_p input {
+    width: 40px;
+    display: inline;
+    text-align : center;
+}
+
+/* availability_statut */
+#availability_statut {padding-bottom:10px;}
+#availability_statut span#availability_label {
+    display:inline-block;
+}
+#availability_statut span#availability_value {
+    display:inline-block;
+    padding:1px 5px;
+    font-weight:bold;
+    font-size:10px;
+    color:#fff;
+    text-transform:uppercase;
+    background:#9b0000
+}
+
+/* prices */
+.content_prices {
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid #ccc;
+    text-align:right
+}
+#buy_block p.price {padding:0}
+.discount {display:none}
+#buy_block p#old_price {
+    padding-bottom:15px;
+    font-size:14px;
+    text-decoration:line-through
+}
+.our_price_display {
+    font-weight:bold;
+    font-size: 1.9em;
+    color: #DA0F00;
+}
+#reduction_percent,
+#reduction_amount {
+    display: block;
+    float: right;
+    margin-left:10px;
+    padding: 0 0 0 10px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 0;
+    background: url(../img/bg_reduction.png) no-repeat 0 0 transparent;
+}
+#reduction_percent span,
+#reduction_amount span {
+   display: block;
+   padding: 1px 5px 1px 0;
+   background: url(../img/bg_reduction.png) no-repeat 100% 0 transparent
+}
+
+/* online_only */
+#buy_block p.online_only {
+    font-weight:bold;
+    font-size:11px;
+    color:#990000;
+    text-align:left;
+    text-transform:uppercase
+}
+
+/* SEND TO FRIEND (pop-in) ##################################################################### */
+#send_friend_form {}
+#send_friend_form h2 {
+   padding:8px 11px;
+   font-size:12px;
+   color:#fff;
+   text-shadow:0 1px 0 #000;
+   text-transform:uppercase;
+    background:#383838
+}
+
+#send_friend_form .product {margin:20px 10px}
+#send_friend_form .product img {
+    float:left;
+    margin:0 10px 0 0;
+    border:1px solid #ccc
+}
+#send_friend_form .product .product_desc {
+    float:left;
+    width: 380px;
+}
+#send_friend_form .product .product_desc p {
+    padding:0 10px 0 0;
+    color:#333
+}
+#send_friend_form .product .product_desc p.product_name {
+    font-size:12px;
+    color:#000
+}
+
+#send_friend_form .send_friend_form_content {margin:0 10px 20px 10px}
+#send_friend_form .form_container {
+    padding:10px 15px;
+    border:1px solid #ccc;
+    background:#eee
+}
+#send_friend_form .form_container p.intro_form {
+    padding-bottom:14px;
+    font-weight:bold;
+    font-size:13px;
+    color:#333
+}
+#send_friend_form .form_container p.txt_required {
+    padding-bottom:0;
+    color:#666
+
+/* SEND TO FRIEND (pop-in) ##################################################################### */
+}
+#send_friend_form .form_container .text {padding-bottom:10px}
+#send_friend_form .form_container .text label {
+    display:inline-block;
+   padding:6px 15px;
+   width:180px;/* 210 */
+   font-size:12px;
+   text-align:right
+}
+#send_friend_form .form_container .text input {
+   padding:0 5px;
+   height:22px;
+   width:260px;
+    border:1px solid #ccc;
+   font-size:12px;
+   color:#6666
+}
+#send_friend_form  .submit {
+    margin-top:20px;
+    padding-bottom:0;
+    text-align:right
+}
+
+/* PACK ##################################################################### */
+#blockpack {
+    margin-top:20px;
+    padding-top:20px;
+    border-top:1px dotted #999
+}
+
+/* PERSONNALISATION ##################################################################### */
+.customization_block {}
+.customization_block p.infoCustomizable {
+    margin:10px 0 20px;
+    padding:0 0 0 20px;
+    background:url(../img/icon/infos.gif) no-repeat 0 0 transparent
+}
+
+ul#uploadable_files,
+ul#text_fields {list-style-type:none}
+.customizableProductsFile,
+.customizableProductsText{
+    margin-bottom:20px;
+    padding-bottom:10px;
+    border-bottom:1px dotted #ccc;
+}
+.customizationUploadLine {padding-bottom:10px}
+.customizationUploadLine label {
+    display:inline-block;
+    width:150px;
+    vertical-align:top
+}
+.customizationUploadLine textarea {
+    height:50px;
+    width:300px;
+    border:1px solid #ccc
+}
+#customizedDatas {
+    float:right;
+}
+.accessories_block  div ul li a {
+    display:inline-block
+}

@@ -1,0 +1,38 @@
+#orderopc  #left_column {display:none}
+#orderopc  #left_column h2 {margin-top:20px}
+
+#opc_account_choice ul {margin:0 0 20px 15px}
+
+#new_account_form  h3 {
+    margin-top: 0;
+}
+#new_account_form p.required {color:#222;}
+#new_account_form p.required  sup {color:#990000;}
+
+#new_account_form p.radio label {
+    padding-right:10px;
+    font-size:14px;
+}
+
+#new_account_form span.form_info,
+#new_account_form span.inline-infos {
+    color:#666
+}
+#opc_account_errors {
+    margin-bottom: 15px;
+}
+#center_column #new_account_form p#opc_account_saved {
+    color: green;
+    float: right;
+    margin-right: 20px;
+    padding: 0;
+}
+
+#opc_invoice_address{
+    padding-top: 15px;
+    border-top: solid 1px #C0BFBF;
+}
+
+#opc_invoice_address .opc_invoice_address_2{
+    padding-top: 27px;
+}

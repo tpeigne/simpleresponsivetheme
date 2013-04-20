@@ -1,0 +1,196 @@
+#product_comments_block_extra {
+    padding:10px 0 0 0;
+    border-top:1px solid #ccc;
+    font-size:12px;
+    line-height:18px
+}
+
+#product_comments_block_extra a {
+    padding-left: 10px;
+    text-decoration: none;
+    background: url(../../../../../modules/productcomments/img/bg_li.png) no-repeat scroll 1px 45% #fff;
+
+}
+
+#product_comments_block_extra .comments_count{
+    float : right;
+}
+
+#product_comments_block_extra a:hover {text-decoration: underline}
+
+#product_comments_block_extra .comments_note {margin-bottom:5px}
+#product_comments_block_extra .comments_note span,
+#product_comments_block_extra .star_content {float:left}
+
+#product_comments_block_extra div.star {background: url(../../../../../modules/productcomments/img/star.gif) no-repeat scroll 0 0 transparent}
+
+#product_comments_block_extra div.star_on {background: url(../../../../../modules/productcomments/img/star.gif) no-repeat scroll 0 -12px transparent}
+
+#product_comments_block_extra .comments_advices {clear:both;}
+
+/* pop-in add grade/advice ********************************************************************* */
+#new_comment_form{
+    color: #333;
+    text-align: left;
+    background-color: #fff;
+    padding : 15px 15px 0 15px;
+}
+#new_comment_form .title {
+    padding:10px;
+    font-size: 13px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #333
+}
+#new_comment_form ul.grade_content {list-style-type:none}
+#new_comment_form .grade_content li {width:50%}
+#new_comment_form .product img {
+    border: #D0D1D5 solid 1px;
+    box-shadow: 2px 2px 8px #CECCCC;
+    -webkit-box-shadow: 2px 2px 8px #CECCCC;
+    -moz-box-shadow: 2px 2px 8px #CECCCC;
+    padding: 5px;
+}
+#new_comment_form .product{
+    margin-bottom: 10px;
+}
+#new_comment_form .product .product_desc {
+    color:#666;
+    margin-top : 0px;
+}
+#new_comment_form .product .product_desc .product_name {
+    font-size:13px;
+    color:#000
+}
+
+#new_comment_form .grade_content {margin:0 0 20px 0}
+#new_comment_form .grade_content span,
+#new_comment_form .grade_content span {
+    display:inline-block;
+    padding:0 10px;
+    font-weight:bold
+}
+#new_comment_form .grade_content .cancel {margin-right:5px}
+.new_comment_form_content .intro_form {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 12px
+}
+#new_comment_form_error ul{
+    margin-bottom : 0;
+}
+#new_comment_form .new_comment_form_content h2{
+    margin-top: 0;
+}
+#new_comment_form textarea {
+    height: 80px;
+}
+
+#new_comment_form .submit {
+    margin-top:20px;
+    padding:0;
+    font-size:13px;
+    text-align:right
+}
+
+#new_comment_form #criterions_list {
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 15px;
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+#new_comment_form #criterions_list li {
+    margin-bottom: 10px;
+}
+
+#new_comment_form #criterions_list label {
+    display: inline;
+    float: left;
+    margin: 0;
+}
+
+#new_comment_form #criterions_list .star_content {
+    margin-left: 5px;
+    float: left;
+}
+
+#new_comment_form #new_comment_form_footer {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+/* TAB COMMENTS ******************************************************************************** */
+#product_comments_block_tab div.comment {
+    border-bottom: dotted 1px #E6E6E6;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#product_comments_block_tab div.comment div.comment_author {
+    line-height:18px
+}
+#product_comments_block_tab div.comment div.comment_author span {font-weight:bold;}
+#product_comments_block_tab div.comment div.comment_author span,
+#product_comments_block_tab div.comment .star_content {
+    float:left;
+}
+#product_comments_block_tab div.comment .star_content {margin: 0 0 0 5px}
+#product_comments_block_tab div.star,
+#product_comments_block_tab div.star_on {
+    background: url(../../../../../modules/productcomments/img/star.gif) no-repeat 0 0 transparent
+}
+#product_comments_block_tab div.star_on {background-position: 0 -12px}
+#product_comments_block_tab .comment_author_infos {clear:both}
+#product_comments_block_tab .comment_author_infos em {color:#999}
+
+#product_comments_block_tab div.comment div.comment_details {
+}
+#product_comments_block_tab div.comment_details h4{ margin-top: 0;}
+#product_comments_block_tab div.comment_details p {padding-bottom:10px}
+#product_comments_block_tab div.comment_details ul {
+    list-style-type:none;
+    margin:0
+}
+#product_comments_block_tab div.comment_details li {
+    padding:2px 0 2px 12px;
+    background:url(../../../../../modules/productcomments/img/bg_li.png) no-repeat 1px 45% #fff
+}
+
+#product_comments_block_tab a {
+    text-decoration: none;
+    font-weight: bold
+}
+
+#product_comments_block_tab a:hover {text-decoration: underline}
+
+#product_comments_block_tab button.usefulness_btn {
+    cursor: pointer;
+    margin:0 0 0 5px;
+    display: inline-block;
+    padding: 0 2px;
+    border: 1px solid #CC9900;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    color: #000;
+    font-weight: bold;
+    background: url("../../../../../modules/productcomments/img/bg_bt.gif") repeat-x scroll 0 0 #F4B61B
+}
+#product_comments_block_tab button.usefulness_btn:hover {background-position: left -50px}
+#product_comments_block_tab button.usefulness_btn:active {background-position: left -100px}
+
+#product_comments_block_tab span.report_btn {cursor: pointer}
+#product_comments_block_tab span.report_btn:hover {text-decoration:underline}
+
+.fl { float: left; }
+.fr { float: right; }
+
+
+@media only screen and (max-width: 767px){ /* Mobile */
+    #new_comment_form .product .product_desc {
+        margin-top : 15px;
+    }
+
+    #product_comments_block_tab div.comment_details h4{ margin-top: 12px;}
+}

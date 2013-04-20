@@ -1,0 +1,29 @@
+#contact  h3 {
+    font-size:14px;
+    margin-top: 0;
+}
+#contact #center_column p {}
+#contact #center_column p.desc_contact {  }
+
+#contact p.text label,
+#contact p.select label,
+#contact p.select span,
+#contact p.textarea label {
+    font-size:12px;
+
+}
+#contact p.textarea label {vertical-align:top}
+#contact p.text input,
+#contact p.select input {
+    font-size: 12px;
+    color:#666
+}
+#contact p.select select {
+    font-size: 12px;
+    color:#666
+}
+#contact p.textarea textarea {
+    font-size: 12px;
+    color:#666
+}
+#contact p.submit input {}

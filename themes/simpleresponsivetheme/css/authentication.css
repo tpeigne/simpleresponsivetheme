@@ -1,0 +1,9 @@
+/* create account ****************************************************************************** */
+fieldset > h3{
+    margin-top:0px;
+}
+#opc_account_form h3{
+    margin-top:0px;
+}
+#account-creation_form p.required {color:#222}
+#account-creation_form p.required  sup {color:#990000}
