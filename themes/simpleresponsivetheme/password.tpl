@@ -41,7 +41,7 @@
     <fieldset>
         <p class="text">
             <label for="email">{l s='E-mail:'}</label>
-            <input type="text" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'|stripslashes}{/if}" />
+            <input type="email" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'|stripslashes}{/if}" />
         </p>
         <p class="submit">
             <input type="submit" class="button radius" value="{l s='Retrieve Password'}" />

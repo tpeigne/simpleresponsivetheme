@@ -10,7 +10,7 @@
                 <!-- END Error return block -->
                 <div class="six columns">
                     <label for="login_email">{l s='E-mail address'}</label>
-                    <span><input type="text" id="login_email" name="email" /></span>
+                    <span><input type="email" id="login_email" name="email" /></span>
                 </div>
                 <div class="six columns">
                     <label for="login_passwd">{l s='Password'}</label>
@@ -112,7 +112,7 @@
                         <input type="hidden" id="opc_id_address_invoice" name="opc_id_address_invoice" value="{if isset($guestInformations) && $guestInformations.id_address_delivery}{$guestInformations.id_address_delivery}{else}0{/if}" />
                         <p class="required text">
                             <label for="email">{l s='E-mail'} <sup>*</sup></label>
-                            <input type="text" class="text" id="email" name="email" value="{if isset($guestInformations) && $guestInformations.email}{$guestInformations.email}{/if}" />
+                            <input type="email" class="text" id="email" name="email" value="{if isset($guestInformations) && $guestInformations.email}{$guestInformations.email}{/if}" />
                         </p>
                         <p class="required password is_customer_param">
                             <label for="passwd">{l s='Password'} <sup>*</sup></label>

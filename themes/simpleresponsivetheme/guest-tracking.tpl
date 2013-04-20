@@ -106,7 +106,7 @@
 
             <p class="text">
                 <label>{l s='E-mail:'}</label>
-                <input type="text" name="email" value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'htmlall':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'}{/if}{/if}" />
+                <input type="email" name="email" value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'htmlall':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'}{/if}{/if}" />
             </p>
 
             <p class="center"><input type="submit" class="button" name="submitGuestTracking" value="{l s='Send'}" /></p>

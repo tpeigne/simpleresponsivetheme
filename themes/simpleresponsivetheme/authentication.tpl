@@ -398,7 +398,7 @@ $(function(){ldelim}
                 </p>
                 <p class="required text">
                     <label for="email">{l s='E-mail'} <sup>*</sup></label>
-                    <input type="text" class="text" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email}{/if}" />
+                    <input type="email" class="text" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email}{/if}" />
                 </p>
             </fieldset>
         </div>
