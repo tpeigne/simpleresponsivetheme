@@ -1,0 +1,36 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{responsivehomefeatured}prestashop>ajax_d80a7332df20fd951c36f1999106f6a5'] = 'La categorie a été supprimée';
+$_MODULE['<{responsivehomefeatured}prestashop>ajax_838ad0c27b434a63d940a89a91888dac'] = 'Une erreur est survenue lors de la suppression de la categorie';
+$_MODULE['<{responsivehomefeatured}prestashop>ajax_a0ac29edb0a3afa31868eb3dd7f58e1a'] = 'Le produit a été supprimé';
+$_MODULE['<{responsivehomefeatured}prestashop>ajax_4308878bc591cd6551fbfb14eb12685e'] = 'Une erreur est survenue lors de la suppression du produit';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_74b6e18246947a620f11636f0ff6913a'] = 'Responsive produits phares sur la page d\'accueil';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_507c312b884eccd4140b7f20418b3b7f'] = 'Affiche des produits mis en avant sur la page d\'accueil.';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_520a570d631ccea3fce59fc9b63b1486'] = 'Le produit à été ajouté dans la catégorie';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_87c5bb71dbb77f1cb2374d78145d24c2'] = 'La catégorie à été ajoutée';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_8c552ec238fe8c19d5e407c714f02e64'] = 'Une erreur est survenue lors de l\'ajout du produit';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_8f1eb233869ed674e4feaee88290a511'] = 'Pas de produit trouvé dans la categorie';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_abd23ceebb3203d9dace4ad8102853c4'] = 'Ajouter une catégorie';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_64ab647da55820ef6e6ce8ca83cbd44c'] = 'Ajouter une nouvelle catégorie sur votre page d\'accueil';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_1ead1fa401f83e8de302715bc40060d4'] = 'Choisissez votre categorie';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_7b1d3b9ebb2bd4953f2e8244a94bab4a'] = 'Choisissez votre page produit';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_de6385b8458ebc1879996159b7267d2b'] = 'Position :';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_c9cc8cce247e49bae79f15173ce97354'] = 'Sauvegarder';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_88b1d1510798afcd1192844ac81c7c4d'] = 'Gérer vos catégories';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_c24fec5511e2048b4ea1f0c6a4dd71d0'] = 'Éditez vos catégories';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_52f5e0bc3859bc5f5e25130b6c7e8881'] = 'Position';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_49ee3087348e8d44e1feda1917443987'] = 'Nom';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_068f80c7519d0528fb08e82137a72131'] = 'Produits';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_06df33001c1d7187fdd81ea1f5b277aa'] = 'Actions';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_14518e3a2b971a4c4de50b3d4a25fe93'] = 'Lien catégorie';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_41f984bb082af806e510740db289125d'] = 'afficher';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_86024cad1e83101d97359d7351051156'] = 'produits';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_f5bf48aa40cad7891eb709fcf1fde128'] = 'produit';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_85e2d77a4f1a30aaf1a2f3751388d03c'] = 'Supprimer la catégorie ?';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_f2a6c498fb90ee345d997f888fce3b18'] = 'Supprimer';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_e9deac183231cfa28f7e61f6fdb12d0b'] = 'Lien produit';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_e739951c13afc002e36159bd5bbf60eb'] = 'Supprimer le produit ?';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_22a14cf770523809678d4dd4189ace54'] = 'Prix réduit !';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_e0e572ae0d8489f8bf969e93d469e89c'] = 'Pas de produit en avant';

@@ -1,0 +1,39 @@
+.category_block,
+.cms_block,
+.product_block,
+.custom_block,
+.parent_block{
+    display : none;
+}
+
+.category_block.active,
+.cms_block.active,
+.product_block.active,
+.custom_block.active,
+.parent_block.active{
+    display : block;
+}
+
+.category_option.hidden,
+.cms_option.hidden,
+.product_option.hidden,
+.custom_option.hidden,
+.parent_option.hidden{
+    display : none;
+}
+
+tr.hidden{
+    display : none;
+}
+
+tr.subcategory{
+    background-color: #F7F7E8;
+}
+
+#informations_link label{
+    width : 230px;
+}
+
+#informations_link .margin-form {
+    padding: 0 0 1em 240px;
+}

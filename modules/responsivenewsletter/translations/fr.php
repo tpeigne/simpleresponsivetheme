@@ -1,0 +1,32 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_36d53faee461c6b2f28e8c4bec6428d3'] = 'Responsive newsletter block';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_ba457fab18d697d978befb95e827eb91'] = 'Ajoute un bloc newsletter pour vos clients';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_179bbcbd2e1104cdf9dcecd91264a961'] = 'Êtes-vous sûr de vouloir supprimer tous vos contacts ?';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_f0e9c1e3969d351170373b5cec2131c2'] = 'Code de réduction non valable';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_ff0a3b7f3daef040faf89a88fdac01b7'] = 'Mis à jour';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_f4f70727dc34561dfde1a3c529b6205c'] = 'Paramètres';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_a3399c10bd24eba0b78fbd595c51f81a'] = 'Afficher la configuration dans une nouvelle page ?';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_a6105c0a611b41b08f1209506350279e'] = 'Oui';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_7fa3b767c460b54a2be4d49030b349c7'] = 'Non';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_4437dee7020b48ab33333611ab16a7d9'] = 'Envoyer un e-mail de vérification après inscription ?';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_b68ae6efae2fca059754c27ff94494cd'] = 'Envoyer un e-mail de confirmation après inscription ?';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_506e58042922bff5bd753dc612e84f5b'] = 'Code de réduction offert';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_de3bd7faad12c79178b1b22bf6119e35'] = 'Laissez vide pour désactiver';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_06933067aafd48425d67bcb01bba5cb6'] = 'Mettre à jour';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_6e659c47c94d1e1dc7121859f43fb2b0'] = 'Adresse e-mail non valable';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_9e6df6e72be5be5b8ff962ee3406907e'] = 'Adresse e-mail introuvable';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_29003419c075963848f1907174bdc224'] = 'Erreur lors de la désinscription';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_f7dc297e2a139ab4f5a771825b46df43'] = 'Votre désinscription a bien été prise en compte';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_8dc3b88902df97bb96930282e56ed381'] = 'Adresse e-mail déjà inscrite';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_b7d9eb38dd2e375648ab08e224e22e43'] = 'Une erreur est survenue lors de votre inscription';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_b2485e09e6a72c45d35286d3fc63e128'] = 'Un e-mail de vérification a été envoyé. Veuillez l\'ouvrir.';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_ed3cd7b3cc134222fa70602921ec27e1'] = 'Votre inscription a bien été prise en compte';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_9e1f0c4c3f90d775eafbb0854ec63808'] = 'E-mail déjà enregistré ou non valable';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_4e1c51e233f1ed368c58db9ef09010ba'] = 'Merci de vous être inscrit à notre newsletter.';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_ffb7e666a70151215b4c55c6268d7d72'] = 'Newsletter';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_416f61a2ce16586f8289d41117a2554e'] = 'votre e-mail';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_b26917587d98330d93f87808fc9d7267'] = 'Inscription';
+$_MODULE['<{responsivenewsletter}prestashop>responsivenewsletter_4182c8f19d40c7ca236a5f4f83faeb6b'] = 'Désinscription';

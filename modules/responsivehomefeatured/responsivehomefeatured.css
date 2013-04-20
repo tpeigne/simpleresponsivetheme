@@ -1,0 +1,12 @@
+#featured_products .border_category_description,
+#featured_products .border_products_content{
+    border-top: 1px solid #D0D1D5;
+    padding-top: 15px;
+}
+
+#featured_products .category_description h3{
+    letter-spacing: 1px;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-size: 1.1em;
+}
