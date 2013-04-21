@@ -28,7 +28,7 @@
                 </section>
             </div>
 
-<!-- Footer -->
+            <!-- Footer -->
             <footer id="footer">
                 <div class="row">
                 {$HOOK_FOOTER}
@@ -36,7 +36,9 @@
 
                 <div id="footer_bottom" class="row">
                     <section class="twelve columns">
-                        © {$shop_name}. {l s='All Rights Reserved'}. {l s='Designed and Developped by'} <a href="http://thomaspeigne.com" title="{l s='Thomas Peigné'}">{l s='Thomas Peigné'}</a>
+                        © {$shop_name}. {l s='All Rights Reserved'}. {l s='Designed and Developped by'}
+                        <a href="http://thomaspeigne.com" title="{l s='Thomas Peigné'}">{l s='Thomas Peigné'}</a>,
+                        {l s='made with'} <a href="http://foundation.zurb.com/" title="{l s='Foundation'}">{l s='Foundation'}</a>.
                     </section>
                 </div>
             </footer>
