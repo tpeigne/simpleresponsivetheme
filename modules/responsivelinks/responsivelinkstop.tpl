@@ -18,13 +18,13 @@
                         {assign var='first_link_link' value=''}
                         {assign var='first_link_name' value=''}
 
-                        {if $responsiveLink['responsiveLinkObject']->id_category <> 0}
+                        {if $responsiveLink['responsiveLinkObject']->id_category != 0}
                             {assign var='first_link_link' value={$link->getCategoryLink($responsiveLink['objectLink'])}}
                             {assign var='first_link_name' value={$responsiveLink['objectLink']->name}}
-                        {elseif $responsiveLink['responsiveLinkObject']->id_cms <> 0}
+                        {elseif $responsiveLink['responsiveLinkObject']->id_cms != 0}
                             {assign var='first_link_link' value={$link->getCMSLink($responsiveLink['objectLink'])}}
                             {assign var='first_link_name' value={$responsiveLink['objectLink']->meta_title}}
-                        {elseif $responsiveLink['responsiveLinkObject']->id_product <> 0}
+                        {elseif $responsiveLink['responsiveLinkObject']->id_product != 0}
                             {assign var='first_link_link' value={$link->getProductLink($responsiveLink['objectLink'])}}
                             {assign var='first_link_name' value={$responsiveLink['objectLink']->name}}
                         {else}
@@ -57,13 +57,13 @@
                         {assign var='other_link_link' value=''}
                         {assign var='other_link_name' value=''}
 
-                        {if $responsiveLink['responsiveLinkObject']->id_category <> 0}
+                        {if $responsiveLink['responsiveLinkObject']->id_category != 0}
                             {assign var='other_link_link' value={$link->getCategoryLink($responsiveLink['objectLink'])}}
                             {assign var='other_link_name' value={$responsiveLink['objectLink']->name}}
-                        {elseif $responsiveLink['responsiveLinkObject']->id_cms <> 0}
+                        {elseif $responsiveLink['responsiveLinkObject']->id_cms != 0}
                             {assign var='other_link_link' value={$link->getCMSLink($responsiveLink['objectLink'])}}
                             {assign var='other_link_name' value={$responsiveLink['objectLink']->meta_title}}
-                        {elseif $responsiveLink['responsiveLinkObject']->id_product <> 0}
+                        {elseif $responsiveLink['responsiveLinkObject']->id_product != 0}
                             {assign var='other_link_link' value={$link->getProductLink($responsiveLink['objectLink'])}}
                             {assign var='other_link_name' value={$responsiveLink['objectLink']->name}}
                         {else}
@@ -99,6 +99,7 @@
                   <li class="last">
                       <div id="search_bar" class="twelve mobile-three columns end">
                         <form method="get" action="{$link->getPageLink('search.php', true)}" id="searchbox">
+                            <input type="hidden" name="controller" value="search" />
                             <input type="hidden" name="orderby" value="position" />
                             <input type="hidden" name="orderway" value="desc" />
                             <input placeholder="{l s='Search' mod='responsivelinks'}" class="search_query" type="text" id="search_query_block" name="search_query" value="{if isset($smarty.get.search_query)}{$smarty.get.search_query|htmlentities:$ENT_QUOTES:'utf-8'|stripslashes}{/if}" />
@@ -136,28 +137,32 @@
         }
 
         $("#search_query_block").keyup(function(){
-            if($(this).val().length > 0){
+            if ($(this).val().length > 0) {
                 stopInstantSearchQueries();
                 instantSearchQuery = $.ajax({
-                url: '{/literal}{if $search_ssl == 1}{$link->getPageLink('search.php', true)}{else}{$link->getPageLink('search.php')}{/if}{literal}',
-                data: 'instantSearch=1&id_lang={/literal}{$cookie->id_lang}{literal}&q='+encodeURIComponent($(this).val()),
-                dataType: 'html',
-                success: function(data){
-                    if($("#search_query_block").val().length > 0)
-                    {
-                        tryToCloseInstantSearch();
-                        $('#center_column').attr('id', 'old_center_column');
-                        $('#old_center_column').after('<section id="center_column" class="twelve columns">'+data+'</section>');
-                        $('#old_center_column').hide();
-                        $("#instant_search_results a.close").click(function() {
-                            $("#search_query_block").val('');
-                            return tryToCloseInstantSearch();
-                        });
-                        return false;
-                    }
-                    else
-                        tryToCloseInstantSearch();
-                    }
+                    url: '{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}',
+                    data: {
+                        instantSearch: 1,
+                        id_lang: {$cookie->id_lang},
+                        q: $(this).val()
+                    },
+                    dataType: 'html',
+                    type: 'POST',
+                    success: function(data){
+                        if ($("#search_query_block").val().length > 0) {
+                            tryToCloseInstantSearch();
+                            $('#center_column').attr('id', 'old_center_column');
+                            $('#old_center_column').after('<section id="center_column" class="twelve columns">'+data+'</section>');
+                            $('#old_center_column').hide();
+                            $("#instant_search_results a.close").click(function() {
+                                $("#search_query_block").val('');
+                                return tryToCloseInstantSearch();
+                            });
+                            return false;
+                        }
+                        else
+                            tryToCloseInstantSearch();
+                        }
                 });
                 instantSearchQueries.push(instantSearchQuery);
             }
@@ -176,7 +181,7 @@
         $('document').ready( function() {
             $("#search_query_block")
                 .autocomplete(
-                    '{/literal}{if $search_ssl == 1}{$link->getPageLink('search.php', true)}{else}{$link->getPageLink('search.php')}{/if}{literal}', {
+                        '{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}', {
                         minChars: 3,
                         max: 10,
                         width: 500,
@@ -194,7 +199,7 @@
                         },
                         extraParams: {
                             ajaxSearch: 1,
-                            id_lang: {/literal}{$cookie->id_lang}{literal}
+                            id_lang: {$cookie->id_lang}
                         }
                     }
                 )
