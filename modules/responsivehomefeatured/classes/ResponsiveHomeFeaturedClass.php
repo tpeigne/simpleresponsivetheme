@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class ResponsiveHomeFeaturedClass
+ */
 class ResponsiveHomeFeaturedClass extends ObjectModel
 {
     public $id_category;
@@ -27,12 +30,13 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     {
         /* Classical fields */
         foreach ($_POST AS $key => $value)
+        {
             if (key_exists($key, $this) AND $key != 'id_'.$this->table)
                 $this->{$key} = $value;
+        }
 
         /* Multilingual fields */
-        if (sizeof(ResponsiveHomeFeaturedClass::$definition['fields']))
-        {
+        if (sizeof(ResponsiveHomeFeaturedClass::$definition['fields'])) {
             $languages = Language::getLanguages(false);
             foreach ($languages AS $language)
                 foreach (ResponsiveHomeFeaturedClass::$definition['fields'] AS $field => $validation)
@@ -41,7 +45,15 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         }
     }
 
-    public function saveProduct($idProduct){
+
+    /**
+     * Add a product for a homefeatured category
+     *
+     * @param int $idProduct product id
+     * @return bool
+     */
+    public function addProduct($idProduct)
+    {
         $result = Db::getInstance()->autoExecute(
             _DB_PREFIX_.'responsivehomefeaturedproducts',
             array('id_responsivehomefeatured' => (int)$this->id, 'id_category' => (int)$this->id_category, 'id_product' => (int)$idProduct),
@@ -51,20 +63,40 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         return $result;
     }
 
-    public static function deleteProduct($idProduct){
+    /**
+     * Delete a product of a homefeatured category
+     *
+     * @param int $idProduct
+     * @return bool
+     */
+    public static function deleteProduct($idProduct)
+    {
         return Db::getInstance()->Execute('
         DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
         WHERE id_product = '.(int)$idProduct.'');
     }
 
-    public static function deleteHomeFeaturedProduct($idHomeFeatured){
+    /**
+     * Delete a homefeatured category
+     *
+     * @param $idHomeFeatured
+     * @return bool
+     */
+    public static function deleteHomeFeaturedProduct($idHomeFeatured)
+    {
         return Db::getInstance()->Execute('
         DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
         WHERE id_responsivehomefeatured = '.(int)$idHomeFeatured.'');
     }
 
 
+    /**
+     * Get products of a homefeatured category
+     *
+     * @return array of Product
+     */
     public function getProducts(){
+        /*TODO : remove global cookie declaration for Context::getContext()...*/
         global $cookie;
 
         $result = Db::getInstance()->ExecuteS('
@@ -80,7 +112,13 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         return $result;
     }
 
-    public static function getIdResponsiveHomeFeatured($idCategory){
+    /**
+     * Get homefeatured category id
+     *
+     * @param int $idCategory a PrestaShop Category id
+     * @return int
+     */
+    public static function getResponsiveHomeFeaturedId($idCategory){
         $result = Db::getInstance()->getRow('
         SELECT r.id_responsivehomefeatured
         FROM '._DB_PREFIX_.'responsivehomefeatured r
@@ -89,6 +127,13 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         return $result['id_responsivehomefeatured'];
     }
 
+    /**
+     * TODO : review function description
+     * Check if a PrestaShop Category exist
+     *
+     * @param int $idCategory PrestaShop Category id
+     * @return bool
+     */
     public static function existCategory($idCategory){
         $result = Db::getInstance()->getRow('
         SELECT r.id_category
@@ -98,6 +143,11 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         return isset($result['id_category']);
     }
 
+    /**
+     * Get all homefeatured category
+     *
+     * @return array
+     */
     public static function findAll(){
         $result = Db::getInstance()->ExecuteS('
         SELECT r.*
@@ -113,6 +163,11 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         return $result;
     }
 
+    /**
+     * Get the highest homefeatured category position
+     *
+     * @return int
+     */
     public static function getMaxPosition(){
         $return = 0;
         $result = Db::getInstance()->getRow('
@@ -129,6 +184,12 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         return $return;
     }
 
+    /**
+     * Update positions for each homefeatured category
+     *
+     * @param array $positions
+     * @return bool
+     */
     public function updatePosition($positions){
         $i = 1;
 

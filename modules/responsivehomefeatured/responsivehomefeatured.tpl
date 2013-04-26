@@ -1,5 +1,5 @@
 <div id="featured_products">
-    {foreach from=$listeCategory item=category name=categoryHome}
+    {foreach from=$categoryList item=category name=categoryHome}
     <section class="row">
         <div class="three columns category_description align_justify">
             <div class="border_category_description italic">
