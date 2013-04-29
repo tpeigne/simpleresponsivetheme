@@ -15,9 +15,9 @@ class ResponsiveSliderClass extends ObjectModel
         'primary' => 'id_responsiveslider',
         'multilang' => true,
         'fields' => array(
-            'title'		  => array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'size' => 255),
+            'title'       => array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'size' => 255),
             'description' => array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'size' => 255),
-            'url' 		  => array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'size' => 128))
+            'url'         => array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'size' => 128))
     );
 
     /**
@@ -81,6 +81,11 @@ class ResponsiveSliderClass extends ObjectModel
         }
     }
 
+    /**
+     * Get all slides
+     *
+     * @return array of ResponsiveSliderClass
+     */
     public static function findAll()
     {
         $result = Db::getInstance()->ExecuteS('
@@ -97,10 +102,14 @@ class ResponsiveSliderClass extends ObjectModel
         return $result;
     }
 
+    /**
+     * Get all slides online
+     *
+     * @param int $isOnline
+     * @return array of ResponsiveSliderClass
+     */
     public static function findAllByOnline($isOnline = 1)
     {
-        global $cookie;
-
         $result = Db::getInstance()->ExecuteS('
         SELECT r.*
         FROM '._DB_PREFIX_.'responsiveslider r
@@ -109,20 +118,27 @@ class ResponsiveSliderClass extends ObjectModel
 
         foreach($result as $slide => $value)
         {
-            $result[$slide] = new ResponsiveSliderClass($value['id_responsiveslider'], (int)$cookie->id_lang);
+            $result[$slide] = new ResponsiveSliderClass($value['id_responsiveslider'], Context::getContext()->cookie->id_lang);
         }
 
         return $result;
     }
 
+    /**
+     * Delete one slide
+     *
+     * @param $idSlide
+     * @param $dirCaller
+     * @return bool
+     */
     public static function deleteSlide($idSlide, $dirCaller)
     {
         $slider = new ResponsiveSliderClass($idSlide);
 
-        //delete all the slide image
+        //delete all images of a slide
         foreach ($slider->urlimage AS $image){
             //check if the field is not empty
-            if($image <> ''){
+            if ($image <> '') {
                 if(!unlink($dirCaller.'/images/'.$image))
                     return false;
             }
@@ -137,27 +153,29 @@ class ResponsiveSliderClass extends ObjectModel
         return true;
     }
 
-    private function uploadOneImage($file, $modulePath, $idLangue){
+    /**
+     * Upload one image on the server
+     *
+     * @param $file
+     * @param $modulePath
+     * @param $idLangue
+     * @return bool|string
+     */
+    private function uploadOneImage($file, $modulePath, $idLangue)
+    {
         //check image error
-        if ($file["error"] > 0)
-        {
+        if ($file["error"] > 0) {
             return false;
-        }
-        else
-        {
+        } else {
             //check image type
             if ($file['type'] == 'image/png'
                 || $file['type'] == 'image/jpg'
                 || $file['type'] == 'image/gif'
                 || $file['type'] == 'image/jpeg'
-                || $file['type'] == 'image/pjpeg')
-            {
-                if (file_exists($modulePath.'images/'.$file["name"]))
-                {
+                || $file['type'] == 'image/pjpeg') {
+                if (file_exists($modulePath.'images/'.$file["name"])) {
                     return false;
-                }
-                else
-                {
+                } else {
                     $rep = dirname(__DIR__).'/images/';
                     $image = md5(date('YmdHis')).'-'.$idLangue.'.jpg';
 
@@ -165,36 +183,48 @@ class ResponsiveSliderClass extends ObjectModel
 
                     return $image;
                 }
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
     }
 
-    public function uploadImageSlider($file, $modulePath)
+    /**
+     * Upload images on the server
+     *
+     * @param FILE $file images of a slide for each language
+     * @param $modulePath
+     */
+    public function uploadImages($file, $modulePath)
     {
         /* Multilingual fields */
         $field = 'urlimage';
         $languages = Language::getLanguages(false);
         foreach ($languages AS $language){
-            if (isset($_FILES[$field.'_'.(int)($language['id_lang'])])){
-                $urlImage = $this->uploadOneImage($_FILES[$field.'_'.(int)($language['id_lang'])], $modulePath, (int)($language['id_lang']));
+            if (isset($file[$field.'_'.(int)($language['id_lang'])])){
+                $urlImage = $this->uploadOneImage($file[$field.'_'.(int)($language['id_lang'])], $modulePath, (int)($language['id_lang']));
 
-                if($urlImage <> false){
+                if ($urlImage <> false) {
                     $this->{$field}[(int)($language['id_lang'])] = $urlImage;
                 }
             }
         }
     }
 
-    public function updatePosition($positions){
+    /**
+     * Update position for each slide
+     *
+     * @param array $positions
+     * @return bool
+     */
+    public function updatePosition($positions)
+    {
         $i = 1;
 
-        foreach($positions as $idSlide){
-            if($idSlide <> ''){
-                if(!Db::getInstance()->Execute('
+        foreach($positions as $idSlide)
+        {
+            if ($idSlide <> '') {
+                if (!Db::getInstance()->Execute('
                     UPDATE `'._DB_PREFIX_.'responsiveslider`
                     SET `position` = '.$i.'
                     WHERE `id_responsiveslider` = '.$idSlide.''))
@@ -207,16 +237,22 @@ class ResponsiveSliderClass extends ObjectModel
         return true;
     }
 
-    public static function getMaxPosition(){
+    /**
+     * Get the max position from the slider
+     *
+     * @return int
+     */
+    public static function getMaxPosition()
+    {
         $return = 0;
         $result = Db::getInstance()->getRow('
         SELECT MAX(r.position) as position
         FROM '._DB_PREFIX_.'responsiveslider r
         WHERE id_shop = \''.Context::getContext()->shop->id.'\'');
 
-        if(!$result['position']){
+        if (!$result['position']) {
             $return = 1;
-        }else{
+        } else {
             $return = $result['position'] + 1;
         }
 

@@ -114,24 +114,20 @@ class ResponsiveSlider extends Module
         $this->_addJS();
 
         /* SLIDER EDITION */
-        if (Tools::isSubmit('submitEditSlide'))
-        {
-            //si on supprime l'image
-            if(Tools::getIsset('actionSlide') && Tools::getIsset('actionSlide') == 'deleteImage'){
+        if (Tools::isSubmit('submitEditSlide')) {
+            //check if we are deleting a image
+            if (Tools::getIsset('actionSlide') && Tools::getIsset('actionSlide') == 'deleteImage') {
                 $slider = new ResponsiveSliderClass(Tools::getValue('idSlide'));
                 $slider->urlimage = '';
 
-                if ($slider->save())
-                {
+                if ($slider->save()) {
                     $response = '
                     <div class="conf confirm">
                         '.$this->l('The image slide has been updated.').'
                     </div>';
 
                     $this->_html .= $response;
-                }
-                else
-                {
+                } else {
                     $response = '
                     <div class="conf error">
                         <img src="../img/admin/disabled.gif" alt="" title="" />
@@ -141,20 +137,17 @@ class ResponsiveSlider extends Module
                     $this->_html .= $response;
                 }
 
-            }else{
+            } else {
                 $slider = new ResponsiveSliderClass(Tools::getValue('idSlide'));
                 $slider->copyFromPost();
-                $slider->uploadImageSlider($_FILES, $this->_path);
+                $slider->uploadImages($_FILES, $this->_path);
 
-                if ($slider->save())
-                {
+                if ($slider->save()) {
                     $this->_html .= '
                     <div class="conf confirm">
                         '.$this->l('The slide').' '.$slider->title[$this->context->cookie->id_lang].' '.$this->l('has been updated.').'
                     </div>';
-                }
-                else
-                {
+                } else {
                     $this->_html .= '
                     <div class="conf error">
                         <img src="../img/admin/disabled.gif" alt="" title="" />
@@ -166,24 +159,20 @@ class ResponsiveSlider extends Module
         /* END SLIDER EDITION */
 
         /* SLIDER ADDITION */
-        if (Tools::isSubmit('submitAddSlide'))
-        {
+        if (Tools::isSubmit('submitAddSlide')) {
             //get data from post method
             $slider = new ResponsiveSliderClass();
             $slider->copyFromPost();
-            $slider->uploadImageSlider($_FILES, $this->_path);
+            $slider->uploadImages($_FILES, $this->_path);
             $slider->position = ResponsiveSliderClass::getMaxPosition();
             $slider->id_shop = $this->context->shop->id;
 
-            if ($slider->save())
-            {
+            if ($slider->save()) {
                 $this->_html .= '
                 <div class="conf confirm">
                     '.$this->l('The slide').' '.$slider->title[$this->context->cookie->id_lang].' '.$this->l('has been added to your slider.').'
                 </div>';
-            }
-            else
-            {
+            } else {
                 $this->_html .= '
                 <div class="conf error">
                     <img src="../img/admin/disabled.gif" alt="" title="" />
@@ -194,8 +183,7 @@ class ResponsiveSlider extends Module
         /* END SLIDER ADDITION */
 
         /* CONFIGURATION EDITION */
-        if (Tools::isSubmit('submitConfiguration'))
-        {
+        if (Tools::isSubmit('submitConfiguration')) {
             //responsive slider configuration array
             $responsiveSliderConfiguration = array();
             //basic configuration
@@ -227,14 +215,14 @@ class ResponsiveSlider extends Module
         //get responsvive slider configuration
         $responsiveSliderConfiguration = unserialize(Configuration::get('RESPONSIVESLIDER_CONFIGURATION'));
 
+        $sliderEdition = null;
         //check if we are editting a slide
         if(Tools::getIsset('action') && Tools::getIsset('action') == 'editSlide')
-            $slider = new ResponsiveSliderClass(Tools::getValue('idSlide'));
+            $sliderEdition = new ResponsiveSliderClass(Tools::getValue('idSlide'));
 
         /* Languages preliminaries */
         $defaultLanguage = (int)(Configuration::get('PS_LANG_DEFAULT'));
         $languages = Language::getLanguages(false);
-        $iso = Language::getIsoById((int)($this->context->cookie->id_lang));
         $divLangName = 'title¤description¤url¤urlimage';
 
         $this->_html .= '
@@ -246,13 +234,8 @@ class ResponsiveSlider extends Module
         <a id="add-image" href=""><img src="../img/admin/add.gif" border="0"> '.$this->l('Add a slide').'</a>
         <div class="clear">&nbsp;</div>';
 
-        if(Tools::getIsset('action') && Tools::getIsset('action') == 'editSlide')
-                $this->_html .= '<form id="informations-image" ';
-            else
-                $this->_html .= '<form id="informations-image" style="display:none;" ';
-
         $this->_html .= '
-        action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="post" enctype="multipart/form-data">
+        <form id="informations-image" '.(isset($sliderEdition) ? '' : 'style="display:none;"').' action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST" enctype="multipart/form-data">
             <fieldset style="margin-bottom:10px;">
                 <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Add a new slide to your slider').'</legend>';
 
@@ -265,7 +248,7 @@ class ResponsiveSlider extends Module
                 {
                     $this->_html .= '
                     <div id="title_'.$language['id_lang'].'" style="display: '.($language['id_lang'] == $defaultLanguage ? 'block' : 'none').';float: left;">
-                        <input class="required" type="text" name="title_'.$language['id_lang'].'" id="title_'.$language['id_lang'].'" size="35" value="'.(isset($slider->title[$language['id_lang']]) ? $slider->title[$language['id_lang']] : '').'" />
+                        <input class="required" type="text" name="title_'.$language['id_lang'].'" id="title_'.$language['id_lang'].'" size="35" value="'.(isset($sliderEdition->title[$language['id_lang']]) ? $sliderEdition->title[$language['id_lang']] : '').'" />
                     </div>';
                 }
                 $this->_html .= $this->displayFlags($languages, $defaultLanguage, $divLangName, 'title', true);
@@ -282,7 +265,7 @@ class ResponsiveSlider extends Module
                 {
                     $this->_html .= '
                     <div id="description_'.$language['id_lang'].'" style="display: '.($language['id_lang'] == $defaultLanguage ? 'block' : 'none').';float: left;">
-                        <textarea class="required" name="description_'.$language['id_lang'].'" id="description_'.$language['id_lang'].'" cols="45">'.(isset($slider->description[$language['id_lang']]) ? $slider->description[$language['id_lang']] : '').'</textarea>
+                        <textarea class="required" name="description_'.$language['id_lang'].'" id="description_'.$language['id_lang'].'" cols="45">'.(isset($sliderEdition->description[$language['id_lang']]) ? $sliderEdition->description[$language['id_lang']] : '').'</textarea>
                     </div>';
                 }
                 $this->_html .= $this->displayFlags($languages, $defaultLanguage, $divLangName, 'description', true);
@@ -299,7 +282,7 @@ class ResponsiveSlider extends Module
                 {
                     $this->_html .= '
                     <div id="url_'.$language['id_lang'].'" style="display: '.($language['id_lang'] == $defaultLanguage ? 'block' : 'none').';float: left;">
-                        <input class="required" type="text" name="url_'.$language['id_lang'].'" id="url_'.$language['id_lang'].'" size="35" value="'.(isset($slider->url[$language['id_lang']]) ? $slider->url[$language['id_lang']] : '').'" />
+                        <input class="required" type="text" name="url_'.$language['id_lang'].'" id="url_'.$language['id_lang'].'" size="35" value="'.(isset($sliderEdition->url[$language['id_lang']]) ? $sliderEdition->url[$language['id_lang']] : '').'" />
                     </div>';
                 }
                 $this->_html .= $this->displayFlags($languages, $defaultLanguage, $divLangName, 'url', true);
@@ -317,24 +300,23 @@ class ResponsiveSlider extends Module
                 foreach ($languages as $language)
                 {
                     //check if we are editting a slide
-                    if(Tools::getIsset('action') && Tools::getIsset('action') == 'editSlide')
-                    {
-                        if($slider->urlimage[$language['id_lang']] <> ''){
+                    if (isset($sliderEdition)) {
+                        if($sliderEdition->urlimage[$language['id_lang']] <> '') {
                             $apercuSlide = '
                             <div id="image" style="margin-top: 10px;">
-                                <a class="apercu-fancy" rel="fancybox-thumb" href="'.$this->_path.'images/'.$slider->urlimage[$language['id_lang']].'" title="'.$slider->title[$language['id_lang']].'">
-                                    <img src="'.$this->_path.'/images/'.$slider->urlimage[$language['id_lang']].'" style="max-width:100%;"/>
+                                <a class="apercu-fancy" rel="fancybox-thumb" href="'.$this->_path.'images/'.$sliderEdition->urlimage[$language['id_lang']].'" title="'.$sliderEdition->title[$language['id_lang']].'">
+                                    <img src="'.$this->_path.'/images/'.$sliderEdition->urlimage[$language['id_lang']].'" style="max-width:100%;"/>
                                 </a>
-                                <p align="center">'.$this->l('Filesize').' '.(filesize(dirname(__FILE__).'/images/'.$slider->urlimage[$language['id_lang']].'') / 1000).'kb</p>
+                                <p align="center">'.$this->l('Filesize').' '.(filesize(dirname(__FILE__).'/images/'.$sliderEdition->urlimage[$language['id_lang']].'') / 1000).'kb</p>
                             </div>';
-                        }else{
+                        } else {
                             $apercuSlide = '';
                         }
                     }
 
                     $this->_html .= '
                     <div id="urlimage_'.$language['id_lang'].'" style="display: '.($language['id_lang'] == $defaultLanguage ? 'block' : 'none').';float: left;">
-                        <input class="required" type="file" name="urlimage_'.$language['id_lang'].'" id="urlimage_'.$language['id_lang'].'" size="35" value="'.(isset($slider->url[$language['id_lang']]) ? $slider->url[$language['id_lang']] : '').'" />
+                        <input class="required" type="file" name="urlimage_'.$language['id_lang'].'" id="urlimage_'.$language['id_lang'].'" size="35" value="'.(isset($sliderEdition->url[$language['id_lang']]) ? $sliderEdition->url[$language['id_lang']] : '').'" />
                         '.$apercuSlide.'
                     </div>';
                 }
@@ -346,15 +328,15 @@ class ResponsiveSlider extends Module
                 //other fields
                 $this->_html .= '
                 <label for="isonline">'.$this->l('Online :').'</label>';
-                if(Tools::getIsset('action') && Tools::getIsset('action') == 'editSlide'){
-                    if($slider->isonline == 1){
+                if (isset($sliderEdition)) {
+                    if ($sliderEdition->isonline == 1) {
                         $optionTrue = 'checked="checked"';
                         $optionFalse = '';
-                    }else{
+                    } else {
                         $optionTrue = '';
                         $optionFalse = 'checked="checked"';
                     }
-                }else{
+                } else {
                     $optionTrue = '';
                     $optionFalse = 'checked="checked"';
                 }
@@ -367,9 +349,9 @@ class ResponsiveSlider extends Module
                     <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('Offline').'" title="'.$this->l('Offline').'"></label>
                 </div>
                 <div class="margin-form">';
-                    if(Tools::getIsset('action') && Tools::getIsset('action') == 'editSlide')
+                    if(isset($sliderEdition))
                         $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="submitEditSlide" class="button">
-                            <input type="hidden" value="'.$slider->id.'" name="idSlide" class="button">';
+                            <input type="hidden" value="'.$sliderEdition->id.'" name="idSlide" class="button">';
                     else
                         $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="submitAddSlide" class="button">';
 
@@ -378,13 +360,13 @@ class ResponsiveSlider extends Module
             </fieldset>
         </form>';
 
-        //formulaire de suppression d'image (temporaire)
-        if(Tools::getIsset('action') && Tools::getIsset('action') == 'editSlide'){
+        //form for slide edition
+        if(isset($sliderEdition)) {
             $this->_html .= '
             <form id="deleteImageForm" style="display: none;" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST">
                 <input type="hidden" name="actionSlide" value="deleteImage">
                 <input type="hidden" name="action" value="editSlide">
-                <input type="hidden" name="idSlide" value="'.$slider->id.'">
+                <input type="hidden" name="idSlide" value="'.$sliderEdition->id.'">
                 <input type="hidden" value="'.$this->l('Save').'" name="submitEditSlide">
             </form>';
         }
@@ -422,16 +404,13 @@ class ResponsiveSlider extends Module
                             </a>
                         </td>
                         <td class="center">';
-                        if ($slider->isonline == 1)
-                        {
+                        if ($slider->isonline == 1) {
                             $this->_html .= '
                             <a class="online-slide" href="" urlajax="'.$this->_path.'ajax.php" actionOnline="putOffline" id="'.$slider->id.'" title="'.$this->l('Put offline ?').'">
                                 <img src="../img/admin/enabled.gif" alt="'.$this->l('Online').'"">
                             </a>
                             ';
-                        }
-                        else
-                        {
+                        } else {
                             $this->_html .= '
                             <a class="online-slide" href="" urlajax="'.$this->_path.'ajax.php" actionOnline="putOnline" id="'.$slider->id.'" title="'.$this->l('Put online ?').'">
                                 <img src="../img/admin/disabled.gif" alt="'.$this->l('Offline').'" title="'.$this->l('Offline').'">
@@ -529,6 +508,12 @@ class ResponsiveSlider extends Module
         $this->context->controller->addCSS(($this->_path).'responsiveslider.css', 'all');
     }
 
+
+    /**
+     * Install demo products
+     *
+     * @return bool
+     */
     public function installDemoLinks()
     {
         $languages = Language::getLanguages(false);
@@ -537,28 +522,32 @@ class ResponsiveSlider extends Module
         $firstSlide = new ResponsiveSliderClass();
         $firstSlide->position = 1;
         $firstSlide->isonline = 1;
-        $firstSlide->id_shop = Configuration::get('PS_SHOP_DEFAULT');
-        foreach ($languages as $language){
+        $firstSlide->id_shop  = Configuration::get('PS_SHOP_DEFAULT');
+        foreach ($languages as $language)
+        {
             $firstSlide->title[(int)($language['id_lang'])]       = 'iPod Nano';
             $firstSlide->description[(int)($language['id_lang'])] = 'iPod Nano';
             $firstSlide->url[(int)($language['id_lang'])]         = '';
             $firstSlide->urlimage[(int)($language['id_lang'])]    = 'nano-'.(int)$language['id_lang'].'.png';
         }
 
-        $firstSlide->save();
+        if (!$firstSlide->save())
+            return false;
 
         //second slide
         $secondSlide = new ResponsiveSliderClass();
         $secondSlide->position = 2;
         $secondSlide->isonline = 1;
-        $secondSlide->id_shop = Configuration::get('PS_SHOP_DEFAULT');
-        foreach ($languages as $language){
+        $secondSlide->id_shop  = Configuration::get('PS_SHOP_DEFAULT');
+        foreach ($languages as $language)
+        {
             $secondSlide->title[(int)($language['id_lang'])]       = 'iPod Touch';
             $secondSlide->description[(int)($language['id_lang'])] = 'iPod Touch';
             $secondSlide->url[(int)($language['id_lang'])]         = '';
             $secondSlide->urlimage[(int)($language['id_lang'])]    = 'touch-'.(int)$language['id_lang'].'.png';
         }
 
-        $secondSlide->save();
+        if ($secondSlide->save())
+            return false;
     }
 }
