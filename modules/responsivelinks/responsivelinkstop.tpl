@@ -181,7 +181,7 @@
         $('document').ready( function() {
             $("#search_query_block")
                 .autocomplete(
-                        '{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}', {
+                        '{/literal}{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}{literal}', {
                         minChars: 3,
                         max: 10,
                         width: 500,
@@ -199,7 +199,7 @@
                         },
                         extraParams: {
                             ajaxSearch: 1,
-                            id_lang: {$cookie->id_lang}
+                            id_lang: {/literal}{$cookie->id_lang}{literal}
                         }
                     }
                 )
