@@ -24,6 +24,10 @@ Installation
 
 Before the installation of the theme, you have to unhook all your modules previously installed on your PrestaShop store.
 
+Then, you can put the simplresponsivetheme folder in your themes folder and activate all the responsive modules.
+
+When the installation of the theme is over, you have to disable the mobile theme in order to see the responsive design on mobile and tablets.
+
 Recommandations
 ---------------
 
