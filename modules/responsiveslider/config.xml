@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <module>
+            <name>responsiveslider</name>
+            <displayName><![CDATA[Responsive Slider]]></displayName>
+            <version><![CDATA[2.2]]></version>
+            <description><![CDATA[Ajoute un slider responsive sur votre page d&#039;accueil]]></description>
+            <author><![CDATA[Thomas Peign&eacute;]]></author>
+            <tab><![CDATA[front_office_features]]></tab>
+            <is_configurable>1</is_configurable>
+            <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+        </module>

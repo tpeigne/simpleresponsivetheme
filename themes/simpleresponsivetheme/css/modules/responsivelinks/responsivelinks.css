@@ -146,16 +146,7 @@
 }
 
 #footer #newsletter_block input.submitNewsletter{
-    background: none;
-    cursor: pointer;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-left: 7px;
-    padding-right: 8px;
-    margin-left: 5px;
-    background-color: #DBD7D7;
-    border-radius: 5px;
-    border: 1px solid #CFCFCF;
+    padding-top: 8px;
 }
 
 #footer_bottom{

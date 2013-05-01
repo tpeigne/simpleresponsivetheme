@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <module>
+            <name>responsivetopbar</name>
+            <displayName><![CDATA[Responsive top bar]]></displayName>
+            <version><![CDATA[2.0]]></version>
+            <description><![CDATA[Ajoute une top barre menu en haut de votre site]]></description>
+            <author><![CDATA[Thomas Peign&eacute;]]></author>
+            <tab><![CDATA[front_office_features]]></tab>
+            <is_configurable>1</is_configurable>
+            <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+        </module>
