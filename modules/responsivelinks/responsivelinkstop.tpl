@@ -140,10 +140,10 @@
             if ($(this).val().length > 0) {
                 stopInstantSearchQueries();
                 instantSearchQuery = $.ajax({
-                    url: '{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}',
+                    url: '{/literal}{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}{literal}',
                     data: {
                         instantSearch: 1,
-                        id_lang: {$cookie->id_lang},
+                        id_lang: {/literal}{$cookie->id_lang}{literal},
                         q: $(this).val()
                     },
                     dataType: 'html',
