@@ -28,6 +28,13 @@ Then, you can put the simplresponsivetheme folder in your themes folder and acti
 
 When the installation of the theme is over, you have to disable the mobile theme in order to see the responsive design on mobile and tablets.
 
+Note for module installation :
+
+To display the blocknewsletter in the simpleresponsivetheme, you have to install the blocknewsletter from PrestaShop. First you have to unhook the module on the left column (displayLeftColumn), and then hook the module on the footer (displayFooter).
+
+You can add another PrestaShop module called productcomments in the simpleresponsivetheme simply by installing it in the administration pannel.
+
+
 Recommandations
 ---------------
 
