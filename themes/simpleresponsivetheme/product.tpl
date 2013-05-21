@@ -408,7 +408,7 @@
                     </p>
 
                     {if (!$allow_oosp && $product->quantity <= 0) OR !$product->available_for_order OR (isset($restricted_country_mode) AND $restricted_country_mode) OR $PS_CATALOG_MODE}
-                        <span class="exclusive button radius">
+                        <span class="exclusive button radius disabled">
                             {l s='Add to cart'}
                         </span>
                     {else}
