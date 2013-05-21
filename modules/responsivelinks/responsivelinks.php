@@ -23,10 +23,7 @@ class ResponsiveLinks extends Module
         $this->displayName = $this->l('Responsive links block');
         $this->description = $this->l('Adds a block with additional links for your responsive theme');
 
-        $path = dirname(__FILE__);
-        if (strpos(__FILE__, 'Module.php') !== false)
-            $path .= '/../modules/'.$this->name;
-        include_once($path.'/classes/ResponsiveLinksClass.php');
+        include_once($this->local_path.'/classes/ResponsiveLinksClass.php');
     }
 
     public function install()

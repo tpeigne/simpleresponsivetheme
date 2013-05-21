@@ -29,10 +29,7 @@ class ResponsiveHomeFeatured extends Module
         $this->displayName = $this->l('Responsive products featured');
         $this->description = $this->l('Displays featured products and categories in your homepage.');
 
-        $path = dirname(__FILE__);
-        if (strpos(__FILE__, 'Module.php') !== false)
-            $path .= '/../modules/'.$this->name;
-        include_once($path.'/classes/ResponsiveHomeFeaturedClass.php');
+        include_once($this->local_path.'/classes/ResponsiveHomeFeaturedClass.php');
     }
 
     public function install()

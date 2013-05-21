@@ -24,10 +24,7 @@ class ResponsiveSlider extends Module
         $this->displayName = $this->l('Responsive Slider');
         $this->description = $this->l('Add an responsive slider on your home page');
 
-        $path = dirname(__FILE__);
-        if (strpos(__FILE__, 'Module.php') !== false)
-            $path .= '/../modules/'.$this->name;
-        include_once($path.'/classes/ResponsiveSliderClass.php');
+        include_once($this->local_path.'/classes/ResponsiveSliderClass.php');
     }
 
     public function install()
