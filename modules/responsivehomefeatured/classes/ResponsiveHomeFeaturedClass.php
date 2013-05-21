@@ -96,9 +96,6 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      * @return array of Product
      */
     public function getProducts(){
-        /*TODO : remove global cookie declaration for Context::getContext()...*/
-        global $cookie;
-
         $result = Db::getInstance()->ExecuteS('
         SELECT r.*
         FROM '._DB_PREFIX_.'responsivehomefeaturedproducts r
@@ -106,7 +103,7 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
 
         foreach($result as $homeFeaturedProduct => $value)
         {
-            $result[$homeFeaturedProduct] = new Product($value['id_product'], true, $cookie->id_lang);
+            $result[$homeFeaturedProduct] = new Product($value['id_product'], true, Context::getContext()->cookie->id_lang);
         }
 
         return $result;
