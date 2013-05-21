@@ -516,7 +516,7 @@ class ResponsiveSlider extends Module
      */
     public function installDemoLinks()
     {
-        $languages = Language::getLanguages(false);
+        $languages = Language::getLanguages(true);
 
         //first slide
         $firstSlide = new ResponsiveSliderClass();
@@ -528,6 +528,10 @@ class ResponsiveSlider extends Module
             $firstSlide->title[(int)($language['id_lang'])]       = 'iPod Nano';
             $firstSlide->description[(int)($language['id_lang'])] = 'iPod Nano';
             $firstSlide->url[(int)($language['id_lang'])]         = '';
+            if (!copy($this->local_path.'/images/nano.png', $this->local_path.'/images/nano-'.(int)$language['id_lang'].'.png')) {
+                //Error while coping the 2nd demo slide
+                return false;
+            }
             $firstSlide->urlimage[(int)($language['id_lang'])]    = 'nano-'.(int)$language['id_lang'].'.png';
         }
 
@@ -544,6 +548,10 @@ class ResponsiveSlider extends Module
             $secondSlide->title[(int)($language['id_lang'])]       = 'iPod Touch';
             $secondSlide->description[(int)($language['id_lang'])] = 'iPod Touch';
             $secondSlide->url[(int)($language['id_lang'])]         = '';
+            if (!copy($this->local_path.'/images/touch.png', $this->local_path.'/images/touch-'.(int)$language['id_lang'].'.png')) {
+                //Error while coping the 2nd demo slide
+                return false;
+            }
             $secondSlide->urlimage[(int)($language['id_lang'])]    = 'touch-'.(int)$language['id_lang'].'.png';
         }
 
