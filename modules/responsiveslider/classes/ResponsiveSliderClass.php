@@ -139,8 +139,7 @@ class ResponsiveSliderClass extends ObjectModel
         foreach ($slider->urlimage AS $image){
             //check if the field is not empty
             if ($image <> '') {
-                if(!unlink($dirCaller.'/images/'.$image))
-                    return false;
+                unlink($dirCaller.'/images/'.$image);
             }
         }
 
