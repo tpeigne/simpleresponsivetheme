@@ -25,7 +25,6 @@ $_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_49ee3087348
 $_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_068f80c7519d0528fb08e82137a72131'] = 'Produits';
 $_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_06df33001c1d7187fdd81ea1f5b277aa'] = 'Actions';
 $_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_14518e3a2b971a4c4de50b3d4a25fe93'] = 'Lien catégorie';
-$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_41f984bb082af806e510740db289125d'] = 'afficher';
 $_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_86024cad1e83101d97359d7351051156'] = 'produits';
 $_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_f5bf48aa40cad7891eb709fcf1fde128'] = 'produit';
 $_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_85e2d77a4f1a30aaf1a2f3751388d03c'] = 'Supprimer la catégorie ?';

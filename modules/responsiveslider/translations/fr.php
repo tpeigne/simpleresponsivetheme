@@ -26,7 +26,6 @@ $_MODULE['<{responsiveslider}prestashop>responsiveslider_b8f722bb2a608b75098645b
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_1cd221b1ad41def30003e166f3b16043'] = 'Lien du slide (laisser blan si pas de lien)';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_583c2868b8defe77a1a816a528430f4e'] = 'Image :';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_b18c29b8470190a02813415a04a2191f'] = 'Taille du fichier';
-$_MODULE['<{responsiveslider}prestashop>responsiveslider_f2a6c498fb90ee345d997f888fce3b18'] = 'Supprimer';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_7bd077d74c0a8f66e98997a60db48a4e'] = 'Extensions autorisées : .png, .jpg, .jpeg';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_f8a8cd7be5ba7e80cc42e54dd650771b'] = 'En ligne :';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_54f664c70c22054ea0d8d26fc3997ce7'] = 'En ligne';
@@ -43,6 +42,7 @@ $_MODULE['<{responsiveslider}prestashop>responsiveslider_48133b302d51fdb6c490830
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_5a0f2a43bc01e59448100b09047d261c'] = 'Mettre en ligne ?';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_7dce122004969d56ae2e0245cb754d35'] = 'Éditer';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_84ec37801fa29f6faa06e99db5b203df'] = 'Supprimer le slide ?';
+$_MODULE['<{responsiveslider}prestashop>responsiveslider_f2a6c498fb90ee345d997f888fce3b18'] = 'Supprimer';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_9fa4839885d1180bba0a5f9dbce4d02f'] = 'Gérer votre slider';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_416206518e27ed2ec8b8e0876078af35'] = 'Configuration basique';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_467cab6b127f76b582dfb52cadb18d3c'] = 'Animation :';

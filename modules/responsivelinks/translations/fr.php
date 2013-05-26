@@ -28,8 +28,8 @@ $_MODULE['<{responsivelinks}prestashop>responsivelinks_7ee0c08972017d2a8e319dedf
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_b8f722bb2a608b75098645b3a4626929'] = 'Url :';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_4a8cc9996557f8d168a5a5af1765d5f9'] = 'Url du lien (laissez blanc si pas d\'url)';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_c9cc8cce247e49bae79f15173ce97354'] = 'Enregistrer';
-$_MODULE['<{responsivelinks}prestashop>responsivelinks_02038afad7d1e74fdb6758e5c46a85d0'] = 'Gérer vos liens';
-$_MODULE['<{responsivelinks}prestashop>responsivelinks_5acd97eb0524a9653482e10a52a55d55'] = 'Éditez vos liens avec le bouton d\'édition et enregistrez le.';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_9fc62decf0884038c3a44d7c10cedec6'] = 'Gérer vos liens de navigation principal';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_1f9550583c5c937e4dd4aff1ddbe5d2f'] = 'Éditez vos liens de navigation principal avec le bouton d\'édition et enregistrez les.';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_8098b34f582537833b36b58273c3545b'] = 'Etendre';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_490aa6e856ccf208a054389e47ce0d06'] = 'Id';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_52f5e0bc3859bc5f5e25130b6c7e8881'] = 'Position';
@@ -39,6 +39,8 @@ $_MODULE['<{responsivelinks}prestashop>responsivelinks_2a304a1348456ccd2234cd71a
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_7dce122004969d56ae2e0245cb754d35'] = 'Édition';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_39a879a0e18fcf44d6f02875225d068e'] = 'Supprimer le lien ?';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_f2a6c498fb90ee345d997f888fce3b18'] = 'Supprimer';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_aae9b626a46746515a6a2de36fa7046d'] = 'Gérer vos liens du footer';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_3860405f025892126765405a083a415a'] = 'Éditez vos liens du footer avec le bouton d\'édition et enregistrez les.';
 $_MODULE['<{responsivelinks}prestashop>responsivelinksfooter_1b9abf135ccb7ed2f2cd9c155137c351'] = 'Parcourir';
 $_MODULE['<{responsivelinks}prestashop>responsivelinksfooter_8cf04a9734132302f96da8e113e80ce5'] = 'Accueil';
 $_MODULE['<{responsivelinks}prestashop>responsivelinksfooter_dd8c84ae3dc95566dc071d0effc40dd2'] = 'Nos produits';
