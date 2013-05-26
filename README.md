@@ -22,7 +22,7 @@ Fonctionnalities
 Installation
 ------------
 
-Before the installation of the theme, you have to unhook all your modules previously installed on your PrestaShop store.
+Before the installation of the theme, you have to unhook front offices modules previously installed on your PrestaShop store.
 
 Then, you can put the simplresponsivetheme folder in your themes folder and activate all the responsive modules.
 
@@ -34,6 +34,9 @@ To display the blocknewsletter in the simpleresponsivetheme, you have to install
 
 You can add another PrestaShop module called productcomments in the simpleresponsivetheme simply by installing it in the administration pannel.
 
+Custom image type creation :
+
+You have to create a custom image type in order to display correctly the product image on the product page. Create a custom image type called "product_resp" with 450px for height and 450px for width and available for the product page.
 
 Recommandations
 ---------------
