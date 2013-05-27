@@ -44,7 +44,7 @@
 }
 
 #header_user #shopping_cart a {
-    background-image: url('../../../img/icon/cart3.gif');
+    background-image: url('img/icon/cart3.gif');
     background-position: -2px -2px;
 }
 
@@ -58,7 +58,7 @@
 }
 
 #header_user #your_account a {
-    background-image: url('../../../img/icon/my-account.gif');
+    background-image: url('img/icon/my-account.gif');
     background-position: -3px -6px;
 }
 
@@ -157,6 +157,14 @@
     border-radius: 0px 0px 5px 5px;
 }
 
+#cart_block  #vouchers td.delete{
+    padding: 9px 15px 0 0;
+}
+
+#cart_block  #vouchers td.quantity{
+    display : none;
+}
+
 #cart_block #cart_block_summary{
     font-size: 1.2em;
     border-bottom: solid 1px #E6E6E6;
@@ -178,6 +186,13 @@
 #cart_block #cart_block_list dl.products dt a.product_link{
     float : left;
     margin-right: 5px;
+}
+
+#cart_block #cart_block_list dl.products dt a.product_link img{
+    border: #D0D1D5 solid 1px;
+    box-shadow: 3px 3px 5px #E4E4E4;
+    -webkit-box-shadow: 3px 3px 5px #E4E4E4;
+    -moz-box-shadow: 3px 3px 5px #E4E4E4;
 }
 
 #cart_block #cart-prices{
@@ -209,12 +224,17 @@
     display:inline-block;
     height:12px;
     width:12px;
-    background: url(../../../img/icon/delete.gif) no-repeat 0 0
+    background: url('img/icon/delete.gif') no-repeat 0 0
 }
 
 #cart_block #button_order_cart{
     width: 100%;
     padding: 5px;
+}
+
+#cart_block .price{
+    color: #EF4135;
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 767px){ /* Mobile */
