@@ -279,7 +279,8 @@ class ResponsiveHomeFeatured extends Module
             {
                 $cover = $product->getCover($product->id);
                 $categoryList[$i]['products'][$j]['product'] = $product;
-                $categoryList[$i]['products'][$j]['product_image'] = $this->context->link->getImageLink($product->link_rewrite, $product->id.'-'.$cover['id_image'], 'large_default');
+                $categoryList[$i]['products'][$j]['price_tax_inc'] = Product::getPriceStatic($product->id, true);
+                $categoryList[$i]['products'][$j]['image'] = $this->context->link->getImageLink($product->link_rewrite, $product->id.'-'.$cover['id_image'], 'large_default');
 
                 $j++;
             }

@@ -19,7 +19,7 @@
                                         <span class="new">{l s='Reduced price !' mod='responsivehomefeatured'}</span>
                                     {/if}
                                 {/if}
-                                <img src="{$product.product_image}" height="205" width="205" alt="{$product.product->name|escape:html:'UTF-8'}" />
+                                <img src="{$product.image}" height="205" width="205" alt="{$product.product->name|escape:html:'UTF-8'}" />
                             </a>
                             <h5 class="align_center">
                                 <a href="{$link->getProductLink($product.product)}" title="{$product.product->name|escape:html:'UTF-8'}">{$product.product->name|truncate:30:'...'|escape:'htmlall':'UTF-8'}</a>
@@ -28,20 +28,20 @@
                                 {if $product.product->show_price AND !isset($restricted_country_mode) AND !$PS_CATALOG_MODE}
                                     <span class="price">
                                         {if !$priceDisplay}
-                                            {convertPrice price=$product.product->price}
+                                            {convertPrice price=$product.price_tax_inc}
                                         {else}
-                                            {convertPrice price=$product.product->price_tax_exc}
+                                            {convertPrice price=$product.product->price}
                                         {/if}
                                     </span>
                                     {if $product.product->specificPrice && isset($product.product->specificPrice.reduction)}
                                         {if $product.product->specificPrice.reduction_type == "percentage" or $product.product->specificPrice.reduction_type == "amount"}
                                         <span class="original_price">
                                             {if $product.product->specificPrice.reduction_type == "percentage"}
-                                                {convertPrice  price=(($product.product->price * $product.product->specificPrice.reduction) + $product.product->price)}
+                                                {convertPrice  price=(($product.price_tax_inc * $product.product->specificPrice.reduction) + $product.price_tax_inc)}
                                             {/if}
 
                                             {if $product.product->specificPrice.reduction_type == "amount"}
-                                                {convertPrice  price=$product.product->price + $product.product->specificPrice.reduction}
+                                                {convertPrice  price=$product.price_tax_inc + $product.product->specificPrice.reduction}
                                             {/if}
                                         </span>
                                         {/if}
