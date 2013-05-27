@@ -37,7 +37,7 @@
     margin-bottom:10px;
     padding-left:10px;
     color:#0088cc;
-    background:url(../../img/arrow_right_1.png) no-repeat 0 5px transparent;
+    background:url('../img/arrow_right_1.png') no-repeat 0 5px transparent;
 }
 
 .prices_container {height:50px}
@@ -64,7 +64,7 @@
     top: 0px;
     right: 0px;
     padding-right:16px;
-    background:url(../../img/icon/delete.gif) no-repeat 100% 1px transparent;
+    background:url('../img/icon/delete.gif') no-repeat 100% 1px transparent;
 }
 
 #product_comparison a.cmp_remove:hover {
