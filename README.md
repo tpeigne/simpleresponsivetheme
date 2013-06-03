@@ -22,7 +22,7 @@ Fonctionnalities
 Installation
 ------------
 
-Before the installation of the theme, you have to unhook front offices modules previously installed on your PrestaShop store.
+Before the installation of the theme, you have to remove front office modules from their hooks if you want to have the theme disaply correctly.
 
 Then, you can put the simplresponsivetheme folder in your themes folder and activate all the responsive modules.
 
@@ -30,7 +30,7 @@ When the installation of the theme is over, you have to disable the mobile theme
 
 Note for module installation :
 
-To display the blocknewsletter in the simpleresponsivetheme, you have to install the blocknewsletter from PrestaShop. First you have to unhook the module on the left column (displayLeftColumn), and then hook the module on the footer (displayFooter).
+To display the blocknewsletter in the simpleresponsivetheme, you have to install the blocknewsletter from PrestaShop. First you have to remove the module from the left column hook (displayLeftColumn), and then hook the module on the footer (displayFooter).
 
 You can add another PrestaShop module called productcomments in the simpleresponsivetheme simply by installing it in the administration pannel.
 
@@ -41,7 +41,7 @@ You have to create a custom image type in order to display correctly the product
 Recommandations
 ---------------
 
-It's very important to unhook all your modules before the installation of the simpleresponsivetheme.
+It's important to remove PrestaShop front office modules from their hooks before the installation of the simpleresponsivetheme. Otherwhise, the responsivethem won't be displayed correctly.
 
 Demonstration
 -------------
