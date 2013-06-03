@@ -15,8 +15,8 @@
     <ul class="clearfix">
         <li><a href="{$link->getCMSLink(4)}" title="{l s='About Us' mod='responsivelinks'}">{l s='About Us' mod='responsivelinks'}</a></li>
         <li><a href="{$link->getCMSLink(1)}" title="{l s='Delivery' mod='responsivelinks'}">{l s='Delivery' mod='responsivelinks'}</a></li>
-        <li><a href="{$link->getCMSLink(2)}" title="{l s='Legal Notice' mod='responsivelinks'}">{l s='Legal Notice' mod='responsivelinks'}</a></li>
-        <li><a href="{$link->getCMSLink(3)}" title="{l s='Terms and conditions of use' mod='responsivelinks'}">{l s='Terms and conditions of use' mod='responsivelinks'}</a></li>
+        <li><a href="{$link->getCMSLink(3)}" title="{l s='Legal Notice' mod='responsivelinks'}">{l s='Legal Notice' mod='responsivelinks'}</a></li>
+        <li><a href="{$link->getCMSLink(2)}" title="{l s='Terms and conditions of use' mod='responsivelinks'}">{l s='Terms and conditions of use' mod='responsivelinks'}</a></li>
         <li><a href="{$link->getCMSLink(5)}" title="{l s='Secure payment' mod='responsivelinks'}">{l s='Secure payment' mod='responsivelinks'}</a></li>
         <li><a href="{$link->getCMSLink(6)}" title="{l s='Privacy policy' mod='responsivelinks'}">{l s='Privacy policy' mod='responsivelinks'}</a></li>
         <li><a href="{$link->getPageLink('stores.php')}" title="{l s='Stores' mod='responsivelinks'}">{l s='Stores' mod='responsivelinks'}</a></li>
