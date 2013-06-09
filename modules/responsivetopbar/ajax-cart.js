@@ -684,7 +684,7 @@ $(document).ready(function(){
             $('#header #shopping_cart a').css('border-radius', '3px');
             setTimeout(function() {
                 if (!shopping_cart.isHoveringOver() && !cart_block.isHoveringOver())
-                    $("#header #cart_block").stop(true, true).slideUp(450);
+                    $("#cart_block").stop(true, true).slideUp(450);
             }, 200);
         }
     );
@@ -697,7 +697,7 @@ $(document).ready(function(){
             $('#shopping_cart a').css('border-radius', '3px');
             setTimeout(function() {
                 if (!shopping_cart.isHoveringOver())
-                    $("#header #cart_block").stop(true, true).slideUp(450);
+                    $("#cart_block").stop(true, true).slideUp(450);
             }, 200);
         }
     );
