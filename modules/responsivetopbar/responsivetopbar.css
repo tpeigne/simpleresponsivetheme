@@ -14,7 +14,7 @@
     font-size: 12px;
     padding-top: 2px;
 }
-#header_user .header__user_right {
+#header_user .header_user_right {
     padding-right: 10px;
 }
 #header_user #header_user_info span { font-weight: bold }

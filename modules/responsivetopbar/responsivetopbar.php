@@ -75,7 +75,6 @@ class ResponsiveTopBar extends Module
         $this->assignContentVars($params);
 
         $this->context->smarty->assign(array(
-            'blockcart' => file_exists(__DIR__.'/../../modules/blockcart/blockcart.php'),
             'cart' => $this->context->cart,
             'cart_qties' => $this->context->cart->nbProducts(),
             'logged' => $this->context->customer->isLogged(),
@@ -167,32 +166,12 @@ class ResponsiveTopBar extends Module
         ));
         if (count($errors))
             $this->context->smarty->assign('errors', $errors);
-        if (isset($this->context->cookie->ajax_blockcart_display))
-            $this->context->smarty->assign('colapseExpandStatus', $this->context->cookie->ajax_blockcart_display);
-    }
-
-    public function getContent()
-    {
-        $this->_html = '<h2>'.$this->displayName.'</h2>';
-
-        //check if the blockcart module is in the module folder
-        if(!file_exists(__DIR__.'/../../modules/blockcart/blockcart.php')){
-            $this->_html .= '
-                <div class="conf error">
-                    '.$this->l('To activate the ajax cart, you have to place the blockcart module in your modules folder.').'
-                </div>';
-        }
-
-        return $this->_html;
     }
 
     public function hookHeader($params)
     {
         $this->context->controller->addCSS(($this->_path).'responsivetopbar.css');
-
-        //check if the blockcart module is in the module folder
-        if(file_exists(__DIR__.'/../../modules/blockcart/blockcart.php'))
-            $this->context->controller->addJs(($this->_path).'ajax-cart.js');
+        $this->context->controller->addJs(($this->_path).'ajax-cart.js');
     }
 }
 

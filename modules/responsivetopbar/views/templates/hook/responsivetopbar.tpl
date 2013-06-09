@@ -19,7 +19,7 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
                 <a href="{$link->getPageLink('my-account.php', true)}">{l s='Log in' mod='responsivetopbar'}</a>
             {/if}
         </p>
-        <div class="seven columns hide-for-small header__user_right">
+        <div class="seven columns hide-for-small header_user_right">
             <ul id="header_nav" class="clearfix">
                 <li id="first_languages">
                     {assign var=langage_inactif_all value=""}
@@ -80,17 +80,16 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
                             </span>
                         {/if}
                         <span class="ajax_cart_no_product{if $cart_qties > 0} hidden{/if}">{l s='Cart:' mod='responsivetopbar'} {l s='(empty)' mod='responsivetopbar'}</span>
-                        <img src="{$img_dir}icon/arrow-29-16-up.png" class="dropdown up {if $blockcart == false}hidden{/if}" alt=""/>
+                        <img src="{$img_dir}icon/arrow-29-16-up.png" class="dropdown up" alt=""/>
                         <img src="{$img_dir}icon/arrow-29-16-down.png" class="dropdown down hidden" alt=""/>
                     </a>
                 </li>
                 {/if}
 
-                {if isset($blockcart) && $blockcart == true}
                 <div id="cart_block" class="">
                     <div class="block_content">
                         <!-- block summary -->
-                        <div id="cart_block_summary" class="{if isset($colapseExpandStatus) && $colapseExpandStatus eq 'expanded' || !$ajax_allowed || !isset($colapseExpandStatus)}collapsed{else}expanded{/if}">
+                        <div id="cart_block_summary" class="collapsed">
                             <span class="ajax_cart_quantity" {if $cart_qties <= 0}style="display:none;"{/if}>{$cart_qties}</span>
                             <span class="ajax_cart_product_txt_s" {if $cart_qties <= 1}style="display:none"{/if}>{l s='products' mod='responsivetopbar'}</span>
                             <span class="ajax_cart_product_txt" {if $cart_qties > 1}style="display:none"{/if}>{l s='product' mod='responsivetopbar'}</span>
@@ -106,7 +105,7 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
                             <span class="ajax_cart_no_product" {if $cart_qties != 0}style="display:none"{/if}>{l s='Cart:' mod='responsivetopbar'} {l s='(empty)' mod='responsivetopbar'}</span>
                         </div>
                         <!-- block list of products -->
-                        <div id="cart_block_list" class="{if isset($colapseExpandStatus) && $colapseExpandStatus eq 'expanded' || !$ajax_allowed || !isset($colapseExpandStatus)}expanded{else}collapsed{/if}">
+                        <div id="cart_block_list" class="collapsed">
                         {if $products}
                             <dl class="products">
                             {foreach from=$products item='product' name='myLoop'}
@@ -211,7 +210,6 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
                         </div>
                     </div>
                 </div>
-                {/if}
             </ul>
         </div>
 
