@@ -137,7 +137,7 @@ class ResponsiveSlider extends Module
             } else {
                 $slider = new ResponsiveSliderClass(Tools::getValue('idSlide'));
                 $slider->copyFromPost();
-                $slider->uploadImages($_FILES, $this->_path);
+                $slider->uploadImages($_FILES, $this->local_path);
 
                 if ($slider->save()) {
                     $this->_html .= '
@@ -160,7 +160,7 @@ class ResponsiveSlider extends Module
             //get data from post method
             $slider = new ResponsiveSliderClass();
             $slider->copyFromPost();
-            $slider->uploadImages($_FILES, $this->_path);
+            $slider->uploadImages($_FILES, $this->local_path);
             $slider->position = ResponsiveSliderClass::getMaxPosition();
             $slider->id_shop = $this->context->shop->id;
 
@@ -202,7 +202,14 @@ class ResponsiveSlider extends Module
         $this->_html .= '<h2 id="module-title">'.$this->displayName.'</h2>
                 <div style="display:none;" id="ajax-response"></div>';
 
-        $this->_displayForm();
+        if (is_writable($this->local_path.'images/')) {
+            $this->_displayForm();
+        } else {
+            $this->_html .= '
+            <div class="conf error">
+                '.$this->l('The folder images in the module responsiveslider is not writable. Please allow the system to write in the images folder').'
+            </div>';
+        }
 
         return $this->_html;
     }

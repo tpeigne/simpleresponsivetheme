@@ -2,11 +2,10 @@
 
 global $_MODULE;
 $_MODULE = array();
-$_MODULE['<{responsiveslider}prestashop>ajax_fefe6b3d05d40601341560ec5217b5af'] = 'Le slide';
-$_MODULE['<{responsiveslider}prestashop>ajax_93fadb3e8ad55afc270a15aec5d009fd'] = 'à été supprimé.';
-$_MODULE['<{responsiveslider}prestashop>ajax_8f44973975a56a39d51425e78271bfb2'] = 'Une erreur est apparue pendant la suppression du slide.';
-$_MODULE['<{responsiveslider}prestashop>ajax_760a4d8c60572a2c0896a0d27d474ef9'] = 'est maintenant en ligne.';
-$_MODULE['<{responsiveslider}prestashop>ajax_b1c86c7e0c953661b083c36d45f46e45'] = 'est maintenant hors ligne.';
+$_MODULE['<{responsiveslider}prestashop>ajax_57ce0680ad6f9124f1446dda23053a40'] = 'Le slide à été supprimé.';
+$_MODULE['<{responsiveslider}prestashop>ajax_61883055689643bdb7fa41dcbb4a484d'] = 'Une erreur est survenue pendant la suppression du slide, regardez vos logs.';
+$_MODULE['<{responsiveslider}prestashop>ajax_abdc12605bc4ef316e845cde7ffadd9f'] = 'Le slide est maintenant en ligne.';
+$_MODULE['<{responsiveslider}prestashop>ajax_34dd4d57c32413f323ef9d7bed0ffa35'] = 'Le slide est maintenant hors ligne.';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_b7b77aa03dd603929bec6228133cd1fc'] = 'Responsive Slider';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_76ead36f6fccc43feeef394def78e340'] = 'Ajoute un slider responsive sur votre page d\'accueil';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_d80c33cfb4a592ccbafaa87517f4d3a7'] = 'L\'image du slider à été mise à jour.';
@@ -16,6 +15,7 @@ $_MODULE['<{responsiveslider}prestashop>responsiveslider_51e1d24602574a698a684bb
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_634ce0cb6e09deec10f976c23ef52827'] = 'à été ajouté à votre slider';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_0aa29d5ef84676e4f539562ef9eaf007'] = 'Une erreur est apparue pendant l\'ajout du slide.';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_5b4d374c883ac32c59e763a5683a110f'] = 'La configuration du slider à été mise à jour.';
+$_MODULE['<{responsiveslider}prestashop>responsiveslider_c22674e3b47ff447f7c44d37a12d371f'] = 'Le dossier images du module responsiveslider n\'est pas accessible en écriture. Autorisez le système à écrire à l\'intérieur.';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_232df6779ed585fc66a7ac8e3f54a852'] = 'Ajouter un slide';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_a2f7ac064958b81a343b8e379a5d1acc'] = 'Ajouter un slide à votre slider';
 $_MODULE['<{responsiveslider}prestashop>responsiveslider_1a9693b440ee61940b01583cf287cee3'] = 'Titre :';

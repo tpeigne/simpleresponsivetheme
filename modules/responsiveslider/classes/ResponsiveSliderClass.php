@@ -127,29 +127,34 @@ class ResponsiveSliderClass extends ObjectModel
     /**
      * Delete one slide
      *
-     * @param $idSlide
-     * @param $dirCaller
+     * @param $slider ResponsiveSliderClass
+     * @param $moduleLocalPath Local path to module
      * @return bool
      */
-    public static function deleteSlide($idSlide, $dirCaller)
+    public static function deleteSlide($slider, $moduleLocalPath)
     {
-        $slider = new ResponsiveSliderClass($idSlide);
+        $return = true;
 
         //delete all images of a slide
         foreach ($slider->urlimage AS $image){
             //check if the field is not empty
             if ($image <> '') {
-                unlink($dirCaller.'/images/'.$image);
+                if (!unlink($moduleLocalPath.'images/'.$image)) {
+                    Logger::AddLog('[Module : ResponsiveSlider | Class : ResponsiveSliderClass | Message : Error while deleting the slide image | PathToImage : '.$moduleLocalPath.'images/'.$image);
+                    $return = false;
+                }
             }
         }
 
-        if(!Db::getInstance()->delete(_DB_PREFIX_.'responsiveslider', '`id_responsiveslider` = '.(int)$idSlide.''))
-            return false;
+        if (!Db::getInstance()->delete(_DB_PREFIX_.self::$definition['table'], '`'.self::$definition['primary'].'` = '.$slider->id.'')) {
+            $return = false;
+        }
 
-        if(!Db::getInstance()->delete(_DB_PREFIX_.'responsiveslider_lang', '`id_responsiveslider` = '.(int)$idSlide.''))
-            return false;
+        if (!Db::getInstance()->delete(_DB_PREFIX_.self::$definition['table'], '`'.self::$definition['primary'].'` = '.$slider->id.'')) {
+            $return = false;
+        }
 
-        return true;
+        return $return;
     }
 
     /**
@@ -157,30 +162,32 @@ class ResponsiveSliderClass extends ObjectModel
      *
      * @param $file
      * @param $modulePath
-     * @param $idLangue
+     * @param $langId
      * @return bool|string
      */
-    private function uploadOneImage($file, $modulePath, $idLangue)
+    private function uploadOneImage($file, $modulePath, $langId)
     {
-        //check image error
+        //check image errors
         if ($file["error"] > 0) {
             return false;
         } else {
+            //TODO : keep real image extension name
+            $imageName = sha1(uniqid(mt_rand(), true)).'-'.$langId.'.jpg';
+            $imagePath = $modulePath.'images/';
             //check image type
             if ($file['type'] == 'image/png'
                 || $file['type'] == 'image/jpg'
                 || $file['type'] == 'image/gif'
                 || $file['type'] == 'image/jpeg'
                 || $file['type'] == 'image/pjpeg') {
-                if (file_exists($modulePath.'images/'.$file["name"])) {
+                if (file_exists($imagePath.$imageName)) {
                     return false;
                 } else {
-                    $rep = dirname(__DIR__).'/images/';
-                    $image = md5(date('YmdHis')).'-'.$idLangue.'.jpg';
+                    if (!move_uploaded_file($file["tmp_name"], $imagePath.$imageName)) {
+                        Logger::AddLog('[Module : ResponsiveSlider | Class : ResponsiveSliderClass | Message : Error while moving the slide image | PathToImage : '.$imagePath.$imageName);
+                    }
 
-                    move_uploaded_file($file["tmp_name"], $rep.$image);
-
-                    return $image;
+                    return $imageName;
                 }
             } else {
                 return false;

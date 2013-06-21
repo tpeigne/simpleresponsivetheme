@@ -7,17 +7,17 @@ include_once('responsiveslider.php');
 $responsiveSlider = new ResponsiveSlider();
 
 if (Tools::getValue('action') == 'deleteSlide') {
-    $slider = new ResponsiveSliderClass(Tools::getValue('idSlide'));
+    $slider = new ResponsiveSliderClass((int) Tools::getValue('idSlide'));
 
-    if (ResponsiveSliderClass::deleteSlide(Tools::getValue('idSlide'), __DIR__)) {
+    if (ResponsiveSliderClass::deleteSlide($slider, $responsiveSlider->getLocalPath())) {
         $response = '
         <div class="conf confirm">
-            '.$responsiveSlider->l('The slide').' '.$slider->title[$cookie->id_lang].' '.$responsiveSlider->l('has been deleted.').'
+            '.$responsiveSlider->l('The slide has been deleted.').'
         </div>';
     } else {
         $response = '
         <div class="conf error">
-            '.$responsiveSlider->l('An error has occured while deleting slide.').'
+            '.$responsiveSlider->l('An error has occured while deleting slide, check you logs.').'
         </div>';
     }
 
@@ -33,14 +33,14 @@ if (Tools::getValue('action') == 'onlineSlide') {
 
         $response = '
         <div class="conf confirm">
-            '.$responsiveSlider->l('The slide').' '.$slider->title[$cookie->id_lang].' '.$responsiveSlider->l('is now online.').'
+            '.$responsiveSlider->l('The slide is now online.').'
         </div>';
     } else {
         $slider->isonline = 0;
 
         $response = '
         <div class="conf confirm">
-            '.$responsiveSlider->l('The slide').' '.$slider->title[$cookie->id_lang].' '.$responsiveSlider->l('is now offline.').'
+            '.$responsiveSlider->l('The slide is now offline.').'
         </div>';
     }
 
