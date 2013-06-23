@@ -30,6 +30,10 @@ select#radiusSelect {
     width: 100%;
 }
 
+#map img{
+    max-width: none;
+}
+
 #stores-table {border-bottom:1px solid #999}
 #stores-table tr:nth-child(odd) {background-color: #f3f3f3;}
 #stores-table td {
