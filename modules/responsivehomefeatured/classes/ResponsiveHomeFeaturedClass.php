@@ -96,17 +96,23 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      * @return array of Product
      */
     public function getProducts(){
+        $return = array();
+
         $result = Db::getInstance()->ExecuteS('
         SELECT r.*
         FROM '._DB_PREFIX_.'responsivehomefeaturedproducts r
         WHERE id_category = '.(int)$this->id_category.'');
 
-        foreach($result as $homeFeaturedProduct => $value)
+        foreach($result as $responsiveHomeFeatured)
         {
-            $result[$homeFeaturedProduct] = new Product($value['id_product'], true, Context::getContext()->cookie->id_lang);
+            $product = new Product($responsiveHomeFeatured['id_product'], true, Context::getContext()->cookie->id_lang);
+
+            if ($product->id) {
+                $return[] = $product;
+            }
         }
 
-        return $result;
+        return $return;
     }
 
     /**
