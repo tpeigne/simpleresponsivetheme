@@ -24,6 +24,9 @@
                         {elseif $responsiveLink['responsiveLinkObject']->id_cms != 0}
                             {assign var='first_link_link' value={$link->getCMSLink($responsiveLink['objectLink'])}}
                             {assign var='first_link_name' value={$responsiveLink['objectLink']->meta_title}}
+                        {elseif $responsiveLink['responsiveLinkObject']->id_cms_category != 0}
+                            {assign var='first_link_link' value={$link->getCMSCategoryLink($responsiveLink['objectLink'])}}
+                            {assign var='first_link_name' value={$responsiveLink['objectLink']->name}}
                         {elseif $responsiveLink['responsiveLinkObject']->id_product != 0}
                             {assign var='first_link_link' value={$link->getProductLink($responsiveLink['objectLink'])}}
                             {assign var='first_link_name' value={$responsiveLink['objectLink']->name}}
@@ -63,6 +66,9 @@
                         {elseif $responsiveLink['responsiveLinkObject']->id_cms != 0}
                             {assign var='other_link_link' value={$link->getCMSLink($responsiveLink['objectLink'])}}
                             {assign var='other_link_name' value={$responsiveLink['objectLink']->meta_title}}
+                        {elseif $responsiveLink['responsiveLinkObject']->id_cms_category != 0}
+                            {assign var='other_link_link' value={$link->getCMSCategoryLink($responsiveLink['objectLink'])}}
+                            {assign var='other_link_name' value={$responsiveLink['objectLink']->name}}
                         {elseif $responsiveLink['responsiveLinkObject']->id_product != 0}
                             {assign var='other_link_link' value={$link->getProductLink($responsiveLink['objectLink'])}}
                             {assign var='other_link_name' value={$responsiveLink['objectLink']->name}}

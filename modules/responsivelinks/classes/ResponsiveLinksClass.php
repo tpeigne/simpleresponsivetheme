@@ -10,18 +10,26 @@ class ResponsiveLinksClass extends ObjectModel
     public $url;
     public $id_category;
     public $id_cms;
+    public $id_cms_category;
     public $id_product;
     public $id_parent;
     public $id_child;
-    public $id_shop;
 
     public static $definition = array(
         'table' => 'responsivelinks',
         'primary' => 'id_responsivelinks',
+        /* TODO : enable multishop */
+        'multilang' => true,
         'fields' => array(
-            'id_shop' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
-            'title' => array('size' => 255),
-            'url' => array('size' => 255))
+            'position'          => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'title'             => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
+            'url'               => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
+            'id_category'       => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_cms'            => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_cms_category'   => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_product'        => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_parent'         => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_child'          => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'))
     );
 
     /**
@@ -56,21 +64,6 @@ class ResponsiveLinksClass extends ObjectModel
         return $fields;
     }
 
-    public function getFields()
-    {
-        parent::validateFields();
-        $fields['id_responsivelinks'] = (int)($this->id);
-        $fields['position'] = (int)($this->position);
-        $fields['id_category'] = (int)($this->id_category);
-        $fields['id_cms'] = (int)($this->id_cms);
-        $fields['id_product'] = (int)($this->id_product);
-        $fields['id_parent'] = (int)($this->id_parent);
-        $fields['id_child'] = (int)($this->id_child);
-        $fields['id_shop'] = (int)($this->id_shop);
-
-        return $fields;
-    }
-
     public function copyFromPost()
     {
         /* Classical fields */
@@ -89,14 +82,21 @@ class ResponsiveLinksClass extends ObjectModel
         }
     }
 
+    /**
+     * Return all links with parent or not
+     *
+     * @param $id_lang id Customer language
+     * @param bool $has_parent check only parent link or not
+     * @return array of ResponsiveLinksClass
+     */
     public static function findAll($id_lang, $has_parent = false)
     {
         $result = Db::getInstance()->ExecuteS('
-        SELECT r.*
-        FROM '._DB_PREFIX_.'responsivelinks r
-        WHERE id_shop = \''.Context::getContext()->shop->id.'\'
-        '.($has_parent == true ? ' AND id_parent = 0' : '').'
-        ORDER by position ASC');
+            SELECT *
+            FROM '._DB_PREFIX_.'responsivelinks
+            '.($has_parent == true ? ' WHERE id_parent = 0' : '').'
+            ORDER by position ASC
+        ');
 
         foreach($result as $link => $value)
         {
@@ -106,13 +106,21 @@ class ResponsiveLinksClass extends ObjectModel
         return $result;
     }
 
+    /**
+     * Return all links from a parent
+     *
+     * @param $id parent link
+     * @param $id_lang id Customer language
+     * @return array of ResponsiveLinksClass
+     */
     public static function findSub($id, $id_lang)
     {
         $result = Db::getInstance()->ExecuteS('
-        SELECT r.*
-        FROM '._DB_PREFIX_.'responsivelinks r
-        WHERE id_parent = '.(int)$id.' AND id_shop = \''.Context::getContext()->shop->id.'\'
-        ORDER by position ASC');
+            SELECT *
+            FROM '._DB_PREFIX_.'responsivelinks
+            WHERE id_parent = '.(int)$id.'
+            ORDER by position ASC
+        ');
 
         foreach($result as $link => $value)
         {
@@ -122,47 +130,64 @@ class ResponsiveLinksClass extends ObjectModel
         return $result;
     }
 
+    /**
+     * Delete all child links from a link
+     *
+     * @return bool isDeleted
+     */
     public function deleteSubLinks()
     {
-        global $cookie;
-
         //get all sub links for deletion
-        foreach($this->findSub($this->id, $cookie->id_lang) as $linkSub){
+        foreach ($this->findSub($this->id, Context::getContext()->cookie->id_lang) as $linkSub)
+        {
             $linkSub->deleteSubLinks();
 
-            if(!$linkSub->delete())
+            if (!$linkSub->delete()) {
                 return false;
+            }
         }
 
         return true;
     }
 
-    public static function getMaxPosition(){
-        $return = 0;
+    /**
+     * Return max position from all responsive links
+     *
+     * @return int position
+     */
+    public static function getMaxPosition()
+    {
         $result = Db::getInstance()->getRow('
-        SELECT MAX(r.position) as position
-        FROM '._DB_PREFIX_.'responsivelinks r
-        WHERE id_shop = \''.Context::getContext()->shop->id.'\'');
+            SELECT MAX(r.position) as position
+            FROM '._DB_PREFIX_.'responsivelinks r
+        ');
 
-        if(!$result['position']){
+        if (!$result['position']) {
             $return = 1;
-        }else{
+        } else {
             $return = $result['position'] + 1;
         }
 
         return $return;
     }
 
-    public function updatePosition($positions){
+    /**
+     * Update the position of ResponsiveLinksClass objects
+     *
+     * @param $positions id of each ResponsiveLinksClass sorted
+     * @return bool
+     */
+    public function updatePosition($positions)
+    {
         $i = 1;
 
-        foreach($positions as $idLink){
-            if($idLink <> ''){
-                if(!Db::getInstance()->Execute('
-                    UPDATE `'._DB_PREFIX_.'responsivelinks`
-                    SET `position` = '.$i.'
-                    WHERE `id_responsivelinks` = '.$idLink.''))
+        foreach ($positions as $idLink)
+        {
+            if ($idLink <> '') {
+                if (!Db::getInstance()->update('responsivelinks', array('position' => $i), 'id_responsivelinks = '.$idLink)) {
                     return false;
+                }
+
                 $i++;
             }
 

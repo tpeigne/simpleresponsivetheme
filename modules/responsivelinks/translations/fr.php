@@ -2,8 +2,8 @@
 
 global $_MODULE;
 $_MODULE = array();
-$_MODULE['<{responsivelinks}prestashop>ajax_064b1f276c8a421f64a85726d0997cb7'] = 'Les liens ont été effacés.';
-$_MODULE['<{responsivelinks}prestashop>ajax_faae4e1694c47dba556218f2fbd2da20'] = 'Une erreurs est survenue lors de la suppression des liens.';
+$_MODULE['<{responsivelinks}prestashop>ajax_e4926d74e36a95c41ea9dcfe12714059'] = 'Les liens ont été supprimés';
+$_MODULE['<{responsivelinks}prestashop>ajax_6aa38f0ab435265be43a66f4257bd352'] = 'Une erreur est survenue pendant la suppression des liens';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_04f60e197e00662a9a83ee711608360e'] = 'Responsive liens';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_8e4cbd11242e7020c7abae616362c4b5'] = 'Ajoute un block avec des liens pour votre thème responsive';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_7a7e3a8d8aefcb1d31b4fdfa1bdf9ee4'] = 'Le lien à été mis à jour.';
@@ -18,6 +18,8 @@ $_MODULE['<{responsivelinks}prestashop>responsivelinks_bafd7322c6e97d25b6299b5d6
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_2afa009e10eefc2e8278e2376da1a7a9'] = 'Choisissez votre page catégorie';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_2147dc04118805d3796749f6c0ef9d66'] = 'Est-ce un lien CMS ?';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_731901ad61f3e84ebdfc093de4d24aba'] = 'Choisissez votre page CMS';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_bcf2929eb28082cc88c59007053ca6b6'] = 'Est-ce un lien vers une catégorie CMS ?';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_064a438c495b2320a7bbec68e978e679'] = 'Choisissez votre catégorie CMS :';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_a74ad9fed06f032800b4ff08b6b7a5e6'] = 'Est-ce un lien produit ?';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_7b1d3b9ebb2bd4953f2e8244a94bab4a'] = 'Choisissiez votre page produit :';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_f199fafe1dcacafc4ac8ba04ad2017d7'] = 'A t-il un lien parent ?';

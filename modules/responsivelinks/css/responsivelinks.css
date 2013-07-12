@@ -1,5 +1,6 @@
 .category_block,
 .cms_block,
+.cmscategory_block,
 .product_block,
 .custom_block,
 .parent_block{
@@ -8,6 +9,7 @@
 
 .category_block.active,
 .cms_block.active,
+.cmscategory_block.active,
 .product_block.active,
 .custom_block.active,
 .parent_block.active{
@@ -16,6 +18,7 @@
 
 .category_option.hidden,
 .cms_option.hidden,
+.cmscategory_option.hidden,
 .product_option.hidden,
 .custom_option.hidden,
 .parent_option.hidden{

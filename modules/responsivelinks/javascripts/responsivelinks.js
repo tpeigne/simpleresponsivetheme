@@ -12,60 +12,75 @@ $(window).load(function(){
     $('input[type=radio][name=iscategory]').click(function(){
         if($('#iscategory_on:checked').length == 1){
             $('.category_block').show();
-            $('#iscms_on, #iscustom_on, #isproduct_on').attr('checked', false);
-            $('#iscms_off, #iscustom_off, #isproduct_off').attr('checked', true);
+            $('#iscms_on, #iscmscategory_on ,#iscustom_on, #isproduct_on').attr('checked', false);
+            $('#iscms_off, #iscmscategory_off, #iscustom_off, #isproduct_off').attr('checked', true);
         }
 
         if($('#iscategory_off:checked').length == 1){
             $('.category_block').hide();
         }
 
-        $('.cms_block, .custom_block, .product_block').hide();
+        $('.cms_block, .cmscategory_block, .custom_block, .product_block').hide();
     });
 
     //if cms link
     $('input[type=radio][name=iscms]').click(function(){
         if($('#iscms_on:checked').length == 1){
             $('.cms_block').show();
-            $('#iscategory_on, #iscustom_on, #isproduct_on').attr('checked', false);
-            $('#iscategory_off, #iscustom_off, #isproduct_off').attr('checked', true);
+            $('#iscmscategory_on, #iscategory_on, #iscustom_on, #isproduct_on').attr('checked', false);
+            $('#iscmscategory_off, #iscategory_off, #iscustom_off, #isproduct_off').attr('checked', true);
         }
 
         if($('#iscms_off:checked').length == 1){
             $('.cms_block').hide();
         }
 
-        $('.category_block, .custom_block, .product_block').hide();
+        $('.category_block, .custom_block, .product_block, .cmscategory_block').hide();
+    });
+
+    //if cms category link
+    $('input[type=radio][name=iscmscategory]').click(function(){
+        if($('#iscmscategory_on:checked').length == 1){
+            $('.cmscategory_block').show();
+            $('#iscategory_on, #iscustom_on, #isproduct_on, #iscms_on').attr('checked', false);
+            $('#iscategory_off, #iscustom_off, #isproduct_off, #iscms_off').attr('checked', true);
+        }
+
+        if($('#iscmscategory_off:checked').length == 1){
+            $('.cmscategory_block').hide();
+        }
+
+        $('.category_block, .custom_block, .product_block, .cms_block').hide();
     });
 
     //if product link
     $('input[type=radio][name=isproduct]').click(function(){
         if($('#isproduct_on:checked').length == 1){
             $('.product_block').show();
-            $('#iscategory_on, #iscustom_on, #iscms_on').attr('checked', false);
-            $('#iscategory_off, #iscustom_off, #iscms_off').attr('checked', true);
+            $('#iscategory_on, #iscustom_on, #iscmscategory_on, #iscms_on').attr('checked', false);
+            $('#iscategory_off, #iscustom_off, #iscmscategory_off, #iscms_off').attr('checked', true);
         }
 
         if($('#isproduct_off:checked').length == 1){
             $('.product_block').hide();
         }
 
-        $('.category_block, .custom_block, .cms_block').hide();
+        $('.category_block, .custom_block, .cms_block, .cmscategory_block').hide();
     });
 
     //if custom link
     $('input[type=radio][name=iscustom]').click(function(){
         if($('#iscustom_on:checked').length == 1){
             $('.custom_block').show();
-            $('#iscms_on, #iscategory_on, #isproduct_on').attr('checked', false);
-            $('#iscms_off, #iscategory_off, #isproduct_off').attr('checked', true);
+            $('#iscms_on, #iscmscategory_on, #iscategory_on, #isproduct_on').attr('checked', false);
+            $('#iscms_off, #iscmscategory_off,  #iscategory_off, #isproduct_off').attr('checked', true);
         }
 
         if($('#iscustom_off:checked').length == 1){
             $('.custom_block').hide();
         }
 
-        $('.category_block, .cms_block, .product_block').hide();
+        $('.category_block, .cms_block, .cmscategory_block, .product_block').hide();
     });
 
     //if parent link
@@ -142,13 +157,11 @@ $(window).load(function(){
                     id_link: row.id
                 };
 
-                // console.log(row);
-
                 var xhr = $.ajax({
                     type: 'POST',
                     url: urlAjaxModule + '?' + $.tableDnD.serialize(),
                     data: params,
-                    success: function(data){
+                    success: function(){
                         $('#links').find('td.position').each(function(i) {
                             $(this).html(i+1);
                         });

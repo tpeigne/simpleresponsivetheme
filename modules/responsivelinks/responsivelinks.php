@@ -16,7 +16,7 @@ class ResponsiveLinks extends Module
     {
         $this->name = 'responsivelinks';
         $this->tab = 'front_office_features';
-        $this->version = '2.2';
+        $this->version = '2.3';
         $this->author = 'Thomas Peigné';
         $this->need_instance = 0;
 
@@ -36,24 +36,26 @@ class ResponsiveLinks extends Module
 
         if (!Db::getInstance()->Execute('
         CREATE TABLE `'._DB_PREFIX_.'responsivelinks` (
-        `id_responsivelinks` int(10) unsigned NOT NULL AUTO_INCREMENT,
-        `id_shop` int(10) unsigned NOT NULL,
-        `id_category` int(10) unsigned NOT NULL,
-        `id_cms` int(10) unsigned NOT NULL,
-        `id_product` int(10) unsigned NOT NULL,
-        `id_parent` int(10) unsigned NOT NULL,
-        `id_child` int(10) unsigned NOT NULL,
-        `position` int(10) unsigned NOT NULL,
+        `id_responsivelinks` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+        `position` int(10) UNSIGNED NOT NULL,
+        `page_category` VARCHAR(50) NOT NULL,
+        `page_category_column` int(10) UNSIGNED NOT NULL,
+        `id_category` int(10) UNSIGNED NOT NULL,
+        `id_cms` int(10) UNSIGNED NOT NULL,
+        `id_cms_category` int(10) UNSIGNED NOT NULL,
+        `id_product` int(10) UNSIGNED NOT NULL,
+        `id_parent` int(10) UNSIGNED NOT NULL,
+        `id_child` int(10) UNSIGNED NOT NULL,
         PRIMARY KEY (`id_responsivelinks`))
         ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8'))
             return false;
 
         if (!Db::getInstance()->Execute('
         CREATE TABLE `'._DB_PREFIX_.'responsivelinks_lang` (
-        `id_responsivelinks` int(10) unsigned NOT NULL AUTO_INCREMENT,
-        `id_lang` int(10) unsigned NOT NULL,
-        `title` varchar(255) NOT NULL,
-        `url` varchar(255) NOT NULL,
+        `id_responsivelinks` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+        `id_lang` int(10) UNSIGNED NOT NULL,
+        `title` VARCHAR(255) NOT NULL,
+        `url` VARCHAR(255) NOT NULL,
         PRIMARY KEY (`id_responsivelinks`, `id_lang`))
         ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8'))
             return false;
@@ -85,44 +87,36 @@ class ResponsiveLinks extends Module
         $this->context->customer->firstname;
 
         /* LINK EDITION */
-        if (Tools::isSubmit('submitEditlink'))
-        {
+        if (Tools::isSubmit('submitEditlink')) {
             $linkResponsive = new ResponsiveLinksClass(Tools::getValue('idLink'));
             $linkResponsive->copyFromPost();
 
-            //if category
-            if((int)Tools::getValue('iscategory') == 1)
-            {
+            if ((int)Tools::getValue('iscategory') == 1) {
                 $linkResponsive->id_category = (int)$_POST['category'];
             }
 
-            // if cms
-            if((int)Tools::getValue('iscms') == 1)
-            {
+            if ((int)Tools::getValue('iscms') == 1) {
                 $linkResponsive->id_cms = (int)$_POST['cms'];
             }
 
-            // if product
-            if((int)Tools::getValue('isproduct') == 1)
-            {
+            if ((int)Tools::getValue('iscmscategory') == 1) {
+                $linkResponsive->id_cms_category = (int)$_POST['cmscategory'];
+            }
+
+            if ((int)Tools::getValue('isproduct') == 1) {
                 $linkResponsive->id_product = (int)$_POST['product'];
             }
 
-            // if parent
-            if((int)Tools::getValue('isparent') == 1)
-            {
+            if ((int)Tools::getValue('isparent') == 1) {
                 $linkResponsive->id_parent = (int)$_POST['parent'];
             }
 
-            if ($linkResponsive->save())
-            {
+            if ($linkResponsive->save()) {
                 $this->_html .= '
                 <div class="conf confirm">
                     '.$this->l('The link has been updated.').'
                 </div>';
-            }
-            else
-            {
+            } else {
                 $this->_html .= '
                 <div class="conf error">
                     <img src="../img/admin/disabled.gif" alt="" title="" />
@@ -143,52 +137,37 @@ class ResponsiveLinks extends Module
         /* END LINK EDITION */
 
         /* LINK ADDITION */
-        if (Tools::isSubmit('submitAddLink'))
-        {
+        if (Tools::isSubmit('submitAddLink')) {
             $linkResponsive = new ResponsiveLinksClass();
             $linkResponsive->copyFromPost();
-            $linkResponsive->id_category = 0;
-            $linkResponsive->id_cms = 0;
-            $linkResponsive->id_product = 0;
-            $linkResponsive->id_parent = 0;
-            $linkResponsive->id_child = 0;
-            $linkResponsive->id_shop = $this->context->shop->id;
             $linkResponsive->position = ResponsiveLinksClass::getMaxPosition();
 
-            //check if category or cms
-            //if category
-            if((int)Tools::getValue('iscategory') == 1)
-            {
+            if ((int)Tools::getValue('iscategory') == 1) {
                 $linkResponsive->id_category = (int)$_POST['category'];
             }
 
-            // if cms
-            if((int)Tools::getValue('iscms') == 1)
-            {
+            if ((int)Tools::getValue('iscms') == 1) {
                 $linkResponsive->id_cms = (int)$_POST['cms'];
             }
 
-            // if cms
-            if((int)Tools::getValue('isproduct') == 1)
-            {
+            if ((int)Tools::getValue('iscmscategory') == 1) {
+                $linkResponsive->id_cms_category = (int)$_POST['cmscategory'];
+            }
+
+            if ((int)Tools::getValue('isproduct') == 1) {
                 $linkResponsive->id_product = (int)$_POST['product'];
             }
 
-            // if parent
-            if((int)Tools::getValue('isparent') == 1)
-            {
+            if ((int)Tools::getValue('isparent') == 1) {
                 $linkResponsive->id_parent = (int)$_POST['parent'];
             }
 
-            if ($linkResponsive->save())
-            {
+            if ($linkResponsive->save()) {
                 $this->_html .= '
                 <div class="conf confirm">
                     '.$this->l('The link has been added.').'
                 </div>';
-            }
-            else
-            {
+            } else {
                 $this->_html .= '
                 <div class="conf error">
                     '.$this->l('An error has occured during the addition of the link.').'
@@ -220,14 +199,15 @@ class ResponsiveLinks extends Module
         $product = null;
         $custom = null;
 
-        if(Tools::getIsset('action') && Tools::getIsset('action') == 'editLink')
-        {
+        if (Tools::getIsset('action') && Tools::getIsset('action') == 'editLink') {
             $responsiveLink = new ResponsiveLinksClass((int)Tools::getValue('idLink'));
 
             if($responsiveLink->id_category <> 0)
                 $category = new Category((int)$responsiveLink->id_category, $this->context->cookie->id_lang);
             if($responsiveLink->id_cms <> 0)
                 $cms = new CMS((int)$responsiveLink->id_cms, $this->context->cookie->id_lang);
+            if($responsiveLink->id_cms_category <> 0)
+                $cmsCategory = new CMSCategory((int)$responsiveLink->id_cms_category, $this->context->cookie->id_lang);
             if($responsiveLink->id_product <> 0)
                 $product = new Product((int)$responsiveLink->id_product, $this->context->cookie->id_lang);
             if($responsiveLink->id_category == 0 && $responsiveLink->id_cms == 0 && $responsiveLink->id_product == 0)
@@ -283,7 +263,8 @@ class ResponsiveLinks extends Module
                         <label for="category">'.$this->l('Choose your category page :').'</label>
                         <div class="margin-form">
                             <select name="category" id="category">';
-        foreach(Category::getSimpleCategories($this->context->cookie->id_lang) as $categoryTemp){
+        foreach(Category::getSimpleCategories($this->context->cookie->id_lang) as $categoryTemp)
+        {
             $this->_html .= '
                                 <option value="'.$categoryTemp['id_category'].'" '.(isset($category) && $category->id == $categoryTemp['id_category'] ? 'selected="selected"' : '').'>'.$categoryTemp['name'].'</option>';
         }
@@ -309,9 +290,37 @@ class ResponsiveLinks extends Module
                         <label for="cms">'.$this->l('Choose your CMS page :').'</label>
                         <div class="margin-form">
                             <select name="cms" id="cms">';
-        foreach(CMS::listCms($this->context->cookie->id_lang) as $cmsTemp){
+        foreach(CMS::listCms($this->context->cookie->id_lang) as $cmsTemp)
+        {
             $this->_html .= '
                                 <option value="'.$cmsTemp['id_cms'].'" '.(isset($cms) && $cms->id == $cmsTemp['id_cms'] ? 'selected="selected"' : '').'>'.$cmsTemp['meta_title'].'</option>';
+        }
+
+        $this->_html .= '
+                            </select>
+                        </div>
+                    </div>';
+
+        // cms category or not
+        $this->_html .= '
+                    <div class="cmscategory_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
+                        <label for="iscmscategory">'.$this->l('Is a CMS category link?').'</label>
+                        <div class="margin-form">
+                            <input type="radio" name="iscmscategory" id="iscmscategory_on" value="1" '.(isset($cmsCategory) ? 'checked="checked"' : '' ).'>
+                            <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
+                            <input type="radio" name="iscmscategory" id="iscmscategory_off" value="0" '.(isset($cmsCategory) ? '' : 'checked="checked"' ).'>
+                            <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
+                        </div>
+                    </div>
+
+                    <div class="cmscategory_block '.(isset($cmsCategory) ? 'active' : '' ).'">
+                        <label for="cms">'.$this->l('Choose your CMS Category page :').'</label>
+                        <div class="margin-form">
+                            <select name="cmscategory" id="cmscategory">';
+        foreach(CMSCategory::getSimpleCategories($this->context->cookie->id_lang) as $cmsCategoryTemp)
+        {
+            $this->_html .= '
+                                <option value="'.$cmsCategoryTemp['id_cms_category'].'" '.(isset($cmsCategory) && $cmsCategory->id == $cmsCategoryTemp['id_cms_category'] ? 'selected="selected"' : '').'>'.$cmsCategoryTemp['name'].'</option>';
         }
 
         $this->_html .= '
@@ -335,7 +344,8 @@ class ResponsiveLinks extends Module
                         <label for="product">'.$this->l('Choose your product page :').'</label>
                         <div class="margin-form">
                             <select name="product" id="product">';
-        foreach(Product::getSimpleProducts($this->context->cookie->id_lang) as $productTemp){
+        foreach(Product::getSimpleProducts($this->context->cookie->id_lang) as $productTemp)
+        {
             $this->_html .= '
                                 <option value="'.$productTemp['id_product'].'" '.(isset($product) && $product->id == $productTemp['id_product'] ? 'selected="selected"' : '').'>'.$productTemp['name'].'</option>';
         }
@@ -361,24 +371,26 @@ class ResponsiveLinks extends Module
                         <label for="parent">'.$this->l('Choose your Parent link :').'</label>
                         <div class="margin-form">
                             <select name="parent" id="parent">';
-        foreach(ResponsiveLinksClass::findAll($this->context->cookie->id_lang) as $parentTemp){
+        /** @var $parentTemp ResponsiveLinksClass */
+        foreach(ResponsiveLinksClass::findAll($this->context->cookie->id_lang) as $parentTemp)
+        {
             $parentCategory = null;
             $parentCms = null;
             $parentProduct = null;
 
-            if($parentTemp->id_category <> 0){
+            if ($parentTemp->id_category <> 0) {
                 $parentCategory = new Category((int)$parentTemp->id_category, $this->context->cookie->id_lang);
                 $this->_html .= '<option value="'.$parentTemp->id.'">'.$parentTemp->id.' - '.$parentCategory->name.'</option>';
-            }
-            elseif($parentTemp->id_cms <> 0){
+            } elseif($parentTemp->id_cms <> 0) {
                 $parentCms = new CMS((int)$parentTemp->id_cms, $this->context->cookie->id_lang);
                 $this->_html .= '<option value="'.$parentTemp->id.'">'.$parentTemp->id.' - '.$parentCms->meta_title.'</option>';
-            }
-            elseif($parentTemp->id_product <> 0){
+            } elseif($parentTemp->id_cms_category <> 0) {
+                $parentCmsCategory = new CMSCategory((int)$parentTemp->id_cms_category, $this->context->cookie->id_lang);
+                $this->_html .= '<option value="'.$parentTemp->id.'">'.$parentTemp->id.' - '.$parentCmsCategory->name.'</option>';
+            } elseif($parentTemp->id_product <> 0) {
                 $parentProduct = new Product((int)$parentTemp->id_product, false, $this->context->cookie->id_lang);
                 $this->_html .= '<option value="'.$parentTemp->id.'">'.$parentTemp->id.' - '.$parentProduct->name.'</option>';
-            }
-            else{
+            } else {
                 $this->_html .= '<option value="'.$parentTemp->id.'">'.$parentTemp->id.' - '.$parentTemp->title.'</option>';
             }
         }
@@ -466,6 +478,7 @@ class ResponsiveLinks extends Module
                 </thead>
                 <tbody>';
 
+        /** @var $responsiveLink ResponsiveLinksClass */
         foreach(ResponsiveLinksClass::findAll($this->context->cookie->id_lang, true) as $responsiveLink)
         {
             $category = null;
@@ -476,6 +489,8 @@ class ResponsiveLinks extends Module
                 $category = new Category((int)$responsiveLink->id_category, $this->context->cookie->id_lang);
             elseif($responsiveLink->id_cms <> 0)
                 $cms = new CMS((int)$responsiveLink->id_cms, $this->context->cookie->id_lang);
+            elseif($responsiveLink->id_cms_category <> 0)
+                $cmsCategory = new CMSCategory((int)$responsiveLink->id_cms_category, $this->context->cookie->id_lang);
             elseif($responsiveLink->id_product <> 0)
                 $product = new Product((int)$responsiveLink->id_product, false, $this->context->cookie->id_lang);
 
@@ -489,6 +504,8 @@ class ResponsiveLinks extends Module
                 $this->_html .= $category->name.'(<b><a target="_blank" href="'.$this->context->link->getCategoryLink($category).'">'.$this->l('link').'</b>)';
             elseif(isset($cms))
                 $this->_html .= $cms->meta_title.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cms).'">'.$this->l('link').'</b>)';
+            elseif(isset($cmsCategory))
+                $this->_html .= $cmsCategory->name.'(<b><a target="_blank" href="'.$this->context->link->getCMSCategoryLink($cmsCategory).'">'.$this->l('link').'</b>)';
             elseif(isset($product))
                 $this->_html .= $product->name.'(<b><a target="_blank" href="'.$this->context->link->getProductLink($product).'">'.$this->l('link').'</b>)';
             else
@@ -525,7 +542,7 @@ class ResponsiveLinks extends Module
     }
 
     private function getSubLinks($id_parent, $id_lang){
-        //get all sub links
+        /** @var $responsiveSubLink ResponsiveLinksClass */
         foreach(ResponsiveLinksClass::findSub($id_parent, $id_lang) as $responsiveSubLink)
         {
             $category = null;
@@ -536,6 +553,8 @@ class ResponsiveLinks extends Module
                 $category = new Category((int)$responsiveSubLink->id_category, $id_lang);
             elseif($responsiveSubLink->id_cms <> 0)
                 $cms = new CMS((int)$responsiveSubLink->id_cms, $id_lang);
+            elseif($responsiveSubLink->id_cms_category <> 0)
+                $cmsCategory = new CMSCategory((int)$responsiveSubLink->id_cms_category, $id_lang);
             elseif($responsiveSubLink->id_product <> 0)
                 $product = new Product((int)$responsiveSubLink->id_product, false, $id_lang);
 
@@ -549,6 +568,8 @@ class ResponsiveLinks extends Module
                 $this->_html .= $category->name.'(<b><a target="_blank" href="'.$this->context->link->getCategoryLink($category).'">'.$this->l('link').'</b>)';
             elseif(isset($cms))
                 $this->_html .= $cms->meta_title.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cms).'">'.$this->l('link').'</b>)';
+            elseif(isset($cmsCategory))
+                $this->_html .= $cmsCategory->name.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cmsCategory).'">'.$this->l('link').'</b>)';
             elseif(isset($product))
                 $this->_html .= $product->name.'(<b><a target="_blank" href="'.$this->context->link->getProductLink($product).'">'.$this->l('link').'</b>)';
             else
@@ -578,9 +599,11 @@ class ResponsiveLinks extends Module
         $i = 0;
         $responsiveLinksArray = array();
 
+        /** @var $responsiveLink ResponsiveLinksClass */
         foreach(ResponsiveLinksClass::findAll($this->context->cookie->id_lang, true) as $responsiveLink){
             $category = null;
             $cms = null;
+            $cmsCategory = null;
             $product = null;
 
             //check if it's a category, a cms page or a product
@@ -591,6 +614,10 @@ class ResponsiveLinks extends Module
             elseif($responsiveLink->id_cms <> 0){
                 $cms = new CMS($responsiveLink->id_cms, $this->context->cookie->id_lang);
                 $responsiveLinksArray[$i]['objectLink'] = $cms;
+            }
+            elseif($responsiveLink->id_cms_category <> 0){
+                $cmsCategory = new CMSCategory($responsiveLink->id_cms_category, $this->context->cookie->id_lang);
+                $responsiveLinksArray[$i]['objectLink'] = $cmsCategory;
             }
             elseif($responsiveLink->id_product <> 0){
                 $product = new Product((int)$responsiveLink->id_product, false, $this->context->cookie->id_lang);
@@ -619,9 +646,11 @@ class ResponsiveLinks extends Module
         if(count($responsiveLinkSublist) > 0) {
             $i = 0;
             //check all sub link for the current link
+            /** @var $responsiveLinkSub ResponsiveLinksClass */
             foreach($responsiveLinkSublist as $responsiveLinkSub){
                 $category = null;
                 $cms = null;
+                $cmsCategory = null;
                 $product = null;
 
                 //check if it's a category, a cms page or a product
@@ -632,6 +661,10 @@ class ResponsiveLinks extends Module
                 elseif($responsiveLinkSub->id_cms <> 0){
                     $cms = new CMS($responsiveLinkSub->id_cms, $id_lang);
                     $return[$i]['objectLink'] = $cms;
+                }
+                elseif($responsiveLinkSub->id_cms_category <> 0){
+                    $cmsCategory = new CMSCategory($responsiveLinkSub->id_cms_category, $id_lang);
+                    $return[$i]['objectLink'] = $cmsCategory;
                 }
                 elseif($responsiveLinkSub->id_product <> 0){
                     $product = new Product((int)$responsiveLinkSub->id_product, false, $id_lang);
@@ -703,7 +736,6 @@ class ResponsiveLinks extends Module
         $indexLink->id_product = 0;
         $indexLink->id_parent = 0;
         $indexLink->id_child = 0;
-        $indexLink->id_shop = Configuration::get('PS_SHOP_DEFAULT');
         foreach ($languages as $language){
             $indexLink->title[(int)($language['id_lang'])] = $indexLinkLang[$language['iso_code']];
             $indexLink->url[(int)($language['id_lang'])]   = $this->context->link->getPageLink('index', false, (int)($language['id_lang']));
@@ -722,7 +754,6 @@ class ResponsiveLinks extends Module
             $ipodsLink->id_product = 0;
             $ipodsLink->id_parent = 0;
             $ipodsLink->id_child = 0;
-            $ipodsLink->id_shop = (int)Configuration::get('PS_SHOP_DEFAULT');
 
             $ipodsLink->save();
 
@@ -741,7 +772,6 @@ class ResponsiveLinks extends Module
                 $productLink->id_product = (int)$product['id_product'];
                 $productLink->id_parent = $ipodsLink->id;
                 $productLink->id_child = 0;
-                $productLink->id_shop = (int)Configuration::get('PS_SHOP_DEFAULT');
 
                 $productLink->save();
 
@@ -758,7 +788,6 @@ class ResponsiveLinks extends Module
             $laptopLink->id_product = 0;
             $laptopLink->id_parent = 0;
             $laptopLink->id_child = 0;
-            $laptopLink->id_shop = (int)Configuration::get('PS_SHOP_DEFAULT');
 
             $laptopLink->save();
             $i++;
@@ -778,7 +807,6 @@ class ResponsiveLinks extends Module
                 $productLink->id_product = (int)$product['id_product'];
                 $productLink->id_parent = $laptopLink->id;
                 $productLink->id_child = 0;
-                $productLink->id_shop = (int)Configuration::get('PS_SHOP_DEFAULT');
 
                 $productLink->save();
 
@@ -803,7 +831,7 @@ class ResponsiveLinks extends Module
         $contactLink->id_product = 0;
         $contactLink->id_parent = 0;
         $contactLink->id_child = 0;
-        $contactLink->id_shop = (int)Configuration::get('PS_SHOP_DEFAULT');
+
         foreach ($languages as $language){
             $contactLink->title[(int)($language['id_lang'])] = $contactLinkLang[$language['iso_code']];
             $contactLink->url[(int)($language['id_lang'])]   = $this->context->link->getPageLink('contact', false, (int)($language['id_lang']));

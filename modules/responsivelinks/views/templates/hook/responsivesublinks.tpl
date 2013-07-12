@@ -7,6 +7,9 @@
 {elseif $node['responsiveLinkObject']->id_cms != 0}
     {assign var='other_link_link' value={$link->getCMSLink($node['objectLink'])}}
     {assign var='other_link_name' value={$node['objectLink']->meta_title}}
+{elseif $node['responsiveLinkObject']->id_cms_category != 0}
+    {assign var='other_link_link' value={$link->getCMSCategoryLink($node['objectLink'])}}
+    {assign var='other_link_name' value={$node['objectLink']->name}}
 {elseif $node['responsiveLinkObject']->id_product != 0}
     {assign var='other_link_link' value={$link->getProductLink($node['objectLink'])}}
     {assign var='other_link_name' value={$node['objectLink']->name}}
