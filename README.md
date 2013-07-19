@@ -22,35 +22,13 @@ Fonctionnalities
 Installation
 ------------
 
-Before the installation of the theme, you have to remove front office modules from their hooks if you want to have the theme displayed correctly.
-
-Then, you can put the simplresponsivetheme folder in your themes folder and activate all the responsive modules.
-
-When the installation of the theme is over, you have to disable the mobile theme in order to see the responsive design on mobile and tablets.
-
-Note for other module installation :
-
-To have the same theme as the demo theme [here][2], you have to install other native PrestaShop modules.
-
-BlockNewsletter :
-To display the blocknewsletter in the simpleresponsivetheme, you have to install the blocknewsletter from PrestaShop. First you have to remove the module from the left column hook (displayLeftColumn), and then hook the module on the footer (displayFooter).
-
-Other PrestaShop modules :
-Other modules are compatible with the simpleresponsivetheme. The productcomments module is compatible and you only have to install it in the administration panel.
-
-Custom image type creation :
-
-You have to create a custom image type in order to display correctly the product image on the product page. Create a custom image type called "product_resp" with 450px for height and 450px for width and available for the product page.
-
-Recommendations
----------------
-
-It's important to remove PrestaShop front office modules from their hooks before the installation of the simpleresponsivetheme. Otherwise, the responsivetheme won't be displayed correctly.
+Install the themeinstallator module from PrestaShop. In the module, import from your computer the latest version of the theme available here : [github.com/tpeigne/simpleresponsivetheme/releases][2] (don't download sources) and the theme is installed !
 
 Demonstration
 -------------
 
-A demo of the theme is available online here : [demo.thomaspeigne.com][2]
+A demo of the theme is available online here : [demo.thomaspeigne.com][3]
 
 [1]: http://foundation.zurb.com/
-[2]: http://demo.thomaspeigne.com/
+[2]: https://github.com/tpeigne/simpleresponsivetheme/releases
+[3]: http://demo.thomaspeigne.com/
