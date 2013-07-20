@@ -210,7 +210,7 @@ class ResponsiveLinks extends Module
                 $cmsCategory = new CMSCategory((int)$responsiveLink->id_cms_category, $this->context->cookie->id_lang);
             if($responsiveLink->id_product <> 0)
                 $product = new Product((int)$responsiveLink->id_product, $this->context->cookie->id_lang);
-            if($responsiveLink->id_category == 0 && $responsiveLink->id_cms == 0 && $responsiveLink->id_product == 0)
+            if($responsiveLink->id_category == 0 && $responsiveLink->id_cms == 0 && $responsiveLink->id_cms_category == 0 && $responsiveLink->id_product == 0)
                 $custom = true;
         }
 
