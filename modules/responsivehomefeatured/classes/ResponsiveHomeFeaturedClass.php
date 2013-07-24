@@ -105,7 +105,7 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
 
         foreach($result as $responsiveHomeFeatured)
         {
-            $product = new Product($responsiveHomeFeatured['id_product'], true, Context::getContext()->cookie->id_lang);
+            $product = new Product($responsiveHomeFeatured['id_product'], false, Context::getContext()->cookie->id_lang);
 
             if ($product->id) {
                 $return[] = $product;

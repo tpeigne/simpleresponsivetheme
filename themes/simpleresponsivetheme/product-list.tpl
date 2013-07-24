@@ -30,7 +30,7 @@
         {foreach from=$products item=product name=products}
             <li class="ajax_block_product">
                 <a class="product_image" href="{$product.link|escape:'htmlall':'UTF-8'}" title="{$product.name|escape:'htmlall':'UTF-8'}">
-                    {if $product.specific_prices.reduction_type == "percentage" or $product.specific_prices.reduction_type == "amount"}
+                    {if isset($product.reduction) && $product.reduction && isset($product.show_price) && $product.show_price && !$PS_CATALOG_MODE}
                         <span class="new">{l s='Reduced price!'}</span>
                     {/if}
                     <img src="{$link->getImageLink($product.link_rewrite, $product.id_image, 'large_default')}" alt="{$product.legend|escape:'htmlall':'UTF-8'}" {if isset($homeSize)} width="{$homeSize.width}" height="{$homeSize.height}"{/if} />
@@ -43,24 +43,16 @@
                 <div class="product_price align_center">
                     {if isset($product.show_price) && $product.show_price && !isset($restricted_country_mode)}
                         <span class="price">
-                        {if !$priceDisplay}
-                            {convertPrice price=$product.price}
-                        {else}
-                            {convertPrice price=$product.price_tax_exc}
-                        {/if}
-                    </span>
-                        {if isset($product.reduction) && $product.reduction}
-                            {if $product.specific_prices.reduction_type == "percentage" or $product.specific_prices.reduction_type == "amount"}
-                                <span class="original_price">
-                            {if $product.specific_prices.reduction_type == "percentage"}
-                                {convertPrice  price=(($product.price * $product.specific_prices.reduction) + $product.price)}
+                            {if !$priceDisplay}
+                                {convertPrice price=$product.price}
+                            {else}
+                                {convertPrice price=$product.price_tax_exc}
                             {/if}
-
-                                    {if $product.specific_prices.reduction_type == "amount"}
-                                        {convertPrice  price=$product.price + $product.specific_prices.reduction}
-                                    {/if}
                         </span>
-                            {/if}
+                        {if isset($product.reduction) && $product.reduction && isset($product.show_price) && $product.show_price && !$PS_CATALOG_MODE}
+                            <span class="original_price">
+                                {convertPrice price=$product.price_without_reduction}
+                            </span>
                         {/if}
                     {/if}
                     {*{if isset($product.available_for_order) && $product.available_for_order && !isset($restricted_country_mode)}

@@ -270,6 +270,7 @@ class ResponsiveHomeFeatured extends Module
         $i = 0;
         $j = 0;
 
+        /** @var $homeFeatured ResponsiveHomeFeaturedClass */
         foreach(ResponsiveHomeFeaturedClass::findAll() as $homeFeatured)
         {
             $categoryList[$i]['category'] = new Category($homeFeatured->id_category, $this->context->cookie->id_lang);
@@ -280,6 +281,28 @@ class ResponsiveHomeFeatured extends Module
                 $cover = $product->getCover($product->id);
                 $categoryList[$i]['products'][$j]['product'] = $product;
                 $categoryList[$i]['products'][$j]['price_tax_inc'] = Product::getPriceStatic($product->id, true);
+
+                $categoryList[$i]['products'][$j]['reduction'] = Product::getPriceStatic(
+                    $product->id,
+                    (bool)Tax::excludeTaxeOption(),
+                    null,
+                    6,
+                    null,
+                    true,
+                    true,
+                    1,
+                    true,
+                    null,
+                    null,
+                    null
+                );
+
+                if (Group::getPriceDisplayMethod((int)Group::getCurrent()->id) == PS_TAX_EXC) {
+                    $categoryList[$i]['products'][$j]['price_without_reduction'] = $product->getPrice(false, null, 6, null, false, false);
+                } else {
+                    $categoryList[$i]['products'][$j]['price_without_reduction'] = $product->getPrice(true, null, 6, null, false, false);
+                }
+
                 $categoryList[$i]['products'][$j]['image'] = $this->context->link->getImageLink($product->link_rewrite, $product->id.'-'.$cover['id_image'], 'large_default');
 
                 $j++;
