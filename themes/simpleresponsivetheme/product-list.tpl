@@ -81,7 +81,7 @@
                 {/if}*}
 
                 <div class="align_justify italic product_description_short">
-                    {$product.description_short|strip_tags:'UTF-8'|truncate:150:'...'}
+                    {$product.description_short|strip_tags:'UTF-8'|truncate:120:'...'}
                 </div>
 
                 <div class="add_block">
@@ -93,7 +93,7 @@
                                 <a class="button radius ajax_add_to_cart_button exclusive" rel="ajax_id_product_{$product.id_product|intval}" href="{$link->getPageLink('cart',false, NULL, "add&amp;id_product={$product.id_product|intval}", false)} title="{l s='Add to cart'}"><span></span>{l s='Add to cart'}</a>
                             {/if}
                         {else}
-                            <span class="exclusive"><span></span>{l s='Add to cart'}</span><br />
+                            <a class="button radius disabled" title="{l s='Add to cart'}"><span></span>{l s='Add to cart'}</a>
                         {/if}
                     {/if}
                 </div>

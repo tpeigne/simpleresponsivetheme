@@ -53,6 +53,7 @@
         </script>
 
     <link href="{$modules_dir}responsiveextension/stylesheets/foundation.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$modules_dir}responsiveextension/stylesheets/offcanvas.css" rel="stylesheet" type="text/css" />
 {if isset($css_files)}
     {foreach from=$css_files key=css_uri item=media}
     <link href="{$css_uri}" rel="stylesheet" type="text/css" media="{$media}" />
@@ -86,13 +87,6 @@
             {$HOOK_TOP}
 
             <div id="columns" class="row">
-                {*
-                <!-- Left -->
-                <div id="left_column" class="column grid_2 alpha">
-                    {$HOOK_LEFT_COLUMN}
-                </div>
-                *}
-
                 <!-- Center -->
-                <section id="center_column" role="main" class="twelve columns">
+                <section id="center_column" role="main">
     {/if}

@@ -36,12 +36,9 @@ h1{margin-bottom:10px;}
 ************************************************************************************************ */
 #subcategories {margin-top:15px}
 #subcategories h3 {
-    padding:14px 12px;
-    font-size:13px;
-    color:#fff;
-    text-transform:uppercase;
-    text-shadow:0 1px 0 #666;
-    background:url(../img/bg_table_th.png) repeat-x 0 0 #999
+    color: #5C5C5C;
+    border-bottom: 1px solid #DBDBDB;
+    padding-bottom: 5px;
 }
 
 .inline_list {

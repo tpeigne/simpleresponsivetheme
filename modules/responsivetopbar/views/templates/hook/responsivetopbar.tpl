@@ -230,10 +230,11 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
             });
         </script>
 
+        <a id="sidebarButton" class="nav-open sidebar-button"  href="#sidebar"></a>
         <ul class="nav-bar show-for-small">
             <li class="has-flyout">
                 {if $logged}
-                    <a href="{$link->getPageLink('my-account.php', true)}" title="{l s='Your Account' mod='responsivetopbar'}"><span>{$cookie->customer_firstname} {$cookie->customer_lastname}</span> ({l s='Your Account' mod='responsivetopbar'})</a>
+                    <a href="{$link->getPageLink('my-account.php', true)}" title="{l s='Your Account' mod='responsivetopbar'}"><span>{$cookie->customer_firstname} {$cookie->customer_lastname}</span></a>
                 {else}
                     <a href="{$link->getPageLink('my-account.php', true)}">{l s='Welcome' mod='responsivetopbar'}, {l s='Log in' mod='responsivetopbar'}</a>
                 {/if}
@@ -296,11 +297,14 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
                     {/foreach}
                     {$langage_actif}
                     {$langage_inactif_all}
-                    <li>
-                        {if $logged}
+                    {if $logged}
+                        <li>
+                            <a href="{$link->getPageLink('my-account.php', true)}" title="{l s='Your Account' mod='responsivetopbar'}">{l s='Your Account' mod='responsivetopbar'}</a>
+                        </li>
+                        <li>
                             <a href="{$link->getPageLink('index.php')}?mylogout" title="{l s='Log me out' mod='responsivetopbar'}">{l s='Log out' mod='responsivetopbar'}</a>
-                        {/if}
-                    </li>
+                        </li>
+                    {/if}
                 </ul>
             </li>
         </ul>

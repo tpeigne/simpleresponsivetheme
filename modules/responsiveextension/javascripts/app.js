@@ -36,3 +36,11 @@
   }
 
 })(jQuery, this);
+
+//offcanvas
+$(document).ready(function(){
+    $('#sidebarButton').click(function(e) {
+        e.preventDefault();
+        $('body').toggleClass('active');
+    });
+});
