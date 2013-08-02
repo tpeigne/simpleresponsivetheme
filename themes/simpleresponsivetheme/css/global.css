@@ -1269,65 +1269,17 @@ a.iframe {font-weight:bold}
 
 /* ************************************************************************************************
         PAGE NEW-PRODUCTS
-************************************************************************************************ */
-#newproducts .sortPagiBar {margin-bottom:20px}
-
-/* ************************************************************************************************
         PAGE BEST SALES
-************************************************************************************************ */
-#bestsales .sortPagiBar {margin-bottom:20px}
-
-/* ************************************************************************************************
         PAGE PRICES DROP SALES
 ************************************************************************************************ */
-#pricesdrop .sortPagiBar {margin-bottom:20px}
+#new-products .sortPagiBar,
+#best-sales .sortPagiBar,
+#prices-drop .sortPagiBar {margin-bottom:20px}
 
 /* ************************************************************************************************
         PAGE MANUFACTURER
 ************************************************************************************************ */
-#manufacturer .nbrmanufacturer {
-    margin: 15px 0 10px;
-    padding: 8px 7px;
-    font-size:12px;
-    color: #000;
-    background: none repeat scroll 0 0 #f0f0f0
-}
-
 #manufacturer #product_list {margin-top:15px}
-
-ul#manufacturers_list {list-style-type:none}
-ul#manufacturers_list li {
-    margin-bottom: 14px;
-    padding: 12px 8px;
-    border: 1px solid #eee;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-ul#manufacturers_list li a.lnk_img {
-    display: block;
-    float: left;
-}
-ul#manufacturers_list li img {
-    display: block;
-    float: left;
-    margin-right: 14px;
-    border: 1px solid #ccc;
-    vertical-align: bottom
-}
-ul#manufacturers_list li h3 {
-    padding: 0 0 10px;
-    font-size: 13px;
-    color: #000
-}
-ul#manufacturers_list li .description {
-    overflow: hidden;
-    padding: 0;
-    font-size:12px;
-    color:#666
-}
-ul#manufacturers_list li .right_side {float:right;}
-
 .description_box {
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
@@ -1355,17 +1307,14 @@ ul#manufacturers_list li .right_side {float:right;}
 }
 
 /* ************************************************************************************************
+        PAGE MANUFACTURER
         PAGE SUPPLIER
 ************************************************************************************************ */
-#supplier .nbrmanufacturer {
-    margin: 15px 0 10px;
-    padding: 8px 7px;
-    font-size:12px;
-    color: #000;
-    background: none repeat scroll 0 0 #f0f0f0
-}
-ul#suppliers_list {list-style-type:none}
-ul#suppliers_list li {
+ul#manufacturers_list,
+ul#suppliers_list { list-style-type:none }
+
+ul#suppliers_list li,
+ul#manufacturers_list li {
     margin-bottom: 14px;
     padding: 12px 8px;
     border: 1px solid #eee;
@@ -1373,10 +1322,16 @@ ul#suppliers_list li {
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
-ul#suppliers_list li a.lnk_img {
-    display: block;
-    float: left;
+
+ul#manufacturers_list li h3,
+ul#suppliers_list li h3 {
+    margin-top: 0;
 }
+
+ul#manufacturers_list li .right_side,
+ul#suppliers_list li .right_side {float:right; }
+
+ul#manufacturers_list li img,
 ul#suppliers_list li img {
     display: block;
     float: left;
@@ -1384,10 +1339,12 @@ ul#suppliers_list li img {
     border: 1px solid #ccc;
     vertical-align: bottom
 }
-ul#suppliers_list li h3 {
-    margin-top: 0;
+
+ul#suppliers_list li a.lnk_img,
+ul#manufacturers_list li a.lnk_img {
+    display: block;
+    float: left;
 }
-ul#suppliers_list li .right_side {float:right;}
 
 /* ************************************************************************************************
         PAGE SEARCH

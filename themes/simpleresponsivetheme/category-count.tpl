@@ -23,12 +23,14 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-{if $category->id == 1 OR $nb_products == 0}
-    {l s='There are no products.'}
-{else}
-    {if $nb_products == 1}
-        {l s='There is %d product.' sprintf=$nb_products}
+<h5>
+    {if $category->id == 1 OR $nb_products == 0}
+        {l s='There are no products.'}
     {else}
-        {l s='There are %d products.' sprintf=$nb_products}
+        {if $nb_products == 1}
+            {l s='There is %d product.' sprintf=$nb_products}
+        {else}
+            {l s='There are %d products.' sprintf=$nb_products}
+        {/if}
     {/if}
-{/if}
+</h5>

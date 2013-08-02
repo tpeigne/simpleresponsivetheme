@@ -38,7 +38,7 @@
             {/strip}
         </h1>
 
-        <div class="resumecat category-product-count">
+        <div class="panel category-product-count">
             {include file="$tpl_dir./category-count.tpl"}
         </div>
 
