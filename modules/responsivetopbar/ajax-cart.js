@@ -677,8 +677,7 @@ $(document).ready(function(){
     $("#shopping_cart a:first").hover(
         function() {
             $(this).css('border-radius', '3px 3px 0px 0px');
-            if (ajaxCart.nb_total_products > 0)
-                $("#cart_block").stop(true, true).slideDown(450);
+            $("#cart_block").stop(true, true).slideDown(450);
         },
         function() {
             $('#header #shopping_cart a').css('border-radius', '3px');
