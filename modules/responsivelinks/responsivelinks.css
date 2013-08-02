@@ -15,6 +15,7 @@
     background: white;
     border-top: 1px solid #c3c3c3;
     border-bottom: 1px solid #c3c3c3;
+    max-width: 1020px;
 }
 
 #responsive_links_top .top-bar > ul .name h1 {

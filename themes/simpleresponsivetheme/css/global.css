@@ -1,18 +1,10 @@
-.clearfix:before,
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    overflow: hidden
-}
-.clearfix:after {clear: both}
-.clearfix {zoom: 1}
-
 /* ************************************************************************************************
         struture
 ************************************************************************************************ */
 #header {z-index:10}
 #columns {z-index:1}
+
+.row { width: 1020px; }
 
 /* ************************************************************************************************
         generic style
@@ -87,6 +79,16 @@ p em {font-style:italic}
     font-size:11px
 }
 .required {color:#990000}
+
+.clearfix:before,
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden
+}
+.clearfix:after {clear: both}
+.clearfix {zoom: 1}
 
 /* link **************************************************************************************** */
 a {
