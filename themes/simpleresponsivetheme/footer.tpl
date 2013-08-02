@@ -32,7 +32,6 @@
                 </section>
             </div>
 
-            <!-- Footer -->
             <footer id="footer">
                 <div class="row">
                 {$HOOK_FOOTER}

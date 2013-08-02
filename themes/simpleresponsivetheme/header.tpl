@@ -87,6 +87,5 @@
             {$HOOK_TOP}
 
             <div id="columns" class="row">
-                <!-- Center -->
                 <section id="center_column" role="main">
     {/if}

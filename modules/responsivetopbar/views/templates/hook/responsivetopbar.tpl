@@ -1,14 +1,13 @@
-<script type="text/javascript">
-var CUSTOMIZE_TEXTFIELD = {$CUSTOMIZE_TEXTFIELD};
-var img_dir = '{$img_dir}';
-var customizationIdMessage = '{l s='Customization #' mod='responsivetopbar' js=1}';
-var removingLinkText = '{l s='remove this product from my cart' mod='responsivetopbar' js=1}';
-var freeShippingTranslation = '{l s='Free shipping!' mod='responsivetopbar' js=1}';
-var freeProductTranslation = '{l s='Free!' mod='responsivetopbar' js=1}';
-var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
-</script>
-
 <div id="header_user">
+    <script type="text/javascript">
+        var CUSTOMIZE_TEXTFIELD = {$CUSTOMIZE_TEXTFIELD};
+        var img_dir = '{$img_dir}';
+        var customizationIdMessage = '{l s='Customization #' mod='responsivetopbar' js=1}';
+        var removingLinkText = '{l s='remove this product from my cart' mod='responsivetopbar' js=1}';
+        var freeShippingTranslation = '{l s='Free shipping!' mod='responsivetopbar' js=1}';
+        var freeProductTranslation = '{l s='Free!' mod='responsivetopbar' js=1}';
+        var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
+    </script>
     <div class="row">
         <p id="header_user_info" class="five columns hide-for-small">
             {l s='Welcome' mod='responsivetopbar'},
