@@ -4,7 +4,6 @@
 
 #product_list a.product_image {
     overflow:hidden;
-    position:relative;
 }
 
 #product_list li span.newold {
