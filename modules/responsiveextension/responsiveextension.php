@@ -36,7 +36,7 @@ class ResponsiveExtension extends Module
         $responsiveConfiguration['ALERTS'] = 0;
         $responsiveConfiguration['BUTTONS'] = 0;
         $responsiveConfiguration['CLEARING'] = 0;
-        $responsiveConfiguration['FORMS'] = 0;
+        $responsiveConfiguration['FORMS'] = 1;
         $responsiveConfiguration['JOYRIDE'] = 0;
         $responsiveConfiguration['MAGELLAN'] = 0;
         $responsiveConfiguration['MEDIAQUERYTOGGLE'] = 0;
@@ -44,7 +44,7 @@ class ResponsiveExtension extends Module
         $responsiveConfiguration['ORBIT'] = 1;
         $responsiveConfiguration['REVEAL'] = 1;
         $responsiveConfiguration['TABS'] = 0;
-        $responsiveConfiguration['TOOLTIPS'] = 0;
+        $responsiveConfiguration['TOOLTIPS'] = 1;
         $responsiveConfiguration['TOPBAR'] = 1;
         $responsiveConfiguration['PLACEHOLDER'] = 1;
         $responsiveConfiguration['MODERNIZR'] = 1;
@@ -266,6 +266,10 @@ class ResponsiveExtension extends Module
     {
         $responsiveConfiguration = unserialize(Configuration::get('RESPONSIVE_EXTENSION'));
 
+        //stylesheet
+        $this->context->controller->addCss(($this->_path).'stylesheets/offcanvas.css');
+
+        //javascript
         if($responsiveConfiguration['ACCORDION'] == 1)
             $this->context->controller->addJs(($this->_path).'javascripts/jquery.foundation.accordion.js');
         if($responsiveConfiguration['ALERTS'] == 1)

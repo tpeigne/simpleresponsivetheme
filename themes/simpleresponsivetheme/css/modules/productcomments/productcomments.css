@@ -18,13 +18,20 @@
 
 #product_comments_block_extra a:hover {text-decoration: underline}
 
+.comment_top {
+    position: absolute;
+    top: 5px;
+}
+.comment_top span{
+    display: none;
+}
 #product_comments_block_extra .comments_note {margin-bottom:5px}
 #product_comments_block_extra .comments_note span,
 #product_comments_block_extra .star_content {float:left}
 
-#product_comments_block_extra div.star {background: url(../../../../../modules/productcomments/img/star.gif) no-repeat scroll 0 0 transparent}
+div.star {background: url(../../../../../modules/productcomments/img/star.gif) no-repeat scroll 0 0 transparent}
 
-#product_comments_block_extra div.star_on {background: url(../../../../../modules/productcomments/img/star.gif) no-repeat scroll 0 -12px transparent}
+div.star_on {background: url(../../../../../modules/productcomments/img/star.gif) no-repeat scroll 0 -12px transparent}
 
 #product_comments_block_extra .comments_advices {clear:both;}
 
@@ -56,7 +63,7 @@
 }
 #new_comment_form .product .product_desc {
     color:#666;
-    margin-top : 0px;
+    margin-top : 0;
 }
 #new_comment_form .product .product_desc .product_name {
     font-size:13px;
@@ -97,7 +104,7 @@
     border-bottom: 1px solid #CCC;
     padding-bottom: 15px;
     list-style-type: none;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 #new_comment_form #criterions_list li {

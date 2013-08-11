@@ -25,44 +25,54 @@
 *}
 <script type="text/javascript">
 $(function(){
-	$('a[href=#idTab5]').click(function(){
-		$('*[id^="idTab"]').addClass('block_hidden_only_for_screen');
-		$('div#idTab5').removeClass('block_hidden_only_for_screen');
+    $('a[href=#idTab5]').click(function(){
+        $('*[id^="idTab"]').addClass('block_hidden_only_for_screen');
+        $('div#idTab5').removeClass('block_hidden_only_for_screen');
 
-		$('ul#more_info_tabs a[href^="#idTab"]').removeClass('selected');
-		$('a[href="#idTab5"]').addClass('selected');
-	});
+        $('ul#more_info_tabs a[href^="#idTab"]').removeClass('selected');
+        $('a[href="#idTab5"]').addClass('selected');
+    });
+
+    {* When content is load, we copy stars content after the H1 *}
+    var starsContent = $('.comments_note').clone();
+    starsContent.addClass('comment_top');
+    starsContent.css('left', ($('#product-title').innerWidth() + 22)+'px');
+    $('#product-information').append(starsContent);
 });
 </script>
 
-<div id="product_comments_block_extra">
-	{if $nbComments != 0}
-		<div class="comments_note clearfix">
-			<span>{l s='Average grade' mod='productcomments'}&nbsp</span>
-			<div class="star_content clearfix">
-			{section name="i" start=0 loop=5 step=1}
-				{if $averageTotal le $smarty.section.i.index}
-					<div class="star"></div>
-				{else}
-					<div class="star star_on"></div>
-				{/if}
-			{/section}
-			</div>
-		</div>
-	{/if}
+{if $logged == 1 || $nbComments != 0}
+    </div><!-- Close the OosHook -->
+        <div id="product_comments_block_extra">
+            {if $nbComments != 0}
+                <div class="comments_note clearfix">
+                    <span>{l s='Average grade' mod='productcomments'}&nbsp</span>
+                    <div class="star_content clearfix">
+                    {section name="i" start=0 loop=5 step=1}
+                        {if $averageTotal le $smarty.section.i.index}
+                            <div class="star"></div>
+                        {else}
+                            <div class="star star_on"></div>
+                        {/if}
+                    {/section}
+                    </div>
+                </div>
+            {/if}
 
-	<div class="comments_advices">
-		{if $nbComments != 0}
-			<a href="#idTab5">{l s='Read user reviews' mod='productcomments'} ({$nbComments})</a><br/>
-		{/if}
-		{if ($too_early == false AND ($logged OR $allow_guests))}
-			<a class="open-comment-form">{l s='Write your review' mod='productcomments'}</a>
-		{else}
-			<div>
-				{l s='Write your review' mod='productcomments'}
-				<span class="comments_count"><b>0</b> {l s='comments' mod='productcomments'}</span>
-			</div>
-		{/if}
-	</div>
-</div>
+            <div class="comments_advices">
+                {if $nbComments != 0}
+                    <a href="#idTab5">{l s='Read user reviews' mod='productcomments'} ({$nbComments})</a><br/>
+                {/if}
+                {if ($too_early == false AND ($logged OR $allow_guests))}
+                    <a class="open-comment-form">{l s='Write your review' mod='productcomments'}</a>
+                {else}
+                    <div>
+                        {l s='Write your review' mod='productcomments'}
+                        <span class="comments_count"><b>0</b> {l s='comments' mod='productcomments'}</span>
+                    </div>
+                {/if}
+            </div>
+        </div>
+    <div><!-- new div for the next content if any -->
+{/if}
 <!--  /Module ProductComments -->

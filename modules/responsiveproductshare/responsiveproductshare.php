@@ -27,7 +27,7 @@ class ResponsiveProductShare extends Module
 
     public function install()
     {
-        if (!parent::install() OR !$this->registerHook('extraRight'))
+        if (!parent::install() OR !$this->registerHook('extraLeft'))
             return false;
         return true;
     }
@@ -39,7 +39,7 @@ class ResponsiveProductShare extends Module
         return true;
     }
 
-    public function hookExtraRight($params)
+    public function hookExtraLeft()
     {
         return $this->display(__FILE__, 'responsiveproductshare.tpl');
     }

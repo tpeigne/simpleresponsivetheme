@@ -53,7 +53,6 @@
         </script>
 
     <link href="{$modules_dir}responsiveextension/stylesheets/foundation.min.css" rel="stylesheet" type="text/css" />
-    <link href="{$modules_dir}responsiveextension/stylesheets/offcanvas.css" rel="stylesheet" type="text/css" />
 {if isset($css_files)}
     {foreach from=$css_files key=css_uri item=media}
     <link href="{$css_uri}" rel="stylesheet" type="text/css" media="{$media}" />

@@ -1,8 +1,6 @@
 /* ************************************************************************************************
         struture
 ************************************************************************************************ */
-#header {z-index:10}
-#columns {z-index:1}
 
 .row { width: 1020px; }
 
@@ -331,11 +329,6 @@ div.star_on a { background-position: 0 -16px }
 div.star_hover a,
 div.star a:hover { background-position: 0 -32px }
 .pack_content { margin: 10px 0 10px 0 }
-.pack_price {
-    float: right;
-    margin-right: 3px;
-    font-size: 12px
-}
 .confirmation {
     margin: 0 0 10px;
     padding: 10px;
@@ -538,7 +531,7 @@ ul.product_list span.new {
 }
 
 ul.product_list .compare{
-    margin-bottom: 0px;
+    margin-bottom: 0;
     margin-top: 5px;
 }
 
@@ -931,7 +924,7 @@ h3.carrier_title{
 }
 
 #order-opc .delivery_option{
-    margin : 0 0 10 0;
+    margin : 0 0 10px 0;
 }
 
 #order .delivery_option.alternate_item,
