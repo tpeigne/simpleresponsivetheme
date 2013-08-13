@@ -39,8 +39,8 @@
     {if $products}
         <div class="sortPagiBar clearfix">
             {include file="$tpl_dir./product-sort.tpl"}
+            {include file="./product-compare.tpl"}
         </div>
-        {include file="./product-compare.tpl"}
         {include file="$tpl_dir./product-list.tpl" products=$products}
         {include file="$tpl_dir./pagination.tpl"}
         {include file="./product-compare.tpl"}

@@ -1,6 +1,4 @@
-<!-- Header -->
 <header id="header" class="row">
-    <!-- Block responsive links -->
     <div class="twelve columns align_center" id="header_logo">
         <a href="{$link->getPageLink('index.php')}" title="{$shop_name|escape:'htmlall':'UTF-8'}">
             <img class="logo" src="{$logo_url}" alt="{$shop_name|escape:'htmlall':'UTF-8'}" {if $logo_image_width}width="{$logo_image_width}"{/if} {if $logo_image_height}height="{$logo_image_height}" {/if} />
@@ -117,104 +115,102 @@
             </nav>
         </div>
     </div>
-    <!-- /Block responsive links -->
-</header>
-
-{if $instantsearch}
-    <script type="text/javascript">
-    // <![CDATA[
-        {literal}
-        function tryToCloseInstantSearch() {
-            if ($('#old_center_column').length > 0)
-            {
-                $('#center_column').remove();
-                $('#old_center_column').attr('id', 'center_column');
-                $('#center_column').show();
-                return false;
+    {if $instantsearch}
+        <script type="text/javascript">
+            // <![CDATA[
+            {literal}
+            function tryToCloseInstantSearch() {
+                if ($('#old_center_column').length > 0)
+                {
+                    $('#center_column').remove();
+                    $('#old_center_column').attr('id', 'center_column');
+                    $('#center_column').show();
+                    return false;
+                }
             }
-        }
 
-        instantSearchQueries = new Array();
-        function stopInstantSearchQueries(){
-            for(i=0;i<instantSearchQueries.length;i++) {
-                instantSearchQueries[i].abort();
-            }
             instantSearchQueries = new Array();
-        }
-
-        $("#search_query_block").keyup(function(){
-            if ($(this).val().length > 0) {
-                stopInstantSearchQueries();
-                instantSearchQuery = $.ajax({
-                    url: '{/literal}{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}{literal}',
-                    data: {
-                        instantSearch: 1,
-                        id_lang: {/literal}{$cookie->id_lang}{literal},
-                        q: $(this).val()
-                    },
-                    dataType: 'html',
-                    type: 'POST',
-                    success: function(data){
-                        if ($("#search_query_block").val().length > 0) {
-                            tryToCloseInstantSearch();
-                            $('#center_column').attr('id', 'old_center_column');
-                            $('#old_center_column').after('<section id="center_column" class="twelve columns">'+data+'</section>');
-                            $('#old_center_column').hide();
-                            $("#instant_search_results a.close").click(function() {
-                                $("#search_query_block").val('');
-                                return tryToCloseInstantSearch();
-                            });
-                            return false;
-                        }
-                        else
-                            tryToCloseInstantSearch();
-                        }
-                });
-                instantSearchQueries.push(instantSearchQuery);
+            function stopInstantSearchQueries(){
+                for(i=0;i<instantSearchQueries.length;i++) {
+                    instantSearchQueries[i].abort();
+                }
+                instantSearchQueries = new Array();
             }
-            else
-                tryToCloseInstantSearch();
-        });
-    // ]]>
-    {/literal}
-    </script>
-{/if}
 
-{if $ajaxsearch}
-    <script type="text/javascript">
-    // <![CDATA[
-    {literal}
-        $('document').ready( function() {
-            $("#search_query_block")
-                .autocomplete(
-                        '{/literal}{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}{literal}', {
-                        minChars: 3,
-                        max: 10,
-                        width: 500,
-                        selectFirst: false,
-                        scroll: false,
-                        dataType: "json",
-                        formatItem: function(data, i, max, value, term) {
-                            return value;
+            $("#search_query_block").keyup(function(){
+                if ($(this).val().length > 0) {
+                    stopInstantSearchQueries();
+                    instantSearchQuery = $.ajax({
+                        url: '{/literal}{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}{literal}',
+                        data: {
+                            instantSearch: 1,
+                            id_lang: {/literal}{$cookie->id_lang}{literal},
+                            q: $(this).val()
                         },
-                        parse: function(data) {
-                            var mytab = new Array();
-                            for (var i = 0; i < data.length; i++)
-                                mytab[mytab.length] = { data: data[i], value: data[i].cname + ' > ' + data[i].pname };
-                            return mytab;
-                        },
-                        extraParams: {
-                            ajaxSearch: 1,
-                            id_lang: {/literal}{$cookie->id_lang}{literal}
+                        dataType: 'html',
+                        type: 'POST',
+                        success: function(data){
+                            if ($("#search_query_block").val().length > 0) {
+                                tryToCloseInstantSearch();
+                                $('#center_column').attr('id', 'old_center_column');
+                                $('#old_center_column').after('<section id="center_column" class="twelve columns">'+data+'</section>');
+                                $('#old_center_column').hide();
+                                $("#instant_search_results a.close").click(function() {
+                                    $("#search_query_block").val('');
+                                    return tryToCloseInstantSearch();
+                                });
+                                return false;
+                            }
+                            else
+                                tryToCloseInstantSearch();
                         }
-                    }
+                    });
+                    instantSearchQueries.push(instantSearchQuery);
+                }
+                else
+                    tryToCloseInstantSearch();
+            });
+            // ]]>
+            {/literal}
+        </script>
+    {/if}
+
+    {if $ajaxsearch}
+        <script type="text/javascript">
+            // <![CDATA[
+            {literal}
+            $('document').ready( function() {
+                $("#search_query_block")
+                        .autocomplete(
+                        '{/literal}{if $search_ssl == 1}{$link->getPageLink('search', true)}{else}{$link->getPageLink('search')}{/if}{literal}', {
+                            minChars: 3,
+                            max: 10,
+                            width: 500,
+                            selectFirst: false,
+                            scroll: false,
+                            dataType: "json",
+                            formatItem: function(data, i, max, value, term) {
+                                return value;
+                            },
+                            parse: function(data) {
+                                var mytab = new Array();
+                                for (var i = 0; i < data.length; i++)
+                                    mytab[mytab.length] = { data: data[i], value: data[i].cname + ' > ' + data[i].pname };
+                                return mytab;
+                            },
+                            extraParams: {
+                                ajaxSearch: 1,
+                                id_lang: {/literal}{$cookie->id_lang}{literal}
+                            }
+                        }
                 )
-                .result(function(event, data, formatted) {
-                    $('#search_query_block').val(data.pname);
-                    document.location.href = data.product_link;
-                })
-        });
-    {/literal}
-    // ]]>
-    </script>
-{/if}
+                        .result(function(event, data, formatted) {
+                            $('#search_query_block').val(data.pname);
+                            document.location.href = data.product_link;
+                        })
+            });
+            {/literal}
+            // ]]>
+        </script>
+    {/if}
+</header>

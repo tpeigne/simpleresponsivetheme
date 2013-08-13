@@ -1,19 +1,10 @@
-.clearfix:before,
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    overflow: hidden
-}
-.clearfix:after {clear: both}
-.clearfix {zoom: 1}
-
-
 /* ************************************************************************************************
         struture
 ************************************************************************************************ */
 #header {z-index:10}
 #columns {z-index:1}
+
+.row { width: 1020px; }
 
 /* ************************************************************************************************
         generic style
@@ -89,96 +80,23 @@ p em {font-style:italic}
 }
 .required {color:#990000}
 
+.clearfix:before,
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden
+}
+.clearfix:after {clear: both}
+.clearfix {zoom: 1}
+
 /* link **************************************************************************************** */
-a, a:active, a:visited {
+a {
     color: #5d717e;
     outline: none
 }
 
 a:hover {text-decoration:underline}
-
-/*buttons ************************************************************************************** */
-input.button_mini, input.button_small, input.button, input.button_large,
-input.button_mini_disabled, input.button_small_disabled, input.button_disabled, input.button_large_disabled,
-input.exclusive_mini, input.exclusive_small, input.exclusive, input.exclusive_large,
-input.exclusive_mini_disabled, input.exclusive_small_disabled, input.exclusive_disabled, input.exclusive_large_disabled,
-a.button_mini, a.button_small, a.button, a.button_large,
-a.exclusive_mini, a.exclusive_small, a.exclusive, a.exclusive_large,
-span.button_mini, span.button_small, span.button, span.button_large,
-span.exclusive_mini, span.exclusive_small, span.exclusive, span.exclusive_large, span.exclusive_large_disabled {
-
-}
-*:first-child+html input.button_mini, *:first-child+html input.button_small, *:first-child+html input.button, *:first-child+html input.button_large,
-*:first-child+html input.button_mini_disabled, *:first-child+html input.button_small_disabled, *:first-child+html input.button_disabled, *:first-child+html input.button_large_disabled,
-*:first-child+html input.exclusive_mini, *:first-child+html input.exclusive_small, *:first-child+html input.exclusive, *:first-child+html input.exclusive_large,
-*:first-child+html input.exclusive_mini_disabled, *:first-child+html input.exclusive_small_disabled, *:first-child+html input.exclusive_disabled, *:first-child+html input.exclusive_large_disabled {
-
-}
-
-
-/* input button */
-input.button_mini, input.button_small, input.button, input.button_large,
-input.button_mini_disabled, input.button_small_disabled, input.button_disabled, input.button_large_disabled,
-input.exclusive_mini, input.exclusive_small, input.exclusive, input.exclusive_large,
-input.exclusive_mini_disabled, input.exclusive_small_disabled, input.exclusive_disabled, input.exclusive_large_disabled {
-
-}
-
-/* disabled button */
-input.button_mini_disabled, input.button_small_disabled, input.button_disabled, input.button_large_disabled,
-input.exclusive_mini_disabled, input.exclusive_small_disabled, input.exclusive_disabled, input.exclusive_large_disabled,
-span.button_mini, span.button_small, span.button, span.button_large,
-span.exclusive_mini, span.exclusive_small, span.exclusive, span.exclusive_large, span.exclusive_large_disabled {
-
-}
-
-/* exclusive button */
-input.exclusive_mini, input.exclusive_small, input.exclusive, input.exclusive_large,
-input.exclusive_mini_disabled, input.exclusive_small_disabled, input.exclusive_disabled, input.exclusive_large_disabled,
-a.exclusive_mini, a.exclusive_small, a.exclusive, a.exclusive_large,
-span.exclusive_mini, span.exclusive_small, span.exclusive, span.exclusive_large, span.exclusive_large_disabled {
-
-}
-
-/* exclusive disabled button */
-input.exclusive_mini_disabled, input.exclusive_small_disabled, input.exclusive_disabled, input.exclusive_large_disabled, span.exclusive_mini, span.exclusive_small, span.exclusive, span.exclusive_large {
-
-}
-
-/* hover button */
-input.button_mini:hover, input.button_small:hover, input.button:hover, input.button_large:hover,
-input.exclusive_mini:hover, input.exclusive_small:hover, input.exclusive:hover, input.exclusive_large:hover,
-a.button_mini:hover, a.button_small:hover, a.button:hover, a.button_large:hover,
-a.exclusive_mini:hover, a.exclusive_small:hover, a.exclusive:hover, a.exclusive_large:hover {
-
-}
-
-/* exclusive hover button */
-input.exclusive_mini:hover, input.exclusive_small:hover, input.exclusive:hover, input.exclusive_large:hover, a.exclusive_mini:hover, a.exclusive_small:hover, a.exclusive:hover, a.exclusive_large:hover {
-
-}
-
-/* active button */
-input.button_mini:active, input.button_small:active, input.button:active, input.button_large:active,
-input.exclusive_mini:active, input.exclusive_small:active, input.exclusive:active, input.exclusive_large:active,
-a.button_mini:active, a.button_small:active, a.button:active, a.button_large:active,
-a.exclusive_mini:active, a.exclusive_small:active, a.exclusive:active, a.exclusive_large:active {
-
-}
-
-/* classic buttons */
-input.button_mini, input.button_mini_disabled, input.exclusive_mini, input.exclusive_mini_disabled, a.button_mini, a.exclusive_mini, span.button_mini, span.exclusive_mini {
-
-}
-input.button_small, input.button_small_disabled, input.exclusive_small, input.exclusive_small_disabled, a.button_small, a.exclusive_small, span.button_small, span.exclusive_small {
-
-}
-input.button_disabled, input.exclusive_disabled, span.exclusive {
-
-}
-input.button_large, input.button_large_disabled, input.exclusive_large, input.exclusive_large_disabled, a.button_large, a.exclusive_large, span.button_large, span.exclusive_large, span.exclusive_large_disabled {
-
-}
 
 /* form **************************************************************************************** */
 form.std fieldset {
@@ -214,19 +132,16 @@ table.table_block  td {
 /* BLOCK .block ******************************************************************************** */
 .block {margin-bottom:20px}
 .block h4 {
-    padding:6px 11px;
-    font-size:12px;
-    color:#fff;
-    text-shadow:0 1px 0 #000;
-    text-transform:uppercase;
-    background:#383838
+    font-size: 17px;
+    border-bottom: 1px solid#c3c3c3;
+    padding-bottom: 5px;
+    color: #5d717e;
 }
-.block h4 a {color:#fff}
+.block h4 a:hover { text-decoration: none;}
 .block ul {list-style-type:none}
-.block li.last {	border:none}
+.block li.last {border:none}
 .block li a {
     display:block;
-    color:#333
 }
 
 /* BLOCK customer privacy ******************************************************************* */
@@ -254,7 +169,7 @@ ul.footer_links li .icon {
 /* barre comparaison / tri ********************************************************************* */
 #form_compare{
     float: right;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 #productsSortForm label{
     float : left;
@@ -267,9 +182,9 @@ ul.footer_links li .icon {
 .sortPagiBar #productsSortForm {
     float : left;
     margin-top: 5px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
-.sortPagiBar select#selectPrductSort {
+.sortPagiBar .selectProductSort {
     float : left;
     width: auto;
 }
@@ -297,7 +212,7 @@ ul.pagination li {display: inline;}
 ul.pagination a,
 ul.pagination span {
     display:inline-block;
-    height:24px;
+    height:26px;
     width:24px;
     border:1px solid #eee;
     -moz-border-radius:2px;
@@ -309,9 +224,15 @@ ul.pagination span {
 ul.pagination a {
     text-align:center;
 }
+ul.pagination li a {
+    padding: 0;
+}
+ul.pagination li:hover a {
+    background: #2795b6;
+}
 ul.pagination a:hover {
-    color:#333;
-    border:1px solid #333
+    color: white;
+    text-decoration: none;
 }
 ul.pagination .current span {
     color:#000;
@@ -468,17 +389,69 @@ div.star a:hover { background-position: 0 -32px }
 }
 
 /* ************************************************************************************************
+        SIDEBAR
+************************************************************************************************ */
+
+@media (min-width: 768px) {
+    #sidebar { width: 25%; }
+}
+
+#sidebar #categories_block_left h5 {
+    margin-bottom: 0;
+    border-bottom: 1px solid#c3c3c3;
+    padding-bottom: 5px;
+    color: #5d717e;
+}
+
+#sidebar #categories_block_left ul {
+    padding-top: 5px;
+    padding-bottom: 0;
+}
+
+/* Fix style for pages wihtout sidebar */
+#order #sidebar,
+#order #sidebarButton,
+#product #sidebar,
+#product #sidebarButton,
+#order-opc #sidebar,
+#order-opc #sidebarButton,
+#module-cheque-payment #sidebar,
+#module-cheque-payment #sidebarButton,
+#module-bankwire-payment #sidebar,
+#module-bankwire-payment #sidebarButton {display:none}
+
+#order #center_column,
+#product #center_column,
+#order-opc #center_column,
+#module-cheque-payment #center_column,
+#module-bankwire-payment #center_column {width: 100%}
+
+#order #header_user .nav-bar > li > a,
+#product #header_user .nav-bar > li > a,
+#order-opc #header_user .nav-bar > li > a,
+#module-cheque-payment #header_user .nav-bar > li > a,
+#module-bankwire-payment #header_user .nav-bar > li > a { padding-left: 20px; }
+
+/* ************************************************************************************************
+        CENTER COLUMN
+************************************************************************************************ */
+
+@media (min-width: 768px) {
+    #center_column { width: 75%; }
+}
+
+/* ************************************************************************************************
     FOOTER
 ************************************************************************************************ */
 #footer {
     clear: both;
     margin-top: 15px;
-    padding: 12px 0px 12px 0px;
+    padding: 12px 0 12px 0;
     background-color: #F8F8F8;
     border-top: 1px solid #E2E2E2;
-    box-shadow: 0px -3px 16px #E0E0E0;
-    -webkit-box-shadow: 0px -3px 16px #E0E0E0;
-    -moz-box-shadow: 0px -3px 16px #E0E0E0;
+    box-shadow: 0 -3px 16px #E0E0E0;
+    -webkit-box-shadow: 0 -3px 16px #E0E0E0;
+    -moz-box-shadow: 0 -3px 16px #E0E0E0;
 }
 
 #footer a:hover {text-decoration:underline}
@@ -625,7 +598,7 @@ ul.idTabs li {
 }
 #more_info_sheets .product_desc .clear_product_desc{
     clear:both;
-    height:0px;
+    height:0;
     line-height:0px
 }
 
@@ -870,7 +843,7 @@ table#cart_summary .gift-icon {
 
 /* step 3 - address ************************************************************************** */
 
-.address-form-multishipping { padding: 10px 0px; }
+.address-form-multishipping { padding: 10px 0; }
 #multishipping_mode_box {
     border: 1px solid #D0D3D8;
     background: url("../img/form_bg.jpg") repeat-x scroll left top #D0D1D5;
@@ -919,14 +892,7 @@ h3.carrier_title{
     margin-top: 0;
 }
 
-
 /* step 4 - paiement ************************************************************************** */
-
-/*.delivery_options {
-    border: 1px solid #BDC2C9;
-    border-top: 0;
-    padding-top: 10px;
-}*/
 
 #order .delivery_options_address h3,
 #order-opc .delivery_options_address h3 {
@@ -964,12 +930,8 @@ h3.carrier_title{
     border: none;
 }
 
-/*#order-opc .delivery_option{
-    margin : 0px 10px 10px 10px;
-}*/
-
 #order-opc .delivery_option{
-    margin : 0px 0px 10px 0px;
+    margin : 0 0 10 0;
 }
 
 #order .delivery_option.alternate_item,
@@ -984,7 +946,8 @@ h3.carrier_title{
 #order-opc .delivery_option label > table.resume td + td {
     width: 300px;
 }
-#order .delivery_option label > table.resume td + td + td, #order-opc .delivery_option label > table.resume td + td + td {
+#order .delivery_option label > table.resume td + td + td,
+#order-opc .delivery_option label > table.resume td + td + td {
     width: 100px;
     text-align: right;
 }
@@ -1132,15 +1095,11 @@ a.iframe {font-weight:bold}
 .payment_module:after {clear: both}
 .payment_module {zoom: 1}
 
-
 /* ************************************************************************************************
         PAGE ORDER-OPC
 ************************************************************************************************ */
 #order-opc #left_column {display:none}
-#order-opc #center_column{}
 
-
-#order-opc h2 {}
 #order-opc h2 span {
     display:inline-block;
     padding:5px 7px;
@@ -1190,6 +1149,13 @@ a.iframe {font-weight:bold}
     font-weight: bold;
 }
 
+/* ************************************************************************************************
+        CMS CATEGORY PAGES
+************************************************************************************************ */
+
+#cms .bullet {
+    margin-left: 15px;
+}
 
 /* ************************************************************************************************
     express checkout
@@ -1198,14 +1164,10 @@ a.iframe {font-weight:bold}
 #new_account_form p.required sup {color:#990000}
 #new_account_form #submitGuestAccount {float: right}
 
-/* ************************************************************************************************ */
-
 /* ************************************************************************************************
         paiment - CONFIRMATION
 ************************************************************************************************ */
 #orderconfirmation #left_column {display:none}
-#orderconfirmation #center_column{width:757px}
-
 
 /* ************************************************************************************************
         PAGE PASSWORD
@@ -1223,7 +1185,6 @@ a.iframe {font-weight:bold}
         PAGE ADRESSES
 ************************************************************************************************ */
 #addresses #left_column {display:none}
-#addresses #center_column{}
 
 #address p.inline-infos {
     color:#666;
@@ -1233,9 +1194,7 @@ a.iframe {font-weight:bold}
         PAGE ADD ADRESS
 ************************************************************************************************ */
 #address #left_column {display:none}
-#address #center_column{}
 
-form#add_adress {}
 #add_adress fieldset {
     margin:0;
 }
@@ -1243,7 +1202,6 @@ form#add_adress {}
     margin-top : 0;
     font-size:14px;
 }
-#center_column #add_adress p {}
 #add_adress p.required {color:#222}
 #add_adress p.required  sup {color:#990000}
 
@@ -1259,9 +1217,6 @@ form#add_adress {}
 #add_adress p.select input {
     border:1px solid #ccc;
     color:#666
-}
-#add_adress p.checkbox input {
-
 }
 #add_adress p.select select {
     color:#666
@@ -1286,12 +1241,10 @@ form#add_adress {}
     color:#666
 }
 
-
 /* ************************************************************************************************
         PAGE ORDER-SPLIP
 ************************************************************************************************ */
 #order-slip #left_column {display:none}
-#order-slip #center_column{}
 
 #order-slip #order-list {border-bottom:1px solid #999}
 #order-slip #order-list td {
@@ -1300,88 +1253,33 @@ form#add_adress {}
 }
 #order-slip #order-list td.history_invoice {border-right:none}
 
-
 /* ************************************************************************************************
         PAGE DISCOUNT
 ************************************************************************************************ */
 #discount #left_column {display:none}
-#discount #center_column{width:757px}
 
 #discount .table_block tr.last_item td {border-bottom:1px solid #999}
 #discount .table_block td.discount_expiration_date {border-right:1px solid #999}
 #discount .table_block td.discount_value {white-space:nowrap}
 
-
 /* ************************************************************************************************
         PAGE ORDER FOLLOW
 ************************************************************************************************ */
 #order-follow #left_column {display:none}
-#order-follow #center_column{width:757px}
-
 
 /* ************************************************************************************************
         PAGE NEW-PRODUCTS
-************************************************************************************************ */
-#newproducts .sortPagiBar {margin-bottom:20px}
-
-
-/* ************************************************************************************************
         PAGE BEST SALES
-************************************************************************************************ */
-#bestsales .sortPagiBar {margin-bottom:20px}
-
-/* ************************************************************************************************
         PAGE PRICES DROP SALES
 ************************************************************************************************ */
-#pricesdrop .sortPagiBar {margin-bottom:20px}
-
+#new-products .sortPagiBar,
+#best-sales .sortPagiBar,
+#prices-drop .sortPagiBar {margin-bottom:20px}
 
 /* ************************************************************************************************
         PAGE MANUFACTURER
 ************************************************************************************************ */
-#manufacturer .nbrmanufacturer {
-    margin: 15px 0 10px;
-    padding: 8px 7px;
-    font-size:12px;
-    color: #000;
-    background: none repeat scroll 0 0 #f0f0f0
-}
-
 #manufacturer #product_list {margin-top:15px}
-
-ul#manufacturers_list {list-style-type:none}
-ul#manufacturers_list li {
-    margin-bottom: 14px;
-    padding: 12px 8px;
-    border: 1px solid #eee;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius:3px;
-}
-ul#manufacturers_list li a.lnk_img {
-    display: block;
-    float: left;
-}
-ul#manufacturers_list li img {
-    display: block;
-    float: left;
-    margin-right: 14px;
-    border: 1px solid #ccc;
-    vertical-align: bottom
-}
-ul#manufacturers_list li h3 {
-    padding: 0 0 10px;
-    font-size: 13px;
-    color: #000
-}
-ul#manufacturers_list li .description {
-    overflow: hidden;
-    padding: 0;
-    font-size:12px;
-    color:#666
-}
-ul#manufacturers_list li .right_side {float:right;}
-
 .description_box {
     border: 1px solid #CCCCCC;
     border-radius: 3px 3px 3px 3px;
@@ -1409,28 +1307,31 @@ ul#manufacturers_list li .right_side {float:right;}
 }
 
 /* ************************************************************************************************
+        PAGE MANUFACTURER
         PAGE SUPPLIER
 ************************************************************************************************ */
-#supplier .nbrmanufacturer {
-    margin: 15px 0 10px;
-    padding: 8px 7px;
-    font-size:12px;
-    color: #000;
-    background: none repeat scroll 0 0 #f0f0f0
-}
-ul#suppliers_list {list-style-type:none}
-ul#suppliers_list li {
+ul#manufacturers_list,
+ul#suppliers_list { list-style-type:none }
+
+ul#suppliers_list li,
+ul#manufacturers_list li {
     margin-bottom: 14px;
     padding: 12px 8px;
     border: 1px solid #eee;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    border-radius:3px;
+    border-radius: 3px;
 }
-ul#suppliers_list li a.lnk_img {
-    display: block;
-    float: left;
+
+ul#manufacturers_list li h3,
+ul#suppliers_list li h3 {
+    margin-top: 0;
 }
+
+ul#manufacturers_list li .right_side,
+ul#suppliers_list li .right_side {float:right; }
+
+ul#manufacturers_list li img,
 ul#suppliers_list li img {
     display: block;
     float: left;
@@ -1438,11 +1339,12 @@ ul#suppliers_list li img {
     border: 1px solid #ccc;
     vertical-align: bottom
 }
-ul#suppliers_list li h3 {
-    margin-top: 0;
-}
-ul#suppliers_list li .right_side {float:right;}
 
+ul#suppliers_list li a.lnk_img,
+ul#manufacturers_list li a.lnk_img {
+    display: block;
+    float: left;
+}
 
 /* ************************************************************************************************
         PAGE SEARCH
@@ -1454,8 +1356,6 @@ ul#suppliers_list li .right_side {float:right;}
     font-size:13px;
     background:#ffffe0
 }
-#search .sortPagiBar {}
-
 
 /* ************************************************************************************************
         PAGE 404
@@ -1469,19 +1369,6 @@ ul#suppliers_list li .right_side {float:right;}
     top:6px
 }
 
-
-/* ************************************************************************************************
-        addons payment cheque
-************************************************************************************************ */
-#module-cheque-payment #left_column {display:none}
-
-
-/* ************************************************************************************************
-        addons payment bankwire
-************************************************************************************************ */
-#module-bankwire-payment #left_column {display:none}
-
-
 /* ************************************************************************************************
         addons google checkout
 ************************************************************************************************ */
@@ -1492,12 +1379,10 @@ ul#suppliers_list li .right_side {float:right;}
 ************************************************************************************************ */
 #module-payment-submit #left_column {display:none}
 
-
 /* ************************************************************************************************
         addons cashondelivery validation
 ************************************************************************************************ */
 #module-cashondelivery-validation #left_column {display:none}
-
 
 /* ************************************************************************************************
         addon RerversoForm
@@ -1515,6 +1400,7 @@ ul#suppliers_list li .right_side {float:right;}
     font-style:italic;
     text-align:right
 }
+
 /* ************************************************************************************************
         addon customer privacy
 ************************************************************************************************ */
@@ -1529,7 +1415,6 @@ ul#suppliers_list li .right_side {float:right;}
         addon referralprogram
 ************************************************************************************************ */
 #module-referralprogram-referralprogram-program #left_column {display:none}
-#module-referralprogram-referralprogram-program #center_column{width:757px}
 
 #footer .myaccount li.referralprogram img {display:none}
 
@@ -1552,7 +1437,6 @@ ul#suppliers_list li .right_side {float:right;}
         addon loyalty
 ************************************************************************************************ */
 #module-loyalty-default #left_column {display:none}
-#module-loyalty-default #center_column{width:757px}
 
 #product p#loyalty {
     padding:10px 0 0 20px;
@@ -1562,7 +1446,6 @@ ul#suppliers_list li .right_side {float:right;}
 }
 
 #footer .myaccount li.loyalty img {display:none}
-
 
 /* ************************************************************************************************
         addon Livezilla
@@ -1574,9 +1457,9 @@ ul#suppliers_list li .right_side {float:right;}
 #livezilla_lnk a {
     display:inline-block;
     padding:6px 8px 8px 8px;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
     font:bold 10px Arial,Verdana,sans-serif;
     color:#fff;
     text-shadow: 0 -1px 0 #000;
@@ -1644,12 +1527,6 @@ form#sendComment h3 {font-size:14px;}
 div.star_on a { background-position: 0 -12px }
 div.star_hover a, div.star a:hover { background-position: 0 -12px }
 
-
-/* ************************************************************************************************
-        xxxxx
-************************************************************************************************ */
-
-
 /* ************************************************************************************************
         guest tracking
 ************************************************************************************************ */
@@ -1661,8 +1538,6 @@ div.star_hover a, div.star a:hover { background-position: 0 -12px }
     padding-bottom: 10px;
 }
 
-
-
 /* ************************************************************************************************
         CSS Modules
 ************************************************************************************************ */
@@ -1672,37 +1547,38 @@ div.star_hover a, div.star a:hover { background-position: 0 -12px }
 /*************** Block ADVERTISING ***************/
 .advertising_block { width: 191px; margin-bottom: 1em; text-align: center }
 
-
-
 /*************** Block CATEGORIES ***************/
-#categories_block_left  li {border-bottom:1px dotted #ccc}
-    #categories_block_left  li.last {	border:none;}
-        #categories_block_left  li a {
-            display:block;
-            padding:7px 11px 5px 22px;
-            color:#333;
-            background:url(../../../modules/blockcategories/img/arrow_right_2.png) no-repeat 10px 10px transparent
-        }
+#categories_block_left  li { border-bottom:1px dotted #ccc}
+#categories_block_left  li.last { border:none;}
+#categories_block_left  li a {
+    padding: 6px 11px 8px 22px;
+    background:url(../../../modules/blockcategories/img/arrow_right_2.png) no-repeat left transparent;
+    z-index: 1;
+    display: inline-block;
+}
 
-    #categories_block_left  li ul {margin-left:40px}
-        #categories_block_left  li ul li {border:none}
-            #categories_block_left  li ul li a {
-                padding-left:0;
-                background:none
-            }
+#categories_block_left  li ul {margin-left:40px}
+#categories_block_left  li ul li {border:none}
+#categories_block_left  li ul li a {
+    padding-left:0;
+    background:none;
+}
 
 #categories_block_left li .OPEN,
 #categories_block_left li .CLOSE {
-    display:block;
-    float:right;
-    margin:10px 10px 0;
-    height:9px;
-    width:9px;
-    background:url(../../../modules/blockcategories/img/icon/open-close.png) no-repeat 0 -9px;
-    cursor:pointer
+    display: block;
+    float: right;
+    margin: 10px 0 0;
+    padding: 0;
+    height: 20px;
+    width: 20px;
+    background: url('../img/icon/less.gif') no-repeat 10px 0;
+    cursor: pointer;
+    z-index: 1000;
 }
-#categories_block_left li .CLOSE {background-position:0 0}
-
+#categories_block_left li .CLOSE {
+    background: url('../img/icon/more.gif') no-repeat 10px 0;
+}
 
 /* footer */
 .blockcategories_footer {
@@ -1710,12 +1586,7 @@ div.star_hover a, div.star a:hover { background-position: 0 -12px }
 }
 .blockcategories_footer ul ul {display:none !important}
 
-
-
 /*************** Block CMS ***************/
-/* footer */
-#footer .block_various_links {padding:15px 10px;}
-
 /* Block CMS links */
 .informations_block_left li {border-bottom:1px dotted #eee}
 .informations_block_left li.last {border:none;}
@@ -1730,8 +1601,6 @@ tr.subitem > td:first-child + td {
     padding-left: 10px;
 }
 
-
-
 /*************** Block CONTACTINFOS ***************/
 
 #block_contact_infos {padding:15px 10px;}
@@ -1745,30 +1614,26 @@ tr.subitem > td:first-child + td {
 }
 #block_contact_infos li  pre {font: 11px/20px Arial,Verdana,sans-serif;}
 
-
-
 /*************** Block LINK ***************/
 #links_block_left .block_content li {border-bottom:1px dotted #eee}
 #links_block_left .block_contentt li.last {border:none;}
 #links_block_left .block_content li a {
     display:block;
     padding:7px 11px 5px 22px;
-    color:#333;
     background:url(../../../modules/blocklink/img/arrow_right_2.png) no-repeat 10px 10px transparent;
 }
 
-
-
 /*************** Block MANUFACTURER ***************/
-.blockmanufacturer li {border-bottom:1px dotted #ccc}
-.blockmanufacturer li.last {	border:none;}
-    .blockmanufacturer li a {
-        display:block;
-        padding:7px 11px 5px 22px;
-        color:#333;
-        background:url(../../../modules/blockmanufacturer/img/arrow_right_2.png) no-repeat 10px 10px transparent
-    }
-
+.blockmanufacturer li { border-bottom:1px dotted #ccc }
+.blockmanufacturer li.last { border:none; }
+.blockmanufacturer h4 {
+    margin-bottom: 2px;
+}
+.blockmanufacturer li a {
+    display:block;
+    padding:7px 11px 5px 22px;
+    background:url(../../../modules/blockmanufacturer/img/arrow_right_2.png) no-repeat 0 13px transparent
+}
 
 .blockmanufacturer form {margin-top:10px;}
 .blockmanufacturer p {
@@ -1914,11 +1779,11 @@ p.required.textarea textarea{
 
 /* other */
 #address .address_status{
-    margin-bottom : 0px;
+    margin-bottom : 0;
 }
 
 #address .address_add{
-    margin-top : 0px;
+    margin-top : 0;
 }
 
 #address  p.required.text input,
@@ -1983,7 +1848,7 @@ p.required.textarea textarea{
         width : 100%;
     }
 
-    #address #days, 	#months,
+    #address #days, #months,
     #years, select{
         width : 100%;
     }
@@ -2002,11 +1867,8 @@ p.required.textarea textarea{
         float : none;
     }
 
-    ul.idTabs li a{
-        border-bottom: solid 1px #E6E6E6;
-        border-right: solid 1px #E6E6E6;
-        border-left: solid 1px #E6E6E6;
-        border-top: solid 1px #E6E6E6;
+    ul.idTabs li a {
+        border : 1px solid #E6E6E6;
     }
 
     .cart_navigation .exclusive, .cart_navigation .exclusive_large {
@@ -2058,7 +1920,6 @@ p.required.textarea textarea{
 }
 
 /* IE Fix */
-
 html.lt-ie9 #responsive_links_top .top-bar ul li a{
     color : black;
     font-size: 17px;

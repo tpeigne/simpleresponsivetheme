@@ -1,4 +1,5 @@
-{*
+<?php
+/*
 * 2007-2012 PrestaShop
 *
 * NOTICE OF LICENSE
@@ -19,18 +20,18 @@
 *
 *  @author PrestaShop SA <contact@prestashop.com>
 *  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 15230 $
+*  @version  Release: $Revision: 6844 $
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
-*}
-<h5>
-    {if $category->id == 1 OR $nb_products == 0}
-        {l s='There are no products.'}
-    {else}
-        {if $nb_products == 1}
-            {l s='There is %d product.' sprintf=$nb_products}
-        {else}
-            {l s='There are %d products.' sprintf=$nb_products}
-        {/if}
-    {/if}
-</h5>
+*/
+
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+header("Location: ../");
+exit;
+?>

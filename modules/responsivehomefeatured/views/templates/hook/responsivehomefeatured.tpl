@@ -39,7 +39,7 @@
                                 {/if}
                             </div>
                             <div class="align_justify italic product_description_short">
-                                {$product.product->description_short|truncate:180:'...'|strip_tags:escape:'html':'UTF-8'}
+                                {$product.product->description_short|truncate:150:'...'|strip_tags:escape:'html':'UTF-8'}
                             </div>
                         </li>
                     {/foreach}

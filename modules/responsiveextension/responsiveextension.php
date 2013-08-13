@@ -123,7 +123,7 @@ class ResponsiveExtension extends Module
                 <fieldset>
                     <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Responsive extension configuration').'</legend>
                     <div class="margin-form" style="color: black;">
-                        <p>'.$this->l('This theme has been build with the Foundation CSS framework from ZURB').' (<b><a href="http://foundation.zurb.com" target="_blank">foundation.zurb.com</a>)</b></p>
+                        <p>'.$this->l('This theme has been build with the Foundation CSS framework from ZURB').' (<b><a href="http://foundation.zurb.com/old-docs/f3/" target="_blank">foundation.zurb.com/old-docs/f3/</a>)</b></p>
                         <p>'.$this->l('You can check the online documentation for more information about this amazing framework.').'</p>
                     </div>
                     <label for="ie6">'.$this->l('IE6 warning message').' :</label>
@@ -140,7 +140,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="accordion" id="accordion_off" value="0" '.($responsiveConfiguration['ACCORDION'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Add open/close functionality to accordions').' : <a target="_blank" href="http://foundation.zurb.com/docs/elements.php">foundation.zurb.com/docs/elements.php</a></p>
+                        <p>'.$this->l('Add open/close functionality to accordions').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/elements.php">foundation.zurb.com/old-docs/f3/elements.php</a></p>
                     </div>
                     <label for="alerts">'.$this->l('Alerts').' :</label>
                     <div class="margin-form">
@@ -148,7 +148,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="alerts" id="alerts_off" value="0" '.($responsiveConfiguration['ALERTS'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Adds the ability to close alerts').' : <a target="_blank" href="http://foundation.zurb.com/docs/elements.php">foundation.zurb.com/docs/elements.php</a></p>
+                        <p>'.$this->l('Adds the ability to close alerts').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/elements.php">foundation.zurb.com/old-docs/f3/elements.php</a></p>
                     </div>
                     <label for="buttons">'.$this->l('Buttons').' :</label>
                     <div class="margin-form">
@@ -156,7 +156,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="buttons" id="buttons_off" value="0" '.($responsiveConfiguration['BUTTONS'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Adds dropdown functionality for dropdown buttons and split buttons').' : <a target="_blank" href="http://foundation.zurb.com/docs/elements.php">foundation.zurb.com/docs/elements.php</a></p>
+                        <p>'.$this->l('Adds dropdown functionality for dropdown buttons and split buttons').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/elements.php">foundation.zurb.com/old-docs/f3/elements.php</a></p>
                     </div>
                     <label for="clearing">'.$this->l('Clearing').' :</label>
                     <div class="margin-form">
@@ -164,7 +164,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="clearing" id="clearing_off" value="0" '.($responsiveConfiguration['CLEARING'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('A new image gallery plugin').' : <a target="_blank" href="http://foundation.zurb.com/docs/clearing.php">foundation.zurb.com/docs/clearing.php</a></p>
+                        <p>'.$this->l('A new image gallery plugin').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/clearing.php">foundation.zurb.com/old-docs/f3/clearing.php</a></p>
                     </div>
                     <label for="forms">'.$this->l('Forms').' :</label>
                     <div class="margin-form">
@@ -172,7 +172,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="forms" id="forms_off" value="0" '.($responsiveConfiguration['FORMS'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Adds ability to create custom form elements').' : <a target="_blank" href="http://foundation.zurb.com/docs/forms.php">foundation.zurb.com/docs/forms.php</a></p>
+                        <p>'.$this->l('Adds ability to create custom form elements').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/forms.php">foundation.zurb.com/old-docs/f3/forms.php</a></p>
                     </div>
                     <label for="joyride">'.$this->l('Joyride').' :</label>
                     <div class="margin-form">
@@ -180,7 +180,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="joyride" id="joyride_off" value="0" '.($responsiveConfiguration['JOYRIDE'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('An awesome feature tour plugin').' : <a target="_blank" href="http://foundation.zurb.com/docs/joyride.php">foundation.zurb.com/docs/joyride.php</a></p>
+                        <p>'.$this->l('An awesome feature tour plugin').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/joyride.php">foundation.zurb.com/old-docs/f3/joyride.php</a></p>
                     </div>
                     <label for="magellan">'.$this->l('Magellan').' :</label>
                     <div class="margin-form">
@@ -188,7 +188,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="magellan" id="magellan_off" value="0" '.($responsiveConfiguration['MAGELLAN'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('A sweet sticky nav plugin').' : <a target="_blank" href="http://foundation.zurb.com/docs/magellan.php">foundation.zurb.com/docs/magellan.php</a></p>
+                        <p>'.$this->l('A sweet sticky nav plugin').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/magellan.php">foundation.zurb.com/old-docs/f3/magellan.php</a></p>
                     </div>
                     <label for="mediaquerytoggle">'.$this->l('Media query toggle').' :</label>
                     <div class="margin-form">
@@ -204,7 +204,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="navigation" id="navigation_off" value="0" '.($responsiveConfiguration['NAVIGATION'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Adds functionality to navigation elements').' : <a target="_blank" href="http://foundation.zurb.com/docs/navigation.php">foundation.zurb.com/docs/navigation.php</a></p>
+                        <p>'.$this->l('Adds functionality to navigation elements').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/navigation.php">foundation.zurb.com/old-docs/f3/navigation.php</a></p>
                     </div>
                     <label for="orbit">'.$this->l('Orbit').' :</label>
                     <div class="margin-form">
@@ -212,7 +212,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="orbit" id="orbit_off" value="0" '.($responsiveConfiguration['ORBIT'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('A custom image/content slider plugin').' : <a target="_blank" href="http://foundation.zurb.com/docs/orbit.php">foundation.zurb.com/docs/orbit.php</a></p>
+                        <p>'.$this->l('A custom image/content slider plugin').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/orbit.php">foundation.zurb.com/old-docs/f3/orbit.php</a></p>
                     </div>
                     <label for="reveal">'.$this->l('Reveal').' :</label>
                     <div class="margin-form">
@@ -220,7 +220,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="reveal" id="reveal_off" value="0" '.($responsiveConfiguration['REVEAL'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Our simple modal plugin').' : <a target="_blank" href="http://foundation.zurb.com/docs/reveal.php">foundation.zurb.com/docs/reveal.php</a></p>
+                        <p>'.$this->l('Our simple modal plugin').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/reveal.php">foundation.zurb.com/old-docs/f3/reveal.php</a></p>
                     </div>
                     <label for="tabs">'.$this->l('Tabs').' :</label>
                     <div class="margin-form">
@@ -228,7 +228,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="tabs" id="tabs_off" value="0" '.($responsiveConfiguration['TABS'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Adds toggle capability to tabs').' : <a target="_blank" href="http://foundation.zurb.com/docs/tabs.php">foundation.zurb.com/docs/tabs.php</a></p>
+                        <p>'.$this->l('Adds toggle capability to tabs').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/tabs.php">foundation.zurb.com/old-docs/f3/tabs.php</a></p>
                     </div>
                     <label for="tooltips">'.$this->l('Tool tips').' :</label>
                     <div class="margin-form">
@@ -236,7 +236,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="tooltips" id="tooltips_off" value="0" '.($responsiveConfiguration['TOOLTIPS'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Adds tooltips functionality').' : <a target="_blank" href="http://foundation.zurb.com/docs/elements.php">foundation.zurb.com/docs/elements.php</a></p>
+                        <p>'.$this->l('Adds tooltips functionality').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/elements.php">foundation.zurb.com/old-docs/f3/elements.php</a></p>
                     </div>
                     <label for="topbar">'.$this->l('Top bar').' :</label>
                     <div class="margin-form">
@@ -244,7 +244,7 @@ class ResponsiveExtension extends Module
                         <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
                         <input type="radio" name="topbar" id="topbar_off" value="0" '.($responsiveConfiguration['TOPBAR'] == 0 ? 'checked="checked"' : '').'>
                         <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
-                        <p>'.$this->l('Adds functionality for the top bar').' : <a target="_blank" href="http://foundation.zurb.com/docs/navigation.php">foundation.zurb.com/docs/navigation.php</a></p>
+                        <p>'.$this->l('Adds functionality for the top bar').' : <a target="_blank" href="http://foundation.zurb.com/old-docs/f3/navigation.php">foundation.zurb.com/old-docs/f3/navigation.php</a></p>
                     </div>
                     <label for="placeholder">'.$this->l('Placeholder').' :</label>
                     <div class="margin-form">

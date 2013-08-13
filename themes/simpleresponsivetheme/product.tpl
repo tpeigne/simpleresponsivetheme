@@ -442,15 +442,15 @@
             {if ($display_qties == 1 && !$PS_CATALOG_MODE && $product->available_for_order)}
             <p id="pQuantityAvailable"{if $product->quantity <= 0} style="display: none;"{/if}>
                 <span id="quantityAvailable">{$product->quantity|intval}</span>
-                <span {if $product->quantity > 1} style="display: none;"{/if} id="quantityAvailableTxt">{l s='item in stock'}</span>
-                <span {if $product->quantity == 1} style="display: none;"{/if} id="quantityAvailableTxtMultiple">{l s='items in stock'}</span>
+                <span {if $product->quantity > 1} style="display: none;"{/if} id="quantityAvailableTxt">{l s='Item in stock'}</span>
+                <span {if $product->quantity == 1} style="display: none;"{/if} id="quantityAvailableTxtMultiple">{l s='Items in stock'}</span>
             </p>
             {/if}
 
             <!-- Out of stock hook -->
-            <p id="oosHook"{if $product->quantity > 0} style="display: none;"{/if}>
+            <div id="oosHook"{if $product->quantity > 0} style="display: none;"{/if}>
                 {$HOOK_PRODUCT_OOS}
-            </p>
+            </div>
 
             <p class="warning_inline" id="last_quantities"{if ($product->quantity > $last_qties OR $product->quantity <= 0) OR $allow_oosp OR !$product->available_for_order OR $PS_CATALOG_MODE} style="display: none"{/if} >{l s='Warning: Last items in stock!'}</p>
         </div>
@@ -463,15 +463,15 @@
 {if (isset($quantity_discounts) && count($quantity_discounts) > 0)}
 <!-- quantity discount -->
 <ul class="idTabs clearfix">
-    <li><a href="#discount" style="cursor: pointer" class="selected">{l s='Quantity discount'}</a></li>
+	<li><a href="#discount" style="cursor: pointer" class="selected">{l s='Sliding scale pricing'}</a></li>
 </ul>
 <div id="quantityDiscount">
     <table class="std">
         <thead>
             <tr>
-                <th>{l s='product'}</th>
-                <th>{l s='from (qty)'}</th>
-                <th>{l s='discount'}</th>
+                <th>{l s='Product'}</th>
+                <th>{l s='From (qty)'}</th>
+                <th>{l s='Discount'}</th>
             </tr>
         </thead>
         <tbody>
@@ -592,7 +592,7 @@
                                     </div>
                                     {/if}
                                     <div class="customizationUploadBrowse">
-                                        <label class="customizationUploadBrowseDescription">{if !empty($field.name)}{$field.name}{else}{l s='Please select an image file from your hard drive'}{/if}{if $field.required}<sup>*</sup>{/if}</label>
+                                        <label class="customizationUploadBrowseDescription">{if !empty($field.name)}{$field.name}{else}{l s='Please select an image file from your computer'}{/if}{if $field.required}<sup>*</sup>{/if}</label>
                                         <input type="file" name="file{$field.id_customization_field}" id="img{$customizationField}" class="customization_block_input {if isset($pictures.$key)}filled{/if}" />
                                     </div>
                                 </li>
@@ -611,7 +611,7 @@
                         {if $field.type == 1}
                         <li class="customizationUploadLine{if $field.required} required{/if}">
                             <label for ="textField{$customizationField}">{assign var='key' value='textFields_'|cat:$product->id|cat:'_'|cat:$field.id_customization_field} {if !empty($field.name)}{$field.name}{/if}{if $field.required}<sup>*</sup>{/if}</label>
-                            <textarea type="text" name="textField{$field.id_customization_field}" id="textField{$customizationField}" rows="1" cols="40" class="customization_block_input" />{if isset($textFields.$key)}{$textFields.$key|stripslashes}{/if}</textarea>
+                            <textarea type="text" name="textField{$field.id_customization_field}" id="textField{$customizationField}" rows="1" cols="40" class="customization_block_input">{if isset($textFields.$key)}{$textFields.$key|stripslashes}{/if}</textarea>
                         </li>
                         {counter}
                         {/if}
@@ -634,13 +634,10 @@
     </div>
 </div>
 {/if}
-
 {if isset($packItems) && $packItems|@count > 0}
     <div id="blockpack">
         <h2>{l s='Pack content'}</h2>
         {include file="$tpl_dir./product-list.tpl" products=$packItems}
     </div>
 {/if}
-
 {/if}
-

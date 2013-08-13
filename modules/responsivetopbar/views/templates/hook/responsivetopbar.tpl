@@ -1,14 +1,13 @@
-<script type="text/javascript">
-var CUSTOMIZE_TEXTFIELD = {$CUSTOMIZE_TEXTFIELD};
-var img_dir = '{$img_dir}';
-var customizationIdMessage = '{l s='Customization #' mod='responsivetopbar' js=1}';
-var removingLinkText = '{l s='remove this product from my cart' mod='responsivetopbar' js=1}';
-var freeShippingTranslation = '{l s='Free shipping!' mod='responsivetopbar' js=1}';
-var freeProductTranslation = '{l s='Free!' mod='responsivetopbar' js=1}';
-var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
-</script>
-
 <div id="header_user">
+    <script type="text/javascript">
+        var CUSTOMIZE_TEXTFIELD = {$CUSTOMIZE_TEXTFIELD};
+        var img_dir = '{$img_dir}';
+        var customizationIdMessage = '{l s='Customization #' mod='responsivetopbar' js=1}';
+        var removingLinkText = '{l s='remove this product from my cart' mod='responsivetopbar' js=1}';
+        var freeShippingTranslation = '{l s='Free shipping!' mod='responsivetopbar' js=1}';
+        var freeProductTranslation = '{l s='Free!' mod='responsivetopbar' js=1}';
+        var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
+    </script>
     <div class="row">
         <p id="header_user_info" class="five columns hide-for-small">
             {l s='Welcome' mod='responsivetopbar'},
@@ -230,10 +229,11 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
             });
         </script>
 
+        <a id="sidebarButton" class="nav-open sidebar-button"  href="#sidebar"></a>
         <ul class="nav-bar show-for-small">
             <li class="has-flyout">
                 {if $logged}
-                    <a href="{$link->getPageLink('my-account.php', true)}" title="{l s='Your Account' mod='responsivetopbar'}"><span>{$cookie->customer_firstname} {$cookie->customer_lastname}</span> ({l s='Your Account' mod='responsivetopbar'})</a>
+                    <a href="{$link->getPageLink('my-account.php', true)}" title="{l s='Your Account' mod='responsivetopbar'}"><span>{$cookie->customer_firstname} {$cookie->customer_lastname}</span></a>
                 {else}
                     <a href="{$link->getPageLink('my-account.php', true)}">{l s='Welcome' mod='responsivetopbar'}, {l s='Log in' mod='responsivetopbar'}</a>
                 {/if}
@@ -296,11 +296,14 @@ var delete_txt = '{l s='Delete' mod='responsivetopbar' js=1}';
                     {/foreach}
                     {$langage_actif}
                     {$langage_inactif_all}
-                    <li>
-                        {if $logged}
+                    {if $logged}
+                        <li>
+                            <a href="{$link->getPageLink('my-account.php', true)}" title="{l s='Your Account' mod='responsivetopbar'}">{l s='Your Account' mod='responsivetopbar'}</a>
+                        </li>
+                        <li>
                             <a href="{$link->getPageLink('index.php')}?mylogout" title="{l s='Log me out' mod='responsivetopbar'}">{l s='Log out' mod='responsivetopbar'}</a>
-                        {/if}
-                    </li>
+                        </li>
+                    {/if}
                 </ul>
             </li>
         </ul>
