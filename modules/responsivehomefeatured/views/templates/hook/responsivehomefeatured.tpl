@@ -45,7 +45,7 @@
                     {/foreach}
                     </ul>
                 {else}
-                    <p class="twelve columns">{l s='No featured products' mod='responsivehomefeatured'}</p>
+                    <p>{l s='No featured products' mod='responsivehomefeatured'}</p>
                 {/if}
             </div>
         </div>

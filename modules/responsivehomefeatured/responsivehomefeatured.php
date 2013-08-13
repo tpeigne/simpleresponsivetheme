@@ -1,17 +1,17 @@
 <?php
 
 /**
-* ResponsiveHomeFeatured module for Prestashop, responsivehomefeaturedslider.php
-*
-* Created by Thomas Peigné (thomas.peigne@gmail.com)
-*/
+ * ResponsiveHomeFeatured module for Prestashop, responsivehomefeaturedslider.php
+ *
+ * Created by Thomas Peigné (thomas.peigne@gmail.com)
+ */
 
 if (!defined('_PS_VERSION_'))
-exit;
+    exit;
 
 /**
-* Class ResponsiveHomeFeatured
-*/
+ * Class ResponsiveHomeFeatured
+ */
 class ResponsiveHomeFeatured extends Module
 {
     private $_html = '';
@@ -20,7 +20,7 @@ class ResponsiveHomeFeatured extends Module
     {
         $this->name = 'responsivehomefeatured';
         $this->tab = 'front_office_features';
-        $this->version = '2.2';
+        $this->version = '2.3';
         $this->author = 'Thomas Peigné';
         $this->need_instance = 0;
 
@@ -76,9 +76,29 @@ class ResponsiveHomeFeatured extends Module
 
     public function getContent()
     {
-        $this->_html = '<h2>'.$this->displayName.'</h2><div style="display:none;" id="ajax_response"></div>';
+        $this->_html = '<h2>'.$this->displayName.'</h2>';
+        $this->session();
+        $this->displaySessionMessage();
 
-        if (Tools::isSubmit('submitAddHomeFeatured')) {
+        if (Tools::getIsset('action') && Tools::getValue('action') == 'delete') {
+            $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass((int)Tools::getValue('id'));
+
+            if ($responsiveHomeFeatured->delete()) {
+                if (ResponsiveHomeFeaturedClass::deleteHomeFeaturedProduct((int)Tools::getValue('id'))) {
+                    $_SESSION[$this->name]['message'] = $this->l('The category has been deleted');
+                    $_SESSION[$this->name]['type'] = 'confirm';
+
+                    Tools::redirectAdmin($this->getPageUrl());
+                } else {
+                    $_SESSION[$this->name]['message'] = $this->l('An error has occured while deleting the category');
+                    $_SESSION[$this->name]['type'] = 'error';
+
+                    Tools::redirectAdmin($this->getPageUrl());
+                }
+            }
+        }
+
+        if (Tools::isSubmit('addCategory')) {
             //check if this category already exist
             if (ResponsiveHomeFeaturedClass::existCategory((int)Tools::getValue('id_category'))) {
                 $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass(ResponsiveHomeFeaturedClass::getResponsiveHomeFeaturedId((int)Tools::getValue('id_category')));
@@ -92,24 +112,33 @@ class ResponsiveHomeFeatured extends Module
             $responsiveHomeFeatured->id_shop = $this->context->shop->id;
 
             if ($responsiveHomeFeatured->save()) {
-                //insert products
-                if (Tools::getIsset('product')) {
-                    $responsiveHomeFeatured->addProduct((int)Tools::getValue('product'));
-                    $this->_html .= '
-                    <div class="conf confirm">
-                        '.$this->l('The product in the category has been added.').'
-                    </div>';
-                } else {
-                    $this->_html .= '
-                    <div class="conf confirm">
-                        '.$this->l('The category has been added.').'
-                    </div>';
-                }
+                $_SESSION[$this->name]['message'] = $this->l('The category has been added');
+                $_SESSION[$this->name]['type'] = 'confirm';
+
+                Tools::redirectAdmin($this->getPageUrl());
             } else {
-                $this->_html .= '
-                <div class="conf error">
-                    '.$this->l('An error has occured during the addition of the product.').'
-                </div>';
+                $_SESSION[$this->name]['message'] = $this->l('An error has occurred during the category addition');
+                $_SESSION[$this->name]['type'] = 'error';
+
+                Tools::redirectAdmin($this->getPageUrl());
+            }
+        }
+
+        if (Tools::isSubmit('addProduct')) {
+            $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass((int)Tools::getValue('id_category'));
+
+            if (Tools::getIsset('id_product')) {
+                $responsiveHomeFeatured->addProduct((int)Tools::getValue('id_product'));
+
+                $_SESSION[$this->name]['message'] = $this->l('The product has been added to the category');
+                $_SESSION[$this->name]['type'] = 'confirm';
+
+                Tools::redirectAdmin($this->getPageUrl());
+            } else {
+                $_SESSION[$this->name]['message'] = $this->l('Error while adding the product to the category');
+                $_SESSION[$this->name]['type'] = 'error';
+
+                Tools::redirectAdmin($this->getPageUrl());
             }
         }
 
@@ -134,65 +163,92 @@ class ResponsiveHomeFeatured extends Module
             var msgProducts = "'.$this->l('No products found in this category').'";
         </script>
         <script type="text/javascript" src="'._PS_JS_DIR_.'jquery/plugins/jquery.tablednd.js"></script>
+        <link type="text/css" rel="stylesheet" href="'.$this->_path.'../responsiveextension/stylesheets/admin-common.css" />
         <link type="text/css" rel="stylesheet" href="'.$this->_path.'stylesheets/responsivehomefeatured.css" />
+        <script type="text/javascript" src="'.$this->_path.'../responsiveextension/javascripts/admin-common.js"></script>
         <script type="text/javascript" src="'.$this->_path.'javascripts/responsivehomefeatured.js"></script>
-        <a id="add_homefeatured" href=""><img src="../img/admin/add.gif" border="0"> '.$this->l('Add a category').'</a>
+        <button class="button dropdown" section="category-add"><span>'.$this->l('Add a category').'</span></button>
+        <button class="button dropdown" section="product-add"><span>'.$this->l('Add a product').'</span></button>
         ';
 
         $this->_html .= '
-        <form id="informations_link" style="'.(isset($homeFeatured) ? 'margin-top: 15px;' : 'display:none;margin-top: 15px;').'" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="post" enctype="multipart/form-data">
+        <form id="category-add" class="dropdown-content" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST">
             <fieldset style="margin-bottom:10px;">
-                <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Add a new category to your home page').'</legend>
+                <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Add a new category').'</legend>
                 <div>';
 
-                    //category
-                    $this->_html .= '
+        //category
+        $this->_html .= '
                     <div class="category_block">
                         <label for="id_category">'.$this->l('Choose your category :').'</label>
                         <div class="margin-form">
-                            <select name="id_category" id="id_category">';
-                            foreach(Category::getSimpleCategories($this->context->cookie->id_lang) as $categoryTemp){
-                                $this->_html .= '
+                            <select name="id_category" id="id_category" size="5">';
+        foreach(Category::getSimpleCategories($this->context->cookie->id_lang) as $categoryTemp){
+            $this->_html .= '
                                 <option value="'.$categoryTemp['id_category'].'" '.(isset($category) && $category->id == $categoryTemp['id_category'] ? 'selected="selected"' : '').'>'.$categoryTemp['name'].'</option>';
-                            }
+        }
 
-                            $this->_html .= '
+        $this->_html .= '
                             </select>
                         </div>
                     </div>';
 
-                    //products
-                    $this->_html .= '
-                    <div class="category_block">
-                        <label for="product">'.$this->l('Choose your product page :').'</label>
-                        <div class="margin-form">
-                            <select name="product" id="product">';
-                                $this->_html .= '
-                                <option value=""></option>';
-                            $this->_html .= '
-                            </select><p id="product_ajax" style="padding-top:5px;"></p>
-                        </div>
-                    </div>';
-
-                    //position
-                    $this->_html .= '
-                    <div class="position_block" style="display:none">
-                        <label for="position">'.$this->l('Position :').'</label>
-                        <div class="margin-form">
-                            <input type="text" size="1" name="position" class="required" id="position" value="'.(isset($homeFeatured->position) ? $homeFeatured->position : '').'"/>
-                        </div>
-                    </div>';
-
-                    $this->_html .= '
-                    <div class="margin-form">';
-                        if(isset($homeFeatured))
-                            $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="submitEditHomeFeatured" class="button">
-                                <input type="hidden" value="'.$homeFeatured->id.'" name="idHomeFeatured" class="button">';
-                        else
-                            $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="submitAddHomeFeatured" id="submitAddHomeFeatured" class="button">';
-
-                    $this->_html .= '
+        $this->_html .= '
+                    <div class="margin-form">
+                        <input type="submit" value="'.$this->l('Save').'" name="addCategory" class="button">
                     </div>
+                </div>
+            </fieldset>
+        </form>';
+
+        $this->_html .= '
+        <form id="product-add" class="dropdown-content" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST">
+            <fieldset style="margin-bottom:10px;">
+                <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Add a new product').'</legend>
+                <div>';
+
+        // get all responsivehomefeatured categories
+        $homeFeaturedCategories = ResponsiveHomeFeaturedClass::findAll();
+        if (empty($homeFeaturedCategories)) {
+            $this->_html .= '
+            <div class="warn">
+                '.$this->l('No responsive category found.').'
+            </div>
+            ';
+        } else {
+            //category
+            $this->_html .= '
+                        <div class="category_block">
+                            <label for="id_category">'.$this->l('Choose your category :').'</label>
+                            <div class="margin-form">
+                                <select name="id_category" id="id_category">';
+            foreach($homeFeaturedCategories as $responsiveCategory){
+                $psCategory = new Category($responsiveCategory->id_category, Context::getContext()->cookie->id_lang);
+                $this->_html .= '
+                                    <option value="'.$responsiveCategory->id.'">'.$psCategory->name.'</option>';
+            }
+
+            $this->_html .= '
+                                </select>
+                            </div>
+                        </div>';
+
+            // product
+            $this->_html .= '
+                        <div class="category_block">
+                            <label for="id_category">'.$this->l('Choose your product :').'</label>
+                            <div class="margin-form">
+                                <input type="text" id="product_auto" name="product_auto" size="50"/>
+                                <input type="hidden" id="id_product" name="id_product" />
+                            </div>
+                        </div>';
+
+            $this->_html .= '
+                        <div class="margin-form">
+                            <input type="submit" value="'.$this->l('Save').'" name="addProduct" class="button">
+                        </div>';
+        }
+        $this->_html .= '
                 </div>
             </fieldset>
         </form>';
@@ -213,13 +269,13 @@ class ResponsiveHomeFeatured extends Module
                 </thead>
                 <tbody>';
 
-                foreach(ResponsiveHomeFeaturedClass::findAll() as $responsiveHomeFeatured)
-                {
-                    $category = null;
-                    $category = new Category((int)$responsiveHomeFeatured->id_category, $this->context->cookie->id_lang);
-                    $productsResponsiveHomeFeaturedAll = $responsiveHomeFeatured->getProducts();
+        foreach(ResponsiveHomeFeaturedClass::findAll() as $responsiveHomeFeatured)
+        {
+            $category = null;
+            $category = new Category((int)$responsiveHomeFeatured->id_category, $this->context->cookie->id_lang);
+            $productsResponsiveHomeFeaturedAll = $responsiveHomeFeatured->getProducts();
 
-                    $this->_html .= '
+            $this->_html .= '
                     <tr id="'.$responsiveHomeFeatured->id.'">
                         <td class="center position"></td>
                         <td>
@@ -230,16 +286,16 @@ class ResponsiveHomeFeatured extends Module
                             <span><b>'.count($productsResponsiveHomeFeaturedAll).' '.(count($productsResponsiveHomeFeaturedAll) > 1 ? $this->l('products') : $this->l('product')).'</b></span>
                         </td>
                         <td class="center">';
-                        $this->_html .= '
-                            <a class="delete_homefeatured" href="#" id="'.$responsiveHomeFeatured->id.'" title="'.$this->l('Delete the category ?').'">
+            $this->_html .= '
+                            <a class="delete" href="'.$this->getPageUrl(array('id='.$responsiveHomeFeatured->id, 'action=delete')).'" id="'.$responsiveHomeFeatured->id.'" title="'.$this->l('Delete the category ?').'">
                                 <img src="../img/admin/delete.gif" alt="'.$this->l('Delete').'" alt="'.$this->l('Delete').'">
                             </a>
                         </td>
                     </tr>';
 
-                    foreach($productsResponsiveHomeFeaturedAll as $productsResponsiveHomeFeatured)
-                    {
-                        $this->_html .= '
+            foreach($productsResponsiveHomeFeaturedAll as $productsResponsiveHomeFeatured)
+            {
+                $this->_html .= '
                         <tr class="'.$responsiveHomeFeatured->id.'_product hidden subcategory nodrag nodrop">
                             <td class="center"></td>
                             <td>
@@ -250,21 +306,21 @@ class ResponsiveHomeFeatured extends Module
 
                             </td>
                             <td class="center">
-                                <a class="delete_homefeatured_product" href="#" urlajax="'.$this->_path.'ajax.php" id="'.$productsResponsiveHomeFeatured->id.'" title="'.$this->l('Delete the product ?').'">
+                                <a class="delete" href="'.$this->getPageUrl(array('id='.$productsResponsiveHomeFeatured->id, 'action=delete')).'" id="'.$productsResponsiveHomeFeatured->id.'" title="'.$this->l('Delete the product ?').'">
                                     <img src="../img/admin/delete.gif" alt="'.$this->l('Delete').'" alt="'.$this->l('Delete').'">
                                 </a>
                             </td>
                         </tr>';
-                    }
-                }
+            }
+        }
 
-                $this->_html .= '
+        $this->_html .= '
                 </tbody>
             </table>
         </fieldset>';
     }
 
-    public function hookHome($params)
+    public function hookHome()
     {
         $categoryList = array();
         $i = 0;
@@ -377,5 +433,41 @@ class ResponsiveHomeFeatured extends Module
         }
 
         return true;
+    }
+
+    protected function session() {
+        if(!session_id()) {
+            session_start();
+        }
+
+    }
+
+    protected function displaySessionMessage()
+    {
+        if (isset($_SESSION[$this->name]) && $_SESSION[$this->name]['message'] != '') {
+            $this->_html .= '
+                <div class="conf '.$_SESSION[$this->name]['type'].'">'.$_SESSION[$this->name]['message'].'</div>
+            ';
+
+            $_SESSION[$this->name]['message'] = '';
+            $_SESSION[$this->name]['type'] = '';
+        }
+    }
+
+    /**
+     * Generate the page url
+     *
+     * @param $params array of params
+     * @return string
+     */
+    function getPageUrl($params = array())
+    {
+        $moduleLink = 'index.php?controller=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&module_name='.$this->name.'';
+
+        if (!empty($params)) {
+            $moduleLink .= '&'.implode('&', $params);
+        }
+
+        return $moduleLink;
     }
 }
