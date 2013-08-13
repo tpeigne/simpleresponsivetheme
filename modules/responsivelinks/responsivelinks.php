@@ -16,7 +16,7 @@ class ResponsiveLinks extends Module
     {
         $this->name = 'responsivelinks';
         $this->tab = 'front_office_features';
-        $this->version = '2.3';
+        $this->version = '2.4';
         $this->author = 'Thomas Peigné';
         $this->need_instance = 0;
 
@@ -38,8 +38,6 @@ class ResponsiveLinks extends Module
         CREATE TABLE `'._DB_PREFIX_.'responsivelinks` (
         `id_responsivelinks` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
         `position` int(10) UNSIGNED NOT NULL,
-        `page_category` VARCHAR(50) NOT NULL,
-        `page_category_column` int(10) UNSIGNED NOT NULL,
         `id_category` int(10) UNSIGNED NOT NULL,
         `id_cms` int(10) UNSIGNED NOT NULL,
         `id_cms_category` int(10) UNSIGNED NOT NULL,
