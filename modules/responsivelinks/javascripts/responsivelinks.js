@@ -1,89 +1,25 @@
-$(window).load(function(){
-    var imgOnline = '../img/admin/enabled.gif';
-    var imgOffline = '../img/admin/disabled.gif';
+$(window).load(function() {
+    // Check and uncheck radio buttons automatically
+    $('.link-type input.link-option').click(function(){
+        // Disable all option
+        $('.link-type input.link-option-off').each(function() {
+            $(this).attr('checked', true);
 
-    $("#add_link").click(function (){
-        $("#informations_link").slideToggle("slow");
+            $(this).parent().parent().next('div').hide();
+        });
 
-        return false;
+        // But not this option
+        $(this).attr('checked', true);
+
+        // Show the element with link type
+        if ($(this).parent().children('input.link-option-off:checked').length == 1) {
+            $(this).parent().parent().next('div').hide();
+        } else {
+            $(this).parent().parent().next('div').show();
+        }
     });
 
-    //if category link
-    $('input[type=radio][name=iscategory]').click(function(){
-        if($('#iscategory_on:checked').length == 1){
-            $('.category_block').show();
-            $('#iscms_on, #iscmscategory_on ,#iscustom_on, #isproduct_on').attr('checked', false);
-            $('#iscms_off, #iscmscategory_off, #iscustom_off, #isproduct_off').attr('checked', true);
-        }
-
-        if($('#iscategory_off:checked').length == 1){
-            $('.category_block').hide();
-        }
-
-        $('.cms_block, .cmscategory_block, .custom_block, .product_block').hide();
-    });
-
-    //if cms link
-    $('input[type=radio][name=iscms]').click(function(){
-        if($('#iscms_on:checked').length == 1){
-            $('.cms_block').show();
-            $('#iscmscategory_on, #iscategory_on, #iscustom_on, #isproduct_on').attr('checked', false);
-            $('#iscmscategory_off, #iscategory_off, #iscustom_off, #isproduct_off').attr('checked', true);
-        }
-
-        if($('#iscms_off:checked').length == 1){
-            $('.cms_block').hide();
-        }
-
-        $('.category_block, .custom_block, .product_block, .cmscategory_block').hide();
-    });
-
-    //if cms category link
-    $('input[type=radio][name=iscmscategory]').click(function(){
-        if($('#iscmscategory_on:checked').length == 1){
-            $('.cmscategory_block').show();
-            $('#iscategory_on, #iscustom_on, #isproduct_on, #iscms_on').attr('checked', false);
-            $('#iscategory_off, #iscustom_off, #isproduct_off, #iscms_off').attr('checked', true);
-        }
-
-        if($('#iscmscategory_off:checked').length == 1){
-            $('.cmscategory_block').hide();
-        }
-
-        $('.category_block, .custom_block, .product_block, .cms_block').hide();
-    });
-
-    //if product link
-    $('input[type=radio][name=isproduct]').click(function(){
-        if($('#isproduct_on:checked').length == 1){
-            $('.product_block').show();
-            $('#iscategory_on, #iscustom_on, #iscmscategory_on, #iscms_on').attr('checked', false);
-            $('#iscategory_off, #iscustom_off, #iscmscategory_off, #iscms_off').attr('checked', true);
-        }
-
-        if($('#isproduct_off:checked').length == 1){
-            $('.product_block').hide();
-        }
-
-        $('.category_block, .custom_block, .cms_block, .cmscategory_block').hide();
-    });
-
-    //if custom link
-    $('input[type=radio][name=iscustom]').click(function(){
-        if($('#iscustom_on:checked').length == 1){
-            $('.custom_block').show();
-            $('#iscms_on, #iscmscategory_on, #iscategory_on, #isproduct_on').attr('checked', false);
-            $('#iscms_off, #iscmscategory_off,  #iscategory_off, #isproduct_off').attr('checked', true);
-        }
-
-        if($('#iscustom_off:checked').length == 1){
-            $('.custom_block').hide();
-        }
-
-        $('.category_block, .cms_block, .cmscategory_block, .product_block').hide();
-    });
-
-    //if parent link
+    // Check option click for parent link
     $('input[type=radio][name=isparent]').click(function(){
         if($('#isparent_on:checked').length == 1){
             $('.parent_block').show();
@@ -94,58 +30,36 @@ $(window).load(function(){
         }
     });
 
-    $('.toggle_sub_categories').click(function(){
-        var idParent = $(this).parent().parent().attr('id');
-        $('.'+idParent).toggle();
-
-        return false;
-    });
-
-    /** Ajax request to delete a slide **/
-    $('.delete_link').click( function() {
-        var lien = $(this);
-        var confirmation = confirm(lien.attr('title'));
-
-        if(confirmation == true){
-            var xhr = $.ajax({
-                type: 'POST',
-                url: lien.attr("urlajax"),
-                data: 'idLink='+lien.attr('id')+'&action=deleteLink',
-                success: function(data) {
-                    $('#ajax_response').html(data).slideDown(500);
-                    var idLink = lien.parent().parent().attr('id').split('node-');
-                    //delete all the sub links for this link
-                    deleteSubLinks(idLink[1]);
-                    lien.parent().parent().remove();
-                }
-            });
-        }
-
-        return false;
-    });
-
-    function deleteSubLinks(idLink){
-        //get all sub links from parent
-        var subLinks = $('.child-of-node-'+idLink);
-        //foreach sub link, delete the link and his sublinks
-        $(subLinks).each(function(){
-            var idSubLink = $(this).attr('id').split('node-');
-            deleteSubLinks(idSubLink[1]);
-            $(this).remove();
-        });
-    }
-
-    /** link edition **/
-    $("a.editLink").click(function () {
+    // Edition of a link
+    /*$("a.editLink").click(function () {
         $(this).next('form').submit();
 
         return false;
-    });
+    });*/
 
     $('#links').find('td.position').each(function(i) {
         $(this).html(i+1);
     });
 
+    // Ajax request for product search
+    $('#product_auto')
+    .autocomplete('ajax_products_list.php', {
+        minChars: 1,
+        autoFill: true,
+        max:20,
+        matchContains: true,
+        mustMatch:true,
+        scroll:false,
+        cacheLength:0,
+        multipleSeparator:'||',
+        formatItem: function(item) {
+            return item[1]+' - '+item[0];
+        }
+    }).result(function(event, item){
+        $('#product').val(item[1]);
+    });
+
+    // Dynamic ajax position update
     $('table.tableDnD').tableDnD({
         onDragStart: function(table, row) {
             originalOrder = $.tableDnD.serialize();

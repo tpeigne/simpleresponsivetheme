@@ -165,15 +165,16 @@ class ResponsiveHomeFeatured extends Module
         <script type="text/javascript" src="'._PS_JS_DIR_.'jquery/plugins/jquery.tablednd.js"></script>
         <link type="text/css" rel="stylesheet" href="'.$this->_path.'../responsiveextension/stylesheets/admin-common.css" />
         <link type="text/css" rel="stylesheet" href="'.$this->_path.'stylesheets/responsivehomefeatured.css" />
+
         <script type="text/javascript" src="'.$this->_path.'../responsiveextension/javascripts/admin-common.js"></script>
         <script type="text/javascript" src="'.$this->_path.'javascripts/responsivehomefeatured.js"></script>
+
         <button class="button dropdown" section="category-add"><span>'.$this->l('Add a category').'</span></button>
-        <button class="button dropdown" section="product-add"><span>'.$this->l('Add a product').'</span></button>
-        ';
+        <button class="button dropdown" section="product-add"><span>'.$this->l('Add a product').'</span></button>';
 
         $this->_html .= '
         <form id="category-add" class="dropdown-content" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST">
-            <fieldset style="margin-bottom:10px;">
+            <fieldset>
                 <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Add a new category').'</legend>
                 <div>';
 
@@ -203,7 +204,7 @@ class ResponsiveHomeFeatured extends Module
 
         $this->_html .= '
         <form id="product-add" class="dropdown-content" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST">
-            <fieldset style="margin-bottom:10px;">
+            <fieldset>
                 <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Add a new product').'</legend>
                 <div>';
 
@@ -240,6 +241,7 @@ class ResponsiveHomeFeatured extends Module
                             <div class="margin-form">
                                 <input type="text" id="product_auto" name="product_auto" size="50"/>
                                 <input type="hidden" id="id_product" name="id_product" />
+                                <p class="clear">'.$this->l('Type to search products').'</p>
                             </div>
                         </div>';
 
@@ -254,7 +256,7 @@ class ResponsiveHomeFeatured extends Module
         </form>';
 
         $this->_html .= '
-        <fieldset style="margin-top: 15px;">
+        <fieldset>
             <legend><img src="../img/admin/tab-preferences.gif" class="middle"> '.$this->l('Manage your categories').'</legend>
             <p>'.$this->l('Edit your categories.').'</p>
             <hr>

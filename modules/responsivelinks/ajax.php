@@ -6,31 +6,6 @@ include_once('responsivelinks.php');
 
 $responsiveLinks = new ResponsiveLinks();
 
-if (Tools::getValue('action') == 'deleteLink') {
-    $link = new ResponsiveLinksClass(Tools::getValue('idLink'));
-    $response = '';
-
-    //delete all the sub links for this link
-    if(!$link->deleteSubLinks()) {
-        return false;
-    }
-
-    if ($link->delete()) {
-        $response = '
-        <div class="conf confirm">
-            '.$responsiveLinks->l('Links have been deleted').'
-        </div>';
-    } else {
-        $response = '
-        <div class="conf error">
-            '.$responsiveLinks->l('An error occurred while deleting links').'
-        </div>';
-    }
-
-    echo $response;
-    exit();
-}
-
 if (Tools::getValue('action') == 'updatePositionLinks') {
     $idLink = explode('node-', Tools::getValue('id_link'));
     $responsiveLinks = new ResponsiveLinksClass($idLink[1]);

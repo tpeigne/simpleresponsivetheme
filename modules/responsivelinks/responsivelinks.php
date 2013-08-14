@@ -79,14 +79,39 @@ class ResponsiveLinks extends Module
 
     public function getContent()
     {
+        $this->_html = '<h2>'.$this->displayName.'</h2>';
+        $this->session();
+        $this->displaySessionMessage();
 
-        $this->_html = '<h2>'.$this->displayName.'</h2><div style="display:none;" id="ajax_response"></div>';
+        // Check if we are deleting the link
+        if (Tools::getIsset('action') && Tools::getValue('action') == 'delete') {
+            $link = new ResponsiveLinksClass((int)Tools::getValue('id'));
 
-        $this->context->customer->firstname;
+            // Delete all the sub links for this link
+            if (!$link->deleteSubLinks()) {
+                $_SESSION[$this->name]['message'] = $this->l('An error has occured while deleting sublinks of the link');
+                $_SESSION[$this->name]['type'] = 'error';
 
-        /* LINK EDITION */
-        if (Tools::isSubmit('submitEditlink')) {
-            $linkResponsive = new ResponsiveLinksClass(Tools::getValue('idLink'));
+                Tools::redirectAdmin($this->getPageUrl());
+            } else {
+                // After deleting sublinks, we delete the link
+                if ($link->delete()) {
+                    $_SESSION[$this->name]['message'] = $this->l('The link has been deleted');
+                    $_SESSION[$this->name]['type'] = 'confirm';
+
+                    Tools::redirectAdmin($this->getPageUrl());
+                } else {
+                    $_SESSION[$this->name]['message'] = $this->l('An error has occured while deleting the link');
+                    $_SESSION[$this->name]['type'] = 'error';
+
+                    Tools::redirectAdmin($this->getPageUrl());
+                }
+            }
+        }
+
+        // Check if we are editing the link
+        if (Tools::isSubmit('editLink')) {
+            $linkResponsive = new ResponsiveLinksClass(Tools::getValue('id'));
             $linkResponsive->copyFromPost();
 
             if ((int)Tools::getValue('iscategory') == 1) {
@@ -110,16 +135,15 @@ class ResponsiveLinks extends Module
             }
 
             if ($linkResponsive->save()) {
-                $this->_html .= '
-                <div class="conf confirm">
-                    '.$this->l('The link has been updated.').'
-                </div>';
+                $_SESSION[$this->name]['message'] = $this->l('The link has been updated');
+                $_SESSION[$this->name]['type'] = 'confirm';
+
+                Tools::redirectAdmin($this->getPageUrl());
             } else {
-                $this->_html .= '
-                <div class="conf error">
-                    <img src="../img/admin/disabled.gif" alt="" title="" />
-                    '.$this->l('An error has occured during the update of the link.').'
-                </div>';
+                $_SESSION[$this->name]['message'] = $this->l('An error has occured during the update of the link');
+                $_SESSION[$this->name]['type'] = 'error';
+
+                Tools::redirectAdmin($this->getPageUrl());
             }
 
             //after the addition, update the parent child id
@@ -132,10 +156,9 @@ class ResponsiveLinks extends Module
                     return false;
             }
         }
-        /* END LINK EDITION */
 
-        /* LINK ADDITION */
-        if (Tools::isSubmit('submitAddLink')) {
+        // Check if we are adding the link
+        if (Tools::isSubmit('addLink')) {
             $linkResponsive = new ResponsiveLinksClass();
             $linkResponsive->copyFromPost();
             $linkResponsive->position = ResponsiveLinksClass::getMaxPosition();
@@ -161,15 +184,15 @@ class ResponsiveLinks extends Module
             }
 
             if ($linkResponsive->save()) {
-                $this->_html .= '
-                <div class="conf confirm">
-                    '.$this->l('The link has been added.').'
-                </div>';
+                $_SESSION[$this->name]['message'] = $this->l('The link has been added');
+                $_SESSION[$this->name]['type'] = 'confirm';
+
+                Tools::redirectAdmin($this->getPageUrl());
             } else {
-                $this->_html .= '
-                <div class="conf error">
-                    '.$this->l('An error has occured during the addition of the link.').'
-                </div>';
+                $_SESSION[$this->name]['message'] = $this->l('An error has occured during the addition of the link');
+                $_SESSION[$this->name]['type'] = 'error';
+
+                Tools::redirectAdmin($this->getPageUrl());
             }
 
             //after the addition, update the parent child id
@@ -182,7 +205,6 @@ class ResponsiveLinks extends Module
                     return false;
             }
         }
-        /* END LINK ADDITION */
 
         $this->_displayForm();
 
@@ -197,8 +219,8 @@ class ResponsiveLinks extends Module
         $product = null;
         $custom = null;
 
-        if (Tools::getIsset('action') && Tools::getIsset('action') == 'editLink') {
-            $responsiveLink = new ResponsiveLinksClass((int)Tools::getValue('idLink'));
+        if (Tools::getIsset('action') && Tools::getValue('action') == 'edit') {
+            $responsiveLink = new ResponsiveLinksClass((int)Tools::getValue('id'));
 
             if($responsiveLink->id_category <> 0)
                 $category = new Category((int)$responsiveLink->id_category, $this->context->cookie->id_lang);
@@ -221,46 +243,48 @@ class ResponsiveLinks extends Module
         <script type="text/javascript">
             var urlAjaxModule = "'._PS_BASE_URL_.$this->_path.'ajax.php";
         </script>
-        <link type="text/css" rel="stylesheet" href="'.$this->_path.'css/jquery.treeTable.css" />
-        <link type="text/css" rel="stylesheet" href="'.$this->_path.'css/responsivelinks.css" />
+        <link type="text/css" rel="stylesheet" href="'.$this->_path.'../responsiveextension/stylesheets/admin-common.css" />
+        <link type="text/css" rel="stylesheet" href="'.$this->_path.'stylesheets/jquery.treeTable.css" />
+        <link type="text/css" rel="stylesheet" href="'.$this->_path.'stylesheets/responsivelinks.css" />
 
+        <script type="text/javascript" src="'.$this->_path.'../responsiveextension/javascripts/admin-common.js"></script>
         <script type="text/javascript" src="'._PS_JS_DIR_.'jquery/plugins/jquery.tablednd.js"></script>
         <script type="text/javascript" src="'.$this->_path.'javascripts/jquery.treeTable.js"></script>
         <script type="text/javascript" src="'.$this->_path.'javascripts/responsivelinks.js"></script>
-        <script type="text/javascript">id_language = Number('.$defaultLanguage.');</script>
-        <a id="add_link" href=""><img src="../img/admin/add.gif" border="0"> '.$this->l('Add a link').'</a>
-        <div class="clear">&nbsp;</div>';
+        <script type="text/javascript">id_language = Number('.$defaultLanguage.');</script>';
 
-        if(isset($responsiveLink))
+        if(isset($responsiveLink)) {
             $this->_html .= '
-            <form id="informations_link" ';
-        else
+            <a href="'.$this->getPageUrl(array('action=newlink')).'" class="button"><span>'.$this->l('New link').'</span></a>
+            <form id="link-form" style="display:block;"';
+        } else {
             $this->_html .= '
-            <form id="informations_link" style="display:none;" ';
-
+            <button class="button dropdown" section="link-form"><span>'.$this->l('Add a link').'</span></button>
+            <form id="link-form" '.((Tools::getIsset('action') && Tools::getValue('action') == 'newlink') ? 'style="display:block;"' : '' ).'';
+        }
 
         $this->_html .= '
-            action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="post" enctype="multipart/form-data">
-            <fieldset style="margin-bottom:10px;">
+            class="dropdown-content" action="'.$this->getPageUrl().'" method="post" enctype="multipart/form-data">
+            <fieldset>
                 <legend><img src="../img/admin/information.png" class="middle"> '.$this->l('Add a new link to your link bar').'</legend>
-                <div>';
+                <div class="link-type">';
 
         // category ou non
         $this->_html .= '
                     <div class="category_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscategory">'.$this->l('Is a category link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscategory" id="iscategory_on" value="1" '.(isset($category) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscategory" class="link-option link-option-on" value="1" '.(isset($category) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscategory" id="iscategory_off" value="0" '.(isset($category) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscategory" class="link-option link-option-off" value="0" '.(isset($category) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
-                    </div>
+                    </div class="link-type">
 
                     <div class="category_block '.(isset($category) ? 'active' : '' ).'">
                         <label for="category">'.$this->l('Choose your category page :').'</label>
                         <div class="margin-form">
-                            <select name="category" id="category">';
+                            <select name="category" id="category" size="5">';
         foreach(Category::getSimpleCategories($this->context->cookie->id_lang) as $categoryTemp)
         {
             $this->_html .= '
@@ -277,9 +301,9 @@ class ResponsiveLinks extends Module
                     <div class="cms_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscms">'.$this->l('Is a CMS link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscms" id="iscms_on" value="1" '.(isset($cms) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscms" class="link-option link-option-on" value="1" '.(isset($cms) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscms" id="iscms_off" value="0" '.(isset($cms) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscms" class="link-option link-option-off" value="0" '.(isset($cms) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>
@@ -287,7 +311,7 @@ class ResponsiveLinks extends Module
                     <div class="cms_block '.(isset($cms) ? 'active' : '' ).'">
                         <label for="cms">'.$this->l('Choose your CMS page :').'</label>
                         <div class="margin-form">
-                            <select name="cms" id="cms">';
+                            <select name="cms" id="cms"  size="5">';
         foreach(CMS::listCms($this->context->cookie->id_lang) as $cmsTemp)
         {
             $this->_html .= '
@@ -304,9 +328,9 @@ class ResponsiveLinks extends Module
                     <div class="cmscategory_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscmscategory">'.$this->l('Is a CMS category link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscmscategory" id="iscmscategory_on" value="1" '.(isset($cmsCategory) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscmscategory" class="link-option link-option-on" value="1" '.(isset($cmsCategory) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscmscategory" id="iscmscategory_off" value="0" '.(isset($cmsCategory) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscmscategory" class="link-option link-option-off" value="0" '.(isset($cmsCategory) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>
@@ -314,7 +338,7 @@ class ResponsiveLinks extends Module
                     <div class="cmscategory_block '.(isset($cmsCategory) ? 'active' : '' ).'">
                         <label for="cms">'.$this->l('Choose your CMS Category page :').'</label>
                         <div class="margin-form">
-                            <select name="cmscategory" id="cmscategory">';
+                            <select name="cmscategory" id="cmscategory" size="5">';
         foreach(CMSCategory::getSimpleCategories($this->context->cookie->id_lang) as $cmsCategoryTemp)
         {
             $this->_html .= '
@@ -331,9 +355,9 @@ class ResponsiveLinks extends Module
                     <div class="product_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="isproduct">'.$this->l('Is a product link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="isproduct" id="isproduct_on" value="1" '.(isset($product) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="isproduct" class="link-option link-option-on" value="1" '.(isset($product) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="isproduct" id="isproduct_off" value="0" '.(isset($product) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="isproduct" class="link-option link-option-off" value="0" '.(isset($product) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>
@@ -341,15 +365,9 @@ class ResponsiveLinks extends Module
                     <div class="product_block '.(isset($product) ? 'active' : '' ).'">
                         <label for="product">'.$this->l('Choose your product page :').'</label>
                         <div class="margin-form">
-                            <select name="product" id="product">';
-        foreach(Product::getSimpleProducts($this->context->cookie->id_lang) as $productTemp)
-        {
-            $this->_html .= '
-                                <option value="'.$productTemp['id_product'].'" '.(isset($product) && $product->id == $productTemp['id_product'] ? 'selected="selected"' : '').'>'.$productTemp['name'].'</option>';
-        }
-
-        $this->_html .= '
-                            </select>
+                            <input type="text" id="product_auto" name="product_auto" size="50"/>
+                            <input type="hidden" id="product" name="product" />
+                            <p class="clear">'.$this->l('Type to search products').'</p>
                         </div>
                     </div>';
 
@@ -368,7 +386,7 @@ class ResponsiveLinks extends Module
                     <div class="parent_block">
                         <label for="parent">'.$this->l('Choose your Parent link :').'</label>
                         <div class="margin-form">
-                            <select name="parent" id="parent">';
+                            <select name="parent" id="parent" size="5">';
         /** @var $parentTemp ResponsiveLinksClass */
         foreach(ResponsiveLinksClass::findAll($this->context->cookie->id_lang) as $parentTemp)
         {
@@ -403,9 +421,9 @@ class ResponsiveLinks extends Module
                     <div class="custom_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscustom">'.$this->l('Is a custom link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscustom" id="iscustom_on" value="1" '.(isset($custom) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscustom" class="link-option link-option-on" value="1" '.(isset($custom) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscustom" id="iscustom_off" value="0" '.(isset($custom) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscustom" class="link-option link-option-off" value="0" '.(isset($custom) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>';
@@ -447,11 +465,11 @@ class ResponsiveLinks extends Module
 
         $this->_html .= '
                         <div class="margin-form">';
-        if(Tools::getIsset('action') && Tools::getIsset('action') == 'editLink')
-            $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="submitEditlink" class="button">
-                                    <input type="hidden" value="'.$responsiveLink->id.'" name="idLink" class="button">';
+        if(Tools::getIsset('action') && Tools::getIsset('action') == 'edit')
+            $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="editLink" class="button">
+                                    <input type="hidden" value="'.$responsiveLink->id.'" name="id" class="button">';
         else
-            $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="submitAddLink" class="button">';
+            $this->_html .= '<input type="submit" value="'.$this->l('Save').'" name="addLink" class="button">';
 
         $this->_html .= '
                     </div>
@@ -511,14 +529,10 @@ class ResponsiveLinks extends Module
             $this->_html .= '
                         </td>
                         <td class="center">
-                            <a class="editLink" href="" title="'.$this->l('Edit').'">
+                            <a href="'.$this->getPageUrl(array('id='.$responsiveLink->id, 'action=edit')).'" title="'.$this->l('Edit').'">
                                 <img src="../img/admin/edit.gif" alt="'.$this->l('Edit').'" alt="'.$this->l('Edit').'">
                             </a>
-                            <form style="display: none;" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST">
-                                <input type="hidden" name="action" value="editLink">
-                                <input type="hidden" name="idLink" value="'.$responsiveLink->id.'">
-                            </form>
-                            <a class="delete_link" href="#" urlajax="'.$this->_path.'ajax.php" id="'.$responsiveLink->id.'" title="'.$this->l('Delete the link ?').'">
+                            <a class="delete" href="'.$this->getPageUrl(array('id='.$responsiveLink->id, 'action=delete')).'" id="'.$responsiveLink->id.'" title="'.$this->l('Delete the link ?').'">
                                 <img src="../img/admin/delete.gif" alt="'.$this->l('Delete').'" alt="'.$this->l('Delete').'">
                             </a>
                         </td>
@@ -527,16 +541,16 @@ class ResponsiveLinks extends Module
             $this->getSubLinks($responsiveLink->id, $this->context->cookie->id_lang);
         }
 
-        /*$this->_html .= '
+        $this->_html .= '
                 </tbody>
             </table>
         </fieldset>
 
-        <fieldset style="margin-top:15px;">
+        <!--<fieldset>
             <legend><img src="../img/admin/tab-preferences.gif" class="middle"> '.$this->l('Manage your footer links').'</legend>
             <p>'.$this->l('Edit your footer links with the edit button and save it.').'</p>
             <hr>
-        </fieldset>';*/
+        </fieldset>-->';
     }
 
     private function getSubLinks($id_parent, $id_lang){
@@ -575,14 +589,10 @@ class ResponsiveLinks extends Module
             $this->_html .= '
                     </td>
                     <td class="center">
-                            <a class="editLink" href="" title="'.$this->l('Edit').'">
+                            <a href="'.$this->getPageUrl(array('id='.$responsiveSubLink->id, 'action=edit')).'" title="'.$this->l('Edit').'">
                                 <img src="../img/admin/edit.gif" alt="'.$this->l('Edit').'" alt="'.$this->l('Edit').'">
                             </a>
-                            <form style="display: none;" action="'.Tools::safeOutput($_SERVER['REQUEST_URI']).'" method="POST">
-                                <input type="hidden" name="action" value="editLink">
-                                <input type="hidden" name="idLink" value="'.$responsiveSubLink->id.'">
-                            </form>
-                            <a class="delete_link" href="#" urlajax="'.$this->_path.'ajax.php" id="'.$responsiveSubLink->id.'" title="'.$this->l('Delete the link ?').'">
+                            <a class="delete" href="'.$this->getPageUrl(array('id='.$responsiveSubLink->id, 'action=delete')).'" id="'.$responsiveSubLink->id.'" title="'.$this->l('Delete the link ?').'">
                                 <img src="../img/admin/delete.gif" alt="'.$this->l('Delete').'" alt="'.$this->l('Delete').'">
                             </a>
                         </td>
@@ -836,5 +846,41 @@ class ResponsiveLinks extends Module
         }
 
         $contactLink->save();
+    }
+
+    protected function session() {
+        if(!session_id()) {
+            session_start();
+        }
+
+    }
+
+    protected function displaySessionMessage()
+    {
+        if (isset($_SESSION[$this->name]) && $_SESSION[$this->name]['message'] != '') {
+            $this->_html .= '
+                <div class="conf '.$_SESSION[$this->name]['type'].'">'.$_SESSION[$this->name]['message'].'</div>
+            ';
+
+            $_SESSION[$this->name]['message'] = '';
+            $_SESSION[$this->name]['type'] = '';
+        }
+    }
+
+    /**
+     * Generate the page url
+     *
+     * @param $params array of params
+     * @return string
+     */
+    function getPageUrl($params = array())
+    {
+        $moduleLink = 'index.php?controller=AdminModules&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&module_name='.$this->name.'';
+
+        if (!empty($params)) {
+            $moduleLink .= '&'.implode('&', $params);
+        }
+
+        return $moduleLink;
     }
 }

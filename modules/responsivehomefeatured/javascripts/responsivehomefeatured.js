@@ -1,14 +1,4 @@
-$(window).load(function(){
-    $('.delete').click( function() {
-        var confirmation = confirm($(this).attr('title'));
-
-        if(confirmation == true){
-            return true;
-        }
-
-        return false;
-    });
-
+$(window).load(function() {
     // Ajax request for product search
     $('#product_auto')
     .autocomplete('ajax_products_list.php', {
