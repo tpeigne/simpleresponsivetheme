@@ -20,45 +20,47 @@
         </p>
         <div class="seven columns hide-for-small header_user_right">
             <ul id="header_nav" class="clearfix">
-                <li id="first_languages">
-                    {assign var=langage_inactif_all value=""}
-                    {foreach from=$languages key=k item=language name="languages"}
-                        {assign var=indice_lang value=$language.id_lang}
-                        {if $language.iso_code == $lang_iso}
-                            {capture name='langage' assign='langage_actif'}
-                                {if isset($lang_rewrite_urls.$indice_lang)}
-                                    <a href="{$lang_rewrite_urls.$indice_lang|escape:htmlall}" title="{$language.name}">
-                                        <img src="{$img_lang_dir}{$language.id_lang}.jpg" alt="{$language.iso_code}" width="16" height="11" /> {$language.name}
-                                    </a>
-                                {else}
-                                    <a href="{$link->getLanguageLink($language.id_lang)|escape:htmlall}" title="{$language.name}">
-                                        <img src="{$img_lang_dir}{$language.id_lang}.jpg" alt="{$language.iso_code}" width="16" height="11" /> {$language.name}
-                                    </a>
-                                {/if}
-                            {/capture}
-                        {else}
-                            {capture name='langage' assign='langage_inactif'}
-                                {if $language.iso_code != $lang_iso}
+                {if $languages|count > 1}
+                    <li id="first_languages">
+                        {assign var=langage_inactif_all value=""}
+                        {foreach from=$languages key=k item=language name="languages"}
+                            {assign var=indice_lang value=$language.id_lang}
+                            {if $language.iso_code == $lang_iso}
+                                {capture name='langage' assign='langage_actif'}
                                     {if isset($lang_rewrite_urls.$indice_lang)}
-                                        <li><a href="{$lang_rewrite_urls.$indice_lang|escape:htmlall}" title="{$language.name}">
+                                        <a href="{$lang_rewrite_urls.$indice_lang|escape:htmlall}" title="{$language.name}">
                                             <img src="{$img_lang_dir}{$language.id_lang}.jpg" alt="{$language.iso_code}" width="16" height="11" /> {$language.name}
-                                        </a></li>
+                                        </a>
                                     {else}
-                                        <li><a href="{$link->getLanguageLink($language.id_lang)|escape:htmlall}" title="{$language.name}">
+                                        <a href="{$link->getLanguageLink($language.id_lang)|escape:htmlall}" title="{$language.name}">
                                             <img src="{$img_lang_dir}{$language.id_lang}.jpg" alt="{$language.iso_code}" width="16" height="11" /> {$language.name}
-                                        </a></li>
+                                        </a>
                                     {/if}
-                                {/if}
-                            {/capture}
+                                {/capture}
+                            {else}
+                                {capture name='langage' assign='langage_inactif'}
+                                    {if $language.iso_code != $lang_iso}
+                                        {if isset($lang_rewrite_urls.$indice_lang)}
+                                            <li><a href="{$lang_rewrite_urls.$indice_lang|escape:htmlall}" title="{$language.name}">
+                                                <img src="{$img_lang_dir}{$language.id_lang}.jpg" alt="{$language.iso_code}" width="16" height="11" /> {$language.name}
+                                            </a></li>
+                                        {else}
+                                            <li><a href="{$link->getLanguageLink($language.id_lang)|escape:htmlall}" title="{$language.name}">
+                                                <img src="{$img_lang_dir}{$language.id_lang}.jpg" alt="{$language.iso_code}" width="16" height="11" /> {$language.name}
+                                            </a></li>
+                                        {/if}
+                                    {/if}
+                                {/capture}
 
-                            {assign var="langage_inactif_all" value=$langage_inactif_all|cat:$langage_inactif}
+                                {assign var="langage_inactif_all" value=$langage_inactif_all|cat:$langage_inactif}
+                            {/if}
+                        {/foreach}
+                        {$langage_actif}
+                        {if $languages|count > 0}
+                            <ul class="other_languages">{$langage_inactif_all}</ul>
                         {/if}
-                    {/foreach}
-                    {$langage_actif}
-                    {if $languages|count > 0}
-                        <ul class="other_languages">{$langage_inactif_all}</ul>
-                    {/if}
-                </li>
+                    </li>
+                {/if}
                 <li id="your_account"><a href="{$link->getPageLink('my-account.php', true)}" title="{l s='Your Account' mod='responsivetopbar'}">{l s='Your Account' mod='responsivetopbar'}</a></li>
 
                 {if !$PS_CATALOG_MODE}
