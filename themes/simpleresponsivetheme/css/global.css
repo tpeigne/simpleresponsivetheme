@@ -182,6 +182,9 @@ ul.footer_links li .icon {
     margin-top: 5px;
     margin-bottom: 0;
 }
+#productsSortForm .custom.dropdown {
+    float: left;
+}
 .sortPagiBar .selectProductSort {
     float : left;
     width: auto;
@@ -1696,6 +1699,15 @@ tr.subitem > td:first-child + td {
 }
 
 /* Forms design */
+
+form.custom.custom_resp div.custom.dropdown {
+    width: 100% !important;
+    text-align: left;
+}
+
+form.custom.custom_resp div.custom.dropdown.open ul {
+    width: 100% !important;
+}
 
 .reveal-modal{
     -webkit-border-radius: 5px;

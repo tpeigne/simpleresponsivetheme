@@ -38,7 +38,7 @@
                 </ul>
             {/if}
             {if $form_list}
-                <form action="{$smarty.server.SCRIPT_NAME|escape:'htmlall':'UTF-8'}" method="get">
+                <form action="{$smarty.server.SCRIPT_NAME|escape:'htmlall':'UTF-8'}" method="get" class="custom custom_resp">
                     <p>
                         <select id="manufacturer_list" onchange="autoUrl('manufacturer_list', '');">
                             <option value="0">{l s='All manufacturers' mod='blockmanufacturer'}</option>

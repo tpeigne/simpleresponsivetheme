@@ -54,7 +54,7 @@ $(document).ready(function()
 //]]>
 </script>
 
-<form id="productsSortForm" action="{$request|escape:'htmlall':'UTF-8'}">
+<form id="productsSortForm" action="{$request|escape:'htmlall':'UTF-8'}" class="custom">
     <p class="select">
         <label for="selectPrductSort">{l s='Sort by'}</label>
         <select id="selectPrductSort" class="selectProductSort">
