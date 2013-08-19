@@ -135,7 +135,7 @@ class ResponsiveHomeFeatured extends Module
 
                 Tools::redirectAdmin($this->getPageUrl());
             } else {
-                $_SESSION[$this->name]['message'] = $this->l('Error while adding the product to the category');
+                $_SESSION[$this->name]['message'] = $this->l('An error has occured while adding the product to the category');
                 $_SESSION[$this->name]['type'] = 'error';
 
                 Tools::redirectAdmin($this->getPageUrl());
@@ -241,7 +241,7 @@ class ResponsiveHomeFeatured extends Module
                             <div class="margin-form">
                                 <input type="text" id="product_auto" name="product_auto" size="50"/>
                                 <input type="hidden" id="id_product" name="id_product" />
-                                <p class="clear">'.$this->l('Type to search products').'</p>
+                                <p class="clear">'.$this->l('Type a word to search products').'</p>
                             </div>
                         </div>';
 

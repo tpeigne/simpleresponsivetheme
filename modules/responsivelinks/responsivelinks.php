@@ -367,7 +367,7 @@ class ResponsiveLinks extends Module
                         <div class="margin-form">
                             <input type="text" id="product_auto" name="product_auto" size="50"/>
                             <input type="hidden" id="product" name="product" />
-                            <p class="clear">'.$this->l('Type to search products').'</p>
+                            <p class="clear">'.$this->l('Type a word to search products').'</p>
                         </div>
                     </div>';
 

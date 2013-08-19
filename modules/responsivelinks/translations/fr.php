@@ -2,14 +2,16 @@
 
 global $_MODULE;
 $_MODULE = array();
-$_MODULE['<{responsivelinks}prestashop>ajax_e4926d74e36a95c41ea9dcfe12714059'] = 'Les liens ont été supprimés';
-$_MODULE['<{responsivelinks}prestashop>ajax_6aa38f0ab435265be43a66f4257bd352'] = 'Une erreur est survenue pendant la suppression des liens';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_04f60e197e00662a9a83ee711608360e'] = 'Responsive liens';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_8e4cbd11242e7020c7abae616362c4b5'] = 'Ajoute un block avec des liens pour votre thème responsive';
-$_MODULE['<{responsivelinks}prestashop>responsivelinks_7a7e3a8d8aefcb1d31b4fdfa1bdf9ee4'] = 'Le lien à été mis à jour.';
-$_MODULE['<{responsivelinks}prestashop>responsivelinks_5f39895486635ec9479c69567814ca84'] = 'Une erreur est apparue pendant la mise à jour du lien.';
-$_MODULE['<{responsivelinks}prestashop>responsivelinks_3da9d5745155a430aac6d7de3b6de0c8'] = 'Le lien à été ajouté.';
-$_MODULE['<{responsivelinks}prestashop>responsivelinks_5328d92dc3a8abafe2fc8222519e82a3'] = 'Une erreur est apparue pendant l\'ajout du lien.';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_be3db342c37157d9d43c431064dffdd4'] = 'Une erreur est survenue lors de la suppression des liens enfants';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_d391538be743e06dd03399ea40459289'] = 'Le lien a été supprimé';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_640d86ccd8aef2244b987c0fb3d6c9ca'] = 'Une erreur est survenue lors de la suppression du lien';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_648434c3894f265c5a02b53dc50c4617'] = 'Le lien a été mis à jour';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_46708e7984fe43eba23591addc2aaf36'] = 'Une erreur est survenue lors de la mise à jour du lien';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_11ad009c1b7c0615be18fe91185c179a'] = 'Le lien a été ajouté';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_bf5a93397cc9b729148ed2aa7e52dab3'] = 'Une erreur est survenue lors de l\'ajout du lien';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_f8d0e3e51ae9b9bbd6cd02050efbd912'] = 'Nouveau lien';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_083f62fcae98023532c130f6c6506bd5'] = 'Ajouter un lien';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_e66144be97528c98b3e9b2867aae8fc8'] = 'Ajouter un lien pour votre barre de lien';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_7bff3cf49db4e52ca3ccde5d7ede6b95'] = 'Est-ce un lien vers un catégorie ?';
@@ -22,6 +24,7 @@ $_MODULE['<{responsivelinks}prestashop>responsivelinks_bcf2929eb28082cc88c590070
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_064a438c495b2320a7bbec68e978e679'] = 'Choisissez votre catégorie CMS :';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_a74ad9fed06f032800b4ff08b6b7a5e6'] = 'Est-ce un lien produit ?';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_7b1d3b9ebb2bd4953f2e8244a94bab4a'] = 'Choisissiez votre page produit :';
+$_MODULE['<{responsivelinks}prestashop>responsivelinks_22a5615b48e6a060b43f3090dcd290b7'] = 'Tapez un mot pour rechercher des produits';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_f199fafe1dcacafc4ac8ba04ad2017d7'] = 'A t-il un lien parent ?';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_8967f1ced6e0f642cb2b02892ed1fa6d'] = 'Choisissez votre lien parent :';
 $_MODULE['<{responsivelinks}prestashop>responsivelinks_f69404d94842857ffa58470002ce7d7d'] = 'Est-ce un lien personnalisé ?';
