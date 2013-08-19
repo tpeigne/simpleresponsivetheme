@@ -62,10 +62,10 @@
     <table id="cart_summary" class="table_responsive">
         <thead>
             <tr>
-                <th class="cart_product first_item">{l s='Product'}</th>
+                <th class="cart_product first_item table-hide-small">{l s='Product'}</th>
                 <th class="cart_description item">{l s='Description'}</th>
-                <th class="cart_availability item">{l s='Avail.'}</th>
-                <th class="cart_unit item">{l s='Unit price'}</th>
+                <th class="cart_availability item table-hide-small">{l s='Avail.'}</th>
+                <th class="cart_unit item table-hide-small">{l s='Unit price'}</th>
                 <th class="cart_quantity item">{l s='Qty'}</th>
                 <th class="cart_total last_item">{l s='Total'}</th>
             </tr>
