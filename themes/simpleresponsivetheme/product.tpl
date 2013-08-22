@@ -157,13 +157,13 @@
 </script>
 
 {include file="$tpl_dir./breadcrumb.tpl"}
-<div id="primary_block" class="clearfix row" itemscope itemtype="http://data-vocabulary.org/Product">
-    <div class="twelve columns">
+<div id="primary_block" class="clearfix row">
+    <div class="twelve columns" itemscope itemtype="http://schema.org/product">
         <div id="product-information">
-            <h1 id="product-title">{$product->name|escape:'htmlall':'UTF-8'}</h1>
+            <h1 id="product-title" itemprop="name">{$product->name|escape:'htmlall':'UTF-8'}</h1>
         </div>
         {if $product->description_short}
-            <div id="short_description_content" class="rte align_justify">{$product->description_short}</div>
+            <div id="short_description_content" class="rte align_justify" itemprop="description">{$product->description_short}</div>
         {/if}
     </div>
 
@@ -222,7 +222,6 @@
             <div id="image-block" class="{if isset($images) && count($images) > 1}ten columns{/if}">
                 {if $have_image}
                     <span id="view_full_size">
-                        {*<span class="magnifier"></span>*}
                         <img src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'product_resp')}" {if $jqZoomEnabled}class="jqzoom" alt="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'thickbox_default')}"{else} title="{$product->name|escape:'htmlall':'UTF-8'}" alt="{$product->name|escape:'htmlall':'UTF-8'}" {/if} id="bigpic" width="480" height="480" />
                     </span>
                 {else}
@@ -260,7 +259,7 @@
                 </div>
             {/if}
 
-            <div class="content_prices clearfix">
+            <div class="content_prices clearfix" itemscope itemtype="http://schema.org/offer">
                 {if $product->show_price AND !isset($restricted_country_mode) AND !$PS_CATALOG_MODE}
                     <div class="price">
                         {if !$priceDisplay || $priceDisplay == 2}
@@ -273,7 +272,7 @@
 
                         <p class="our_price_display">
                             {if $priceDisplay >= 0 && $priceDisplay <= 2}
-                                <span id="our_price_display">{convertPrice price=$productPrice}</span>
+                                <span id="our_price_display" itemprop="price">{convertPrice price=$productPrice}</span>
                                 {*{if $tax_enabled  && ((isset($display_tax_label) && $display_tax_label == 1) OR !isset($display_tax_label))}
                                     {if $priceDisplay == 1}{l s='tax excl.'}{else}{l s='tax incl.'}{/if}
                                 {/if}*}
@@ -336,19 +335,19 @@
                     <div class="availability_reference"{if (isset($groups) OR !$product->reference) && (($product->quantity <= 0 && !$product->available_later && $allow_oosp) OR ($product->quantity > 0 && !$product->available_now) OR !$product->available_for_order OR $PS_CATALOG_MODE)}style="display: none;"{/if}>
                         <p id="product_reference" {if isset($groups) OR !$product->reference}style="display: none;"{/if}>
                             <label for="product_reference">{l s='Reference:'} </label>
-                            <span class="editable" itemprop="identifier" content="mpn:{$product->reference|escape:'htmlall':'UTF-8'}">{$product->reference|escape:'htmlall':'UTF-8'}</span>
+                            <span class="editable">{$product->reference|escape:'htmlall':'UTF-8'}</span>
                         </p>
 
                         <p id="availability_statut"{if ($product->quantity <= 0 && !$product->available_later && $allow_oosp) OR ($product->quantity > 0 && !$product->available_now) OR !$product->available_for_order OR $PS_CATALOG_MODE} style="display: none;"{/if}>
                             <label id="availability_label">{l s='Availability:'}</label>
                             {if $product->quantity <= 0}
                                 {if $allow_oosp}
-                                    <span id="availability_value" class="warning_inline">{$product->available_later}</span>
+                                    <span id="availability_value" class="warning_inline" itemprop="availability" content="preorder">{$product->available_later}</span>
                                 {else}
-                                    <span id="availability_value" class="warning_inline">{l s='This product is no longer in stock'}</span>
+                                    <span id="availability_value" class="warning_inline" itemprop="availability" content="out_of_stock">{l s='This product is no longer in stock'}</span>
                                 {/if}
                             {else}
-                                <span id="availability_value">{$product->available_now}</span>
+                                <span id="availability_value" itemprop="availability" content="in_stock">{$product->available_now}</span>
                             {/if}
                         </p>
                     </div>
