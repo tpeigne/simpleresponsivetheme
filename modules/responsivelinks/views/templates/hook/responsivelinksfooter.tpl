@@ -27,8 +27,20 @@
 <section class="three columns mobile-two" id="follow_us_footer">
     <h4>{l s='Follow Us...' mod='responsivelinks'}</h4>
     <ul class="clearfix">
-        <li><a href="#" title="{l s='Facebook' mod='responsivelinks'}"><img src="{$img_dir}social-facebook.png" alt="{l s='Facebook' mod='responsivelinks'}" width="38" height="38"/></a></li>
-        <li><a href="#" title="{l s='YouTube' mod='responsivelinks'}"><img src="{$img_dir}social-youtube.png" alt="{l s='YouTube' mod='responsivelinks'}" width="38" height="38"/></a></li>
-        <li class="last"><a href="#" title="{l s='Twitter' mod='responsivelinks'}"><img src="{$img_dir}social-twitter.png" alt="{l s='Twitter' mod='responsivelinks'}" width="38" height="38"/></a></li>
+        {if isset($responsiveLinksConfiguration) && $responsiveLinksConfiguration.FOLLOWFACEBOOK.option == 1}
+            <li>
+                <a href="{$responsiveLinksConfiguration.FOLLOWFACEBOOK.value}" title="{l s='Facebook' mod='responsivelinks'}"><img src="{$img_dir}social-facebook.png" alt="{l s='Facebook' mod='responsivelinks'}" width="38" height="38"/></a>
+            </li>
+        {/if}
+        {if isset($responsiveLinksConfiguration) && $responsiveLinksConfiguration.FOLLOWYOUTUBE.option == 1}
+            <li>
+                <a href="{$responsiveLinksConfiguration.FOLLOWYOUTUBE.value}" title="{l s='YouTube' mod='responsivelinks'}"><img src="{$img_dir}social-youtube.png" alt="{l s='YouTube' mod='responsivelinks'}" width="38" height="38"/></a>
+            </li>
+        {/if}
+        {if isset($responsiveLinksConfiguration) && $responsiveLinksConfiguration.FOLLOWTWITTER.option == 1}
+            <li class="last">
+                <a href="{$responsiveLinksConfiguration.FOLLOWTWITTER.value}" title="{l s='Twitter' mod='responsivelinks'}"><img src="{$img_dir}social-twitter.png" alt="{l s='Twitter' mod='responsivelinks'}" width="38" height="38"/></a>
+            </li>
+        {/if}
     </ul>
 </section>

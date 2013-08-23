@@ -58,6 +58,26 @@ class ResponsiveLinks extends Module
         ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8'))
             return false;
 
+        //responsive links configuration array
+        $responsiveLinksConfiguration = array();
+
+        //basic configuration
+        $responsiveLinksConfiguration['FOLLOWFACEBOOK'] = array(
+            'option' => 1,
+            'value'  => 'http://www.facebook.com'
+        );
+        $responsiveLinksConfiguration['FOLLOWYOUTUBE'] = array(
+            'option' => 1,
+            'value'  => 'http://www.youtube.com'
+        );
+        $responsiveLinksConfiguration['FOLLOWTWITTER'] = array(
+            'option' => 1,
+            'value'  => 'http://www.twitter.com'
+        );
+
+        //configuration update
+        Configuration::updateValue('RESPONSIVELINKS_CONFIGURATION', serialize($responsiveLinksConfiguration));
+
         $this->installDemoLinks();
 
         return true;
@@ -74,6 +94,8 @@ class ResponsiveLinks extends Module
         if (!Db::getInstance()->Execute('DROP TABLE `'._DB_PREFIX_.'responsivelinks_lang`'))
             return false;
 
+        Configuration::deleteByName('RESPONSIVELINKS_CONFIGURATION');
+
         return true;
     }
 
@@ -89,7 +111,7 @@ class ResponsiveLinks extends Module
 
             // Delete all the sub links for this link
             if (!$link->deleteSubLinks()) {
-                $_SESSION[$this->name]['message'] = $this->l('An error has occured while deleting sublinks of the link');
+                $_SESSION[$this->name]['message'] = $this->l('An error has occurred while deleting sublinks of the link');
                 $_SESSION[$this->name]['type'] = 'error';
 
                 Tools::redirectAdmin($this->getPageUrl());
@@ -101,7 +123,7 @@ class ResponsiveLinks extends Module
 
                     Tools::redirectAdmin($this->getPageUrl());
                 } else {
-                    $_SESSION[$this->name]['message'] = $this->l('An error has occured while deleting the link');
+                    $_SESSION[$this->name]['message'] = $this->l('An error has occurred while deleting the link');
                     $_SESSION[$this->name]['type'] = 'error';
 
                     Tools::redirectAdmin($this->getPageUrl());
@@ -140,7 +162,7 @@ class ResponsiveLinks extends Module
 
                 Tools::redirectAdmin($this->getPageUrl());
             } else {
-                $_SESSION[$this->name]['message'] = $this->l('An error has occured during the update of the link');
+                $_SESSION[$this->name]['message'] = $this->l('An error has occurred during the update of the link');
                 $_SESSION[$this->name]['type'] = 'error';
 
                 Tools::redirectAdmin($this->getPageUrl());
@@ -189,7 +211,7 @@ class ResponsiveLinks extends Module
 
                 Tools::redirectAdmin($this->getPageUrl());
             } else {
-                $_SESSION[$this->name]['message'] = $this->l('An error has occured during the addition of the link');
+                $_SESSION[$this->name]['message'] = $this->l('An error has occurred during the addition of the link');
                 $_SESSION[$this->name]['type'] = 'error';
 
                 Tools::redirectAdmin($this->getPageUrl());
@@ -206,6 +228,38 @@ class ResponsiveLinks extends Module
             }
         }
 
+        // Check if we are editing the follow links
+        if (Tools::isSubmit('editFollow')) {
+            //responsive links configuration array
+            $responsiveLinksConfiguration = array();
+            
+            $responsiveLinksConfiguration['FOLLOWFACEBOOK'] = array(
+                'option' => (int)Tools::getValue('isfacebook'),
+                'value'  => Tools::getValue('facebookcontent')
+            );
+            $responsiveLinksConfiguration['FOLLOWYOUTUBE'] = array(
+                'option' => (int)Tools::getValue('isyoutube'),
+                'value'  => Tools::getValue('youtubecontent')
+            );
+            $responsiveLinksConfiguration['FOLLOWTWITTER'] = array(
+                'option' => (int)Tools::getValue('istwitter'),
+                'value'  => Tools::getValue('twittercontent')
+            );
+
+            //configuration update
+            if (Configuration::updateValue('RESPONSIVELINKS_CONFIGURATION', serialize($responsiveLinksConfiguration))) {
+                $_SESSION[$this->name]['message'] = $this->l('Follow links configuration has been updated');
+                $_SESSION[$this->name]['type'] = 'confirm';
+
+                Tools::redirectAdmin($this->getPageUrl());
+            } else {
+                $_SESSION[$this->name]['message'] = $this->l('An error has occurred during the update of follow links');
+                $_SESSION[$this->name]['type'] = 'error';
+
+                Tools::redirectAdmin($this->getPageUrl());
+            }
+        }
+
         $this->_displayForm();
 
         return $this->_html;
@@ -213,6 +267,7 @@ class ResponsiveLinks extends Module
 
     private function _displayForm()
     {
+        $responsiveLinksConfiguration = unserialize(Configuration::get('RESPONSIVELINKS_CONFIGURATION'));
         $responsiveLink = null;
         $category = null;
         $cms = null;
@@ -271,17 +326,17 @@ class ResponsiveLinks extends Module
 
         // category ou non
         $this->_html .= '
-                    <div class="category_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
+                    <div class="option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscategory">'.$this->l('Is a category link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscategory" class="link-option link-option-on" value="1" '.(isset($category) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscategory" class="link-choice" value="1" '.(isset($category) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscategory" class="link-option link-option-off" value="0" '.(isset($category) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscategory" class="link-choice" value="0" '.(isset($category) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div class="link-type">
 
-                    <div class="category_block '.(isset($category) ? 'active' : '' ).'">
+                    <div class="option-block '.(isset($category) ? 'active' : '' ).'">
                         <label for="category">'.$this->l('Choose your category page :').'</label>
                         <div class="margin-form">
                             <select name="category" id="category" size="5">';
@@ -298,17 +353,17 @@ class ResponsiveLinks extends Module
 
         // cms ou non
         $this->_html .= '
-                    <div class="cms_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
+                    <div class="option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscms">'.$this->l('Is a CMS link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscms" class="link-option link-option-on" value="1" '.(isset($cms) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscms" class="link-choice" value="1" '.(isset($cms) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscms" class="link-option link-option-off" value="0" '.(isset($cms) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscms" class="link-choice" value="0" '.(isset($cms) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>
 
-                    <div class="cms_block '.(isset($cms) ? 'active' : '' ).'">
+                    <div class="option-block '.(isset($cms) ? 'active' : '' ).'">
                         <label for="cms">'.$this->l('Choose your CMS page :').'</label>
                         <div class="margin-form">
                             <select name="cms" id="cms"  size="5">';
@@ -325,17 +380,17 @@ class ResponsiveLinks extends Module
 
         // cms category or not
         $this->_html .= '
-                    <div class="cmscategory_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
+                    <div class="option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscmscategory">'.$this->l('Is a CMS category link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscmscategory" class="link-option link-option-on" value="1" '.(isset($cmsCategory) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscmscategory" class="link-choice" value="1" '.(isset($cmsCategory) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscmscategory" class="link-option link-option-off" value="0" '.(isset($cmsCategory) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscmscategory" class="link-choice" value="0" '.(isset($cmsCategory) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>
 
-                    <div class="cmscategory_block '.(isset($cmsCategory) ? 'active' : '' ).'">
+                    <div class="option-block '.(isset($cmsCategory) ? 'active' : '' ).'">
                         <label for="cms">'.$this->l('Choose your CMS Category page :').'</label>
                         <div class="margin-form">
                             <select name="cmscategory" id="cmscategory" size="5">';
@@ -352,17 +407,17 @@ class ResponsiveLinks extends Module
 
         // product ou non
         $this->_html .= '
-                    <div class="product_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
+                    <div class="option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="isproduct">'.$this->l('Is a product link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="isproduct" class="link-option link-option-on" value="1" '.(isset($product) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="isproduct" class="link-choice" value="1" '.(isset($product) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="isproduct" class="link-option link-option-off" value="0" '.(isset($product) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="isproduct" class="link-choice" value="0" '.(isset($product) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>
 
-                    <div class="product_block '.(isset($product) ? 'active' : '' ).'">
+                    <div class="option-block '.(isset($product) ? 'active' : '' ).'">
                         <label for="product">'.$this->l('Choose your product page :').'</label>
                         <div class="margin-form">
                             <input type="text" id="product_auto" name="product_auto" size="50"/>
@@ -373,17 +428,17 @@ class ResponsiveLinks extends Module
 
         // parent ou non
         $this->_html .= '
-                    <div class="parent_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
+                    <div class="option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="isparent">'.$this->l('Has a parent link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="isparent" id="isparent_on" value="1">
+                            <input type="radio" name="isparent" class="link-option" value="1">
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="isparent" id="isparent_off" value="0" checked="checked">
+                            <input type="radio" name="isparent" class="link-option" value="0" checked="checked">
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>
 
-                    <div class="parent_block">
+                    <div class="option-block">
                         <label for="parent">'.$this->l('Choose your Parent link :').'</label>
                         <div class="margin-form">
                             <select name="parent" id="parent" size="5">';
@@ -418,19 +473,19 @@ class ResponsiveLinks extends Module
 
         // custom ou non
         $this->_html .= '
-                    <div class="custom_option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
+                    <div class="option '.(isset($responsiveLink) ? 'hidden' : '' ).'">
                         <label for="iscustom">'.$this->l('Is a custom link?').'</label>
                         <div class="margin-form">
-                            <input type="radio" name="iscustom" class="link-option link-option-on" value="1" '.(isset($custom) ? 'checked="checked"' : '' ).'>
+                            <input type="radio" name="iscustom" class="link-choice" value="1" '.(isset($custom) ? 'checked="checked"' : '' ).'>
                             <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                            <input type="radio" name="iscustom" class="link-option link-option-off" value="0" '.(isset($custom) ? '' : 'checked="checked"' ).'>
+                            <input type="radio" name="iscustom" class="link-choice" value="0" '.(isset($custom) ? '' : 'checked="checked"' ).'>
                             <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                         </div>
                     </div>';
 
         //title field
         $this->_html .= '
-                    <div class="custom_block '.(isset($custom) ? 'active' : '' ).'">
+                    <div class="option-block '.(isset($custom) ? 'active' : '' ).'">
                         <label>'.$this->l('Title :').'</label>
                         <div class="margin-form">';
         foreach ($languages as $language)
@@ -546,11 +601,79 @@ class ResponsiveLinks extends Module
             </table>
         </fieldset>
 
-        <!--<fieldset>
+        <fieldset>
             <legend><img src="../img/admin/tab-preferences.gif" class="middle"> '.$this->l('Manage your footer links').'</legend>
-            <p>'.$this->l('Edit your footer links with the edit button and save it.').'</p>
+            <p>'.$this->l('Edit your social links and save it.').'</p>
             <hr>
-        </fieldset>-->';
+        </fieldset>
+
+        <form action="'.$this->getPageUrl().'" method="post" enctype="multipart/form-data">
+        <fieldset class="follow-type">
+            <legend><img src="../img/admin/tab-preferences.gif" class="middle"> '.$this->l('Manage your social links').'</legend>
+            <p>'.$this->l('Edit your social links and save it').'.</p>
+            <hr>';
+
+        // cms ou non
+        $this->_html .= '
+            <div class="option">
+                <label for="isfacebook">'.$this->l('Facebook').'</label>
+                <div class="margin-form">
+                    <input type="radio" name="isfacebook" class="link-option" value="1" '.((isset($responsiveLinksConfiguration['FOLLOWFACEBOOK']) && $responsiveLinksConfiguration['FOLLOWFACEBOOK']['option'] == 1) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
+                    <input type="radio" name="isfacebook" class="link-option" value="0" '.((!isset($responsiveLinksConfiguration['FOLLOWFACEBOOK']) || $responsiveLinksConfiguration['FOLLOWFACEBOOK']['option'] == 0) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
+                </div>
+            </div>
+
+            <div class="option-block '.((isset($responsiveLinksConfiguration['FOLLOWFACEBOOK']) && $responsiveLinksConfiguration['FOLLOWFACEBOOK']['option'] == 1) ? 'active' : '' ).'">
+                <label for="facebookcontent">'.$this->l('Facebook page').' : </label>
+                <div class="margin-form">
+                    <input type="text" name="facebookcontent" size="150" value="'.$responsiveLinksConfiguration['FOLLOWFACEBOOK']['value'].'"/>
+                    <p class="clear">'.$this->l('Enter your Facebook page').'</p>
+                </div>
+            </div>
+
+            <div class="option">
+                <label for="isyoutube">'.$this->l('Youtube').' : </label>
+                <div class="margin-form">
+                    <input type="radio" name="isyoutube" class="link-option" value="1" '.((isset($responsiveLinksConfiguration['FOLLOWYOUTUBE']) && $responsiveLinksConfiguration['FOLLOWYOUTUBE']['option'] == 1) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
+                    <input type="radio" name="isyoutube" class="link-option" value="0" '.((!isset($responsiveLinksConfiguration['FOLLOWYOUTUBE']) || $responsiveLinksConfiguration['FOLLOWYOUTUBE']['option'] == 0) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
+                </div>
+            </div>
+
+            <div class="option-block '.((isset($responsiveLinksConfiguration['FOLLOWYOUTUBE']) && $responsiveLinksConfiguration['FOLLOWYOUTUBE']['option'] == 1) ? 'active' : '' ).'">
+                <label for="youtubecontent">'.$this->l('Youtube page ').' : </label>
+                <div class="margin-form">
+                    <input type="text" name="youtubecontent" size="150" value="'.$responsiveLinksConfiguration['FOLLOWYOUTUBE']['value'].'"/>
+                    <p class="clear">'.$this->l('Enter your Youtube page').'</p>
+                </div>
+            </div>
+
+            <div class="option">
+                <label for="istwitter">'.$this->l('Twitter').' : </label>
+                <div class="margin-form">
+                    <input type="radio" name="istwitter" class="link-option" value="1" '.((isset($responsiveLinksConfiguration['FOLLOWTWITTER']) && $responsiveLinksConfiguration['FOLLOWTWITTER']['option'] == 1) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
+                    <input type="radio" name="istwitter" class="link-option" value="0" '.((!isset($responsiveLinksConfiguration['FOLLOWTWITTER']) || $responsiveLinksConfiguration['FOLLOWTWITTER']['option'] == 0) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
+                </div>
+            </div>
+
+            <div class="option-block '.((isset($responsiveLinksConfiguration['FOLLOWTWITTER']) && $responsiveLinksConfiguration['FOLLOWTWITTER']['option'] == 1) ? 'active' : '' ).'">
+                <label for="twittercontent">'.$this->l('Twitter page').' : </label>
+                <div class="margin-form">
+                    <input type="text" name="twittercontent" size="150" value="'.$responsiveLinksConfiguration['FOLLOWTWITTER']['value'].'"/>
+                    <p class="clear">'.$this->l('Enter your Twitter page').'</p>
+                </div>
+            </div>
+
+            <div class="margin-form">
+                <input type="submit" value="'.$this->l('Save').'" name="editFollow" class="button">
+            </div>
+        </fieldset>
+        </form>';
     }
 
     private function getSubLinks($id_parent, $id_lang){
@@ -689,12 +812,15 @@ class ResponsiveLinks extends Module
         return $return;
     }
 
-    public function hookFooter($params)
+    public function hookFooter()
     {
+        $responsiveLinksConfiguration = unserialize(Configuration::get('RESPONSIVELINKS_CONFIGURATION'));
+        $this->context->smarty->assign('responsiveLinksConfiguration', $responsiveLinksConfiguration);
+
         return $this->display(__FILE__, 'responsivelinksfooter.tpl');
     }
 
-    public function hookHeader($params)
+    public function hookHeader()
     {
         if (Configuration::get('PS_SEARCH_AJAX'))
         {
@@ -708,10 +834,9 @@ class ResponsiveLinks extends Module
     /**
      * _hookAll has to be called in each hookXXX methods. This is made to avoid code duplication.
      *
-     * @param mixed $params
      * @return void
      */
-    private function _hookCommon($params)
+    private function _hookCommon()
     {
         $this->context->smarty->assign('ENT_QUOTES', ENT_QUOTES);
         $this->context->smarty->assign('search_ssl', (int)Tools::usingSecureMode());
@@ -848,6 +973,11 @@ class ResponsiveLinks extends Module
         $contactLink->save();
     }
 
+    /**
+     * Init session for the module
+     *
+     * @return void
+     */
     protected function session() {
         if(!session_id()) {
             session_start();
@@ -855,6 +985,11 @@ class ResponsiveLinks extends Module
 
     }
 
+    /**
+     * Add to the html message session if they exists
+     *
+     * @return void
+     */
     protected function displaySessionMessage()
     {
         if (isset($_SESSION[$this->name]) && $_SESSION[$this->name]['message'] != '') {
