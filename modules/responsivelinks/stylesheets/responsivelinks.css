@@ -6,22 +6,40 @@
     display : block;
 }
 
-.option.hidden {
-    display : none;
-}
-
-tr.hidden{
-    display : none;
-}
-
 tr.subcategory{
     background-color: #F7F7E8;
+}
+
+.link-type {
+    margin-top: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #CCCED7;
+}
+
+.link-type-edition {
+    border: none;
+    padding: 0;
+}
+
+.option-parent {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #CCCED7;
 }
 
 #link-form label{
     width : 265px;
 }
 
+fieldset h3 {
+    margin-top: 0;
+}
+
 #link-form .margin-form {
     padding: 0 0 1em 285px;
+}
+
+.hidden,
+.hide {
+    display : none;
 }

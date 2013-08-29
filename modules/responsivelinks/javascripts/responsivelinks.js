@@ -3,7 +3,25 @@ $(window).load(function() {
     moduleChoice.init($('.link-type .link-choice'));
     moduleOption.init($('.link-option'));
 
+    // If footer link location is chosen
+    $('#page_category').change(function() {
+        if ($(this).val() == 'footer') {
+            $('.step-2').slideUp();
+            $('.page_category_column_choice').slideDown();
+        } else {
+            $('.step-2').slideDown();
+            $('.page_category_column_choice').slideUp();
+        }
+    });
+
+    // Adjust links position for better display
     $('#links').find('td.position').each(function(i) {
+        $(this).html(i+1);
+    });
+    $('#footer-browse-links').find('td.position').each(function(i) {
+        $(this).html(i+1);
+    });
+    $('#footer-siteinfo-links').find('td.position').each(function(i) {
         $(this).html(i+1);
     });
 
@@ -34,15 +52,16 @@ $(window).load(function() {
             if (originalOrder != $.tableDnD.serialize()){
                 params = {
                     action: 'updatePositionLinks',
-                    id_link: row.id
+                    id_link: row.id,
+                    form_link: table.id
                 };
 
                 var xhr = $.ajax({
                     type: 'POST',
                     url: urlAjaxModule + '?' + $.tableDnD.serialize(),
                     data: params,
-                    success: function(){
-                        $('#links').find('td.position').each(function(i) {
+                    success: function() {
+                        $('#'+table.id).find('td.position').each(function(i) {
                             $(this).html(i+1);
                         });
                     }
@@ -51,6 +70,7 @@ $(window).load(function() {
         }
     });
 
+    // Dynamic recursive child display
     $("#links").treeTable({
         clickableNodeNames: true
     });

@@ -9,7 +9,7 @@ $responsiveLinks = new ResponsiveLinks();
 if (Tools::getValue('action') == 'updatePositionLinks') {
     $idLink = explode('node-', Tools::getValue('id_link'));
     $responsiveLinks = new ResponsiveLinksClass($idLink[1]);
-    $positions = Tools::getValue('links');
+    $positions = Tools::getValue(Tools::getValue('form_link'));
 
     if (Validate::isLoadedObject($responsiveLinks)) {
         if ($responsiveLinks->updatePosition($positions)) {
