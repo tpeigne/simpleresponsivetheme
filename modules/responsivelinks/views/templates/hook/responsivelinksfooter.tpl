@@ -56,7 +56,7 @@
     {/if}
 {/foreach}
 
-<section class="two columns mobile-two">
+<section class="three columns mobile-two">
     <h4>{l s='Browse' mod='responsivelinks'}</h4>
     {if $browse_links == ''}
         <div class="alert-box">
