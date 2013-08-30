@@ -24,6 +24,11 @@
     display:block;
     cursor:pointer
 }
+#pb-right-column  #image-block .zoomdiv .bigimg {
+    max-width: none;
+    border: none;
+    padding: 0;
+}
 
 /* miniatures */
 #pb-right-column .thumbs_list_row {
