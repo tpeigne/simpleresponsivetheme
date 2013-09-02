@@ -412,14 +412,14 @@ function updateDisplay()
     }
 }
 
-//update display of the large image
+//update display of the product_resp image
 function displayImage(domAAroundImgThumb, no_animation)
 {
     if (typeof(no_animation) == 'undefined')
         no_animation = false;
     if (domAAroundImgThumb.attr('href'))
     {
-        var newSrc = domAAroundImgThumb.attr('href').replace('thickbox', 'large');
+        var newSrc = domAAroundImgThumb.attr('href').replace('thickbox_default', 'product_resp');
         if ($('#bigpic').attr('src') != newSrc)
         {
             $('#bigpic').attr('src', newSrc);
@@ -526,11 +526,11 @@ $(document).ready(function()
     //set jqZoom parameters if needed
     if (typeof(jqZoomEnabled) != 'undefined' && jqZoomEnabled)
     {
-        $('#bigpic').attr('rel', $('#bigpic').attr('src').replace('thickbox', 'large'));
+        $('#bigpic').attr('rel', $('#bigpic').attr('src').replace('thickbox_default', 'product_resp'));
         $('img.jqzoom').jqueryzoom({
-            xzoom: 200, //zooming div default width(default width value is 200)
-            yzoom: 200, //zooming div default width(default height value is 200)
-            offset: 21 //zooming div default offset(default offset value is 10)
+            xzoom: 300, //zooming div default width(default width value is 200)
+            yzoom: 300, //zooming div default width(default height value is 200)
+            offset: 15 //zooming div default offset(default offset value is 10)
             //position: "right" //zooming div position(default position value is "right")
         });
     }

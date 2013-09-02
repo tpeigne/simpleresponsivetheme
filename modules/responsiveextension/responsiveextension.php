@@ -33,7 +33,7 @@ class ResponsiveExtension extends Module
         //basic configuration
         $responsiveConfiguration = array();
         $responsiveConfiguration['ACCORDION'] = 0;
-        $responsiveConfiguration['ALERTS'] = 0;
+        $responsiveConfiguration['ALERTS'] = 1;
         $responsiveConfiguration['BUTTONS'] = 0;
         $responsiveConfiguration['CLEARING'] = 0;
         $responsiveConfiguration['FORMS'] = 1;

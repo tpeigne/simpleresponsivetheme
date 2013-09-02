@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-<section class="four columns mobile-two" id="newsletter_block">
+<section class="three columns mobile-two" id="newsletter_block">
     <h4>{l s='Newsletter' mod='blocknewsletter'}</h4>
     <div class="block_content">
         {if isset($msg)}

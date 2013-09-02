@@ -1,43 +1,27 @@
 $(window).load(function() {
     // Check and uncheck radio buttons automatically
-    $('.link-type input.link-option').click(function(){
-        // Disable all option
-        $('.link-type input.link-option-off').each(function() {
-            $(this).attr('checked', true);
+    moduleChoice.init($('.link-type .link-choice'));
+    moduleOption.init($('.link-option'));
 
-            $(this).parent().parent().next('div').hide();
-        });
-
-        // But not this option
-        $(this).attr('checked', true);
-
-        // Show the element with link type
-        if ($(this).parent().children('input.link-option-off:checked').length == 1) {
-            $(this).parent().parent().next('div').hide();
+    // If footer link location is chosen
+    $('#page_category').change(function() {
+        if ($(this).val() == 'footer') {
+            $('.step-2').slideUp();
+            $('.page_category_column_choice').slideDown();
         } else {
-            $(this).parent().parent().next('div').show();
+            $('.step-2').slideDown();
+            $('.page_category_column_choice').slideUp();
         }
     });
 
-    // Check option click for parent link
-    $('input[type=radio][name=isparent]').click(function(){
-        if($('#isparent_on:checked').length == 1){
-            $('.parent_block').show();
-        }
-
-        if($('#isparent_off:checked').length == 1){
-            $('.parent_block').hide();
-        }
-    });
-
-    // Edition of a link
-    /*$("a.editLink").click(function () {
-        $(this).next('form').submit();
-
-        return false;
-    });*/
-
+    // Adjust links position for better display
     $('#links').find('td.position').each(function(i) {
+        $(this).html(i+1);
+    });
+    $('#footer-browse-links').find('td.position').each(function(i) {
+        $(this).html(i+1);
+    });
+    $('#footer-siteinfo-links').find('td.position').each(function(i) {
         $(this).html(i+1);
     });
 
@@ -68,15 +52,16 @@ $(window).load(function() {
             if (originalOrder != $.tableDnD.serialize()){
                 params = {
                     action: 'updatePositionLinks',
-                    id_link: row.id
+                    id_link: row.id,
+                    form_link: table.id
                 };
 
                 var xhr = $.ajax({
                     type: 'POST',
                     url: urlAjaxModule + '?' + $.tableDnD.serialize(),
                     data: params,
-                    success: function(){
-                        $('#links').find('td.position').each(function(i) {
+                    success: function() {
+                        $('#'+table.id).find('td.position').each(function(i) {
                             $(this).html(i+1);
                         });
                     }
@@ -85,6 +70,7 @@ $(window).load(function() {
         }
     });
 
+    // Dynamic recursive child display
     $("#links").treeTable({
         clickableNodeNames: true
     });

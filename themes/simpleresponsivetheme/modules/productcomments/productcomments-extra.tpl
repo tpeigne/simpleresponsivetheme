@@ -43,10 +43,9 @@ $(function(){
 
 {if $logged == 1 || $nbComments != 0}
     </div><!-- Close the OosHook -->
-        <div id="product_comments_block_extra">
+        <div id="product_comments_block_extra" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
             {if $nbComments != 0}
                 <div class="comments_note clearfix">
-                    <span>{l s='Average grade' mod='productcomments'}&nbsp</span>
                     <div class="star_content clearfix">
                     {section name="i" start=0 loop=5 step=1}
                         {if $averageTotal le $smarty.section.i.index}
@@ -56,12 +55,15 @@ $(function(){
                         {/if}
                     {/section}
                     </div>
+                    <span>&nbsp{l s='Average grade' mod='productcomments'}</span> <span itemprop="ratingValue">{$averageTotal}</span>
                 </div>
             {/if}
 
             <div class="comments_advices">
                 {if $nbComments != 0}
-                    <a href="#idTab5">{l s='Read user reviews' mod='productcomments'} ({$nbComments})</a><br/>
+                    <a href="#idTab5">{l s='Read user reviews' mod='productcomments'} (<span itemprop="reviewCount">{$nbComments}</span>)</a><br/>
+                {else}
+
                 {/if}
                 {if ($too_early == false AND ($logged OR $allow_guests))}
                     <a class="open-comment-form">{l s='Write your review' mod='productcomments'}</a>

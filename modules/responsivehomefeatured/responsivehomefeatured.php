@@ -90,7 +90,7 @@ class ResponsiveHomeFeatured extends Module
 
                     Tools::redirectAdmin($this->getPageUrl());
                 } else {
-                    $_SESSION[$this->name]['message'] = $this->l('An error has occured while deleting the category');
+                    $_SESSION[$this->name]['message'] = $this->l('An error has occurred while deleting the category');
                     $_SESSION[$this->name]['type'] = 'error';
 
                     Tools::redirectAdmin($this->getPageUrl());
@@ -135,7 +135,7 @@ class ResponsiveHomeFeatured extends Module
 
                 Tools::redirectAdmin($this->getPageUrl());
             } else {
-                $_SESSION[$this->name]['message'] = $this->l('An error has occured while adding the product to the category');
+                $_SESSION[$this->name]['message'] = $this->l('An error has occurred while adding the product to the category');
                 $_SESSION[$this->name]['type'] = 'error';
 
                 Tools::redirectAdmin($this->getPageUrl());
