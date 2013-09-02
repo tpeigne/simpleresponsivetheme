@@ -1012,7 +1012,7 @@ class ResponsiveLinks extends Module
 
         //3 : Ipods category
         $i = 2;
-        if(Category::categoryExists(3)){
+        if(Category::categoryExists(3)) {
             //one category link with some products
             $ipodsLink = new ResponsiveLinksClass();
             $ipodsLink->position = 2;
@@ -1030,7 +1030,7 @@ class ResponsiveLinks extends Module
                 WHERE `id_category_default` = 3
                 LIMIT 0,3
             ');
-            foreach($results as $product){
+            foreach($results as $product) {
                 $productLink = new ResponsiveLinksClass();
                 $productLink->position = $i;
                 $productLink->id_category = 0;
@@ -1042,9 +1042,41 @@ class ResponsiveLinks extends Module
 
                 $i++;
             }
+
+            // Accessory link
+            if(Category::categoryExists(4)) {
+                $accessoryLink = new ResponsiveLinksClass();
+                $accessoryLink->position = $i;
+                $accessoryLink->id_category = 4;
+                $accessoryLink->id_cms = 0;
+                $accessoryLink->id_product = 0;
+                $accessoryLink->id_parent = $ipodsLink->id;
+
+                $accessoryLink->save();
+
+                //and add some products
+                $results = Db::getInstance()->executeS('
+                    SELECT `id_product`
+                    FROM `'._DB_PREFIX_.'product`
+                    WHERE `id_category_default` = 4
+                    LIMIT 0,2
+                ');
+                foreach($results as $product) {
+                    $productLink = new ResponsiveLinksClass();
+                    $productLink->position = $i;
+                    $productLink->id_category = 0;
+                    $productLink->id_cms = 0;
+                    $productLink->id_product = (int)$product['id_product'];
+                    $productLink->id_parent = $accessoryLink->id;
+
+                    $productLink->save();
+
+                    $i++;
+                }
+            }
         }
 
-        if(Category::categoryExists(5)){
+        if(Category::categoryExists(5)) {
             //one category link with some products
             $laptopLink = new ResponsiveLinksClass();
             $laptopLink->position = $i;
@@ -1063,7 +1095,7 @@ class ResponsiveLinks extends Module
                 WHERE `id_category_default` = 5
                 LIMIT 0,2
             ');
-            foreach($results as $product){
+            foreach($results as $product) {
                 $productLink = new ResponsiveLinksClass();
                 $productLink->position = $i;
                 $productLink->id_category = 0;
