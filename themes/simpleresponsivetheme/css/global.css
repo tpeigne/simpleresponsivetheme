@@ -2,7 +2,10 @@
         struture
 ************************************************************************************************ */
 
-.row { width: 1020px; }
+.row {
+    width: 1020px;
+    min-width: 750px;
+}
 
 /* ************************************************************************************************
         generic style
@@ -1888,6 +1891,10 @@ p.required.textarea textarea{
     .cart_quantity_down,
     .cart_quantity_up{
         display : none;
+    }
+
+    .row {
+        min-width: 0;
     }
 }
 
