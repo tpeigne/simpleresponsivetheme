@@ -44,7 +44,7 @@ class ResponsiveExtension extends Module
         $responsiveConfiguration['ORBIT'] = 1;
         $responsiveConfiguration['REVEAL'] = 1;
         $responsiveConfiguration['TABS'] = 0;
-        $responsiveConfiguration['TOOLTIPS'] = 1;
+        $responsiveConfiguration['TOOLTIPS'] = 0;
         $responsiveConfiguration['TOPBAR'] = 1;
         $responsiveConfiguration['PLACEHOLDER'] = 1;
         $responsiveConfiguration['MODERNIZR'] = 1;
