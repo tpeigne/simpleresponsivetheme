@@ -153,8 +153,8 @@
 }
 
 #footer #newsletter_block input.submitNewsletter{
-    padding-top: 8px;
     z-index: 0;
+    padding: 9px 20px 11px 11px;
 }
 
 #footer_bottom{
