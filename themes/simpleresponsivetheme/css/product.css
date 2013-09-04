@@ -100,7 +100,13 @@
     list-style-type:none;
     margin-top: 20px
 }
-#usefull_link_block li {padding:2px 0;}
+#usefull_link_block li {
+    padding: 0 0 12px;
+    text-align: center;
+}
+#usefull_link_block li:last-child {
+    padding: 0;
+}
 #usefull_link_block li.print {
     padding-left:20px;
     background:url(../img/icon/print.gif) no-repeat 0 0;
@@ -112,9 +118,6 @@
 #usefull_link_block li#left_share_fb{
     padding-left:20px;
     background:url(../img/icon/picto_fb.png) no-repeat 0 0;
-}
-#usefull_link_block #responsiveshareproduct {
-    text-align: center;
 }
 
 /* pb-left-column ****************************************************************************** */
