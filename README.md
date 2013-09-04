@@ -35,13 +35,16 @@ The theme comes with several responsives modules :
 * responsiveslider : add a customizable slider on the home page.
 * responsivetopbar : add a bar on the top of the page and enable the ajax cart.
 
-Instead of theses modules, PrestaShop modules are activated :
+Instead of theses modules, PrestaShop modules are compatible with the theme :
 * blockcategories (Categories block) : displayed on the left column
 * blockmanufacturer (Manufacturers block) : displayed on the left column
 * blocklayered (Layered navigation block) : displayed on the left column (but only on the category page)
 * blocknewsletter (Newsletter block) : displayed on the footer
 * blockspecials (Specials block) : displayed on the left column
 * productcomments (Product Comments) : displayed on product tabs
+* favoriteproducts (Favorite products) : displayed on product page
+
+Other Prestashop modules aren't tested with the theme.
 
 Demonstration
 -------------
