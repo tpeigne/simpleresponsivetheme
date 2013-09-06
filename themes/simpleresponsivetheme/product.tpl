@@ -298,7 +298,13 @@
                         {/if}
                     </div>
                     <p id="reduction_percent" {if !$product->specificPrice OR $product->specificPrice.reduction_type != 'percentage'} style="display:none;"{/if}><span id="reduction_percent_display">{if $product->specificPrice AND $product->specificPrice.reduction_type == 'percentage'}-{$product->specificPrice.reduction*100}%{/if}</span></p>
-                    <p id="reduction_amount" {if !$product->specificPrice OR $product->specificPrice.reduction_type != 'amount' && $product->specificPrice.reduction|intval ==0} style="display:none"{/if}><span id="reduction_amount_display">{if $product->specificPrice AND $product->specificPrice.reduction_type == 'amount' && $product->specificPrice.reduction|intval !=0}-{convertPrice price=$product->specificPrice.reduction|floatval}{/if}</span></p>
+<p id="reduction_amount" {if !$product->specificPrice OR $product->specificPrice.reduction_type != 'amount' || $product->specificPrice.reduction|intval ==0} style="display:none"{/if}>
+				<span id="reduction_amount_display">
+				{if $product->specificPrice AND $product->specificPrice.reduction_type == 'amount' AND $product->specificPrice.reduction|intval !=0}
+					-{convertPrice price=$productPriceWithoutReduction-$productPrice|floatval}
+				{/if}
+				</span>
+			</p>
                     {if $product->specificPrice AND $product->specificPrice.reduction}
                         <p id="old_price" class="old_price">
                             <span>
@@ -351,6 +357,12 @@
                                 <span id="availability_value">{$product->available_now}</span>
                             {/if}
                         </p>
+// Avail.Date insertion
+   <p id="availability_date"{if ($product->quantity > 0) OR !$product->available_for_order OR $PS_CATALOG_MODE OR !isset($product->available_date) OR $product->available_date < $smarty.now|date_format:'%Y-%m-%d'} style="display: none;"{/if}>
+        <span id="availability_date_label">{l s='Availability date:'}</span>
+        <span id="availability_date_value">{dateFormat date=$product->available_date full=false}</span>
+   </p>
+// Avail.Date insertion END
                     </div>
                 {/if}
                 {if isset($HOOK_PRODUCT_ACTIONS) && $HOOK_PRODUCT_ACTIONS}{$HOOK_PRODUCT_ACTIONS}{/if}
