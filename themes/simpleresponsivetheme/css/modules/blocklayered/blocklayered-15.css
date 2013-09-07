@@ -7,8 +7,8 @@
     font-weight: bold;
     font-size: 12px;
 }
-#enabled_filters ul li {padding:2px 0}
-#enabled_filters li a {
+#sidebar #enabled_filters ul li {padding:2px 0}
+#sidebar #enabled_filters li a {
     float: right;
     display: inline-block;
     height: 12px;
@@ -104,8 +104,13 @@
     filter:alpha(opacity=50);
     -moz-opacity:0.5;
 }
-#layered_block_left .nomargin a {
+#sidebar #layered_block_left h4 {
+    margin-bottom: 10px;
+}
+#sidebar #layered_block_left .nomargin a {
     display: inline;
+    background: none;
+    padding: 0;
 }
 #layered_form .select {
     width: 165px;

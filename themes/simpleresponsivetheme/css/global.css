@@ -395,18 +395,6 @@ div.star a:hover { background-position: 0 -32px }
     #sidebar { width: 25%; }
 }
 
-#sidebar #categories_block_left h5 {
-    margin-bottom: 0;
-    border-bottom: 1px solid#c3c3c3;
-    padding-bottom: 5px;
-    color: #5d717e;
-}
-
-#sidebar #categories_block_left ul {
-    padding-top: 5px;
-    padding-bottom: 0;
-}
-
 /* Fix style for pages wihtout sidebar */
 #order #sidebar,
 #order #sidebarButton,
@@ -1543,6 +1531,42 @@ div.star_hover a, div.star a:hover { background-position: 0 -12px }
 
 /******* IMPORTANT - Internet Explorer can read 31 CSS files max. Some CSS have been put here and erased from their own module folder.************/
 
+
+/*#sidebar #categories_block_left h5 {
+    margin-bottom: 0;
+    border-bottom: 1px solid#c3c3c3;
+    padding-bottom: 5px;
+    color: #5d717e;
+}
+
+#sidebar #categories_block_left ul {
+    padding-top: 5px;
+    padding-bottom: 0;
+}*/
+
+/*************** Block COMMUN ***************/
+#sidebar .block h4 {
+    margin-bottom: 2px;
+}
+
+#sidebar .block ul {
+    margin-bottom: 2px;
+}
+
+#sidebar .block li {
+    border-bottom:1px dotted #ccc;
+    padding-bottom: 5px;
+    padding-top: 3px;
+}
+
+#sidebar .block li.last,
+#sidebar .block li.last_item { border:none; }
+
+#sidebar .block li a {
+    display:block;
+    padding:7px 11px 5px 22px;
+    background:url(../../../modules/blockmanufacturer/img/arrow_right_2.png) no-repeat 0 13px transparent
+}
 /*************** Block ADVERTISING ***************/
 .advertising_block { width: 191px; margin-bottom: 1em; text-align: center }
 
@@ -1563,8 +1587,8 @@ div.star_hover a, div.star a:hover { background-position: 0 -12px }
     background:none;
 }
 
-#categories_block_left li .OPEN,
-#categories_block_left li .CLOSE {
+#sidebar #categories_block_left li .OPEN,
+#sidebar #categories_block_left li .CLOSE {
     display: block;
     float: right;
     margin: 10px 0 0;
@@ -1575,7 +1599,7 @@ div.star_hover a, div.star a:hover { background-position: 0 -12px }
     cursor: pointer;
     z-index: 1000;
 }
-#categories_block_left li .CLOSE {
+#sidebar #categories_block_left li .CLOSE {
     background: url('../img/icon/more.gif') no-repeat 10px 0;
 }
 
@@ -1623,17 +1647,6 @@ tr.subitem > td:first-child + td {
 }
 
 /*************** Block MANUFACTURER ***************/
-.blockmanufacturer li { border-bottom:1px dotted #ccc }
-.blockmanufacturer li.last { border:none; }
-.blockmanufacturer h4 {
-    margin-bottom: 2px;
-}
-.blockmanufacturer li a {
-    display:block;
-    padding:7px 11px 5px 22px;
-    background:url(../../../modules/blockmanufacturer/img/arrow_right_2.png) no-repeat 0 13px transparent
-}
-
 .blockmanufacturer form {margin-top:10px;}
 .blockmanufacturer p {
     padding:0;
@@ -1686,15 +1699,6 @@ tr.subitem > td:first-child + td {
 
 
 /*************** Block SUPPLIER ***************/
-.blocksupplier li {border-bottom:1px dotted #ccc}
-.blocksupplier li.last {	border:none;}
-    .blocksupplier li a {
-        display:block;
-        padding:7px 11px 5px 22px;
-        color:#333;
-        background:url(../../../modules/blocksupplier/img/arrow_right_2.png) no-repeat 10px 10px transparent
-    }
-
 .blocksupplier form {margin-top:10px;}
 .blocksupplier p {
     padding:0;
