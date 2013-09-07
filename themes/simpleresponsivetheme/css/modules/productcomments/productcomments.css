@@ -26,7 +26,7 @@
     display: none;
 }
 #product_comments_block_extra .comments_note {margin-bottom:5px}
-#product_comments_block_extra .comments_note span,
+#product_comments_block_extra .comments_note span { font-weight: bold;}
 #product_comments_block_extra .star_content {float:left}
 
 div.star {background: url(../../../../../modules/productcomments/img/star.gif) no-repeat scroll 0 0 transparent}

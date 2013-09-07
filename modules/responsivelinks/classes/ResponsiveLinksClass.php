@@ -8,28 +8,29 @@ class ResponsiveLinksClass extends ObjectModel
     public $position;
     public $title;
     public $url;
+    public $page_category;
+    public $page_category_column;
     public $id_category;
     public $id_cms;
     public $id_cms_category;
     public $id_product;
     public $id_parent;
-    public $id_child;
 
     public static $definition = array(
         'table' => 'responsivelinks',
         'primary' => 'id_responsivelinks',
-        /* TODO : enable multishop */
         'multilang' => true,
         'fields' => array(
             'position'          => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
             'title'             => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
             'url'               => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
+            'page_category'         => array('type' => self::TYPE_STRING, 'values' => array('header', 'footer'), 'default' => 'header'),
+            'page_category_column'  => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'values' => array('1', '2', '3'), 'default' => '1'),
             'id_category'       => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
             'id_cms'            => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
             'id_cms_category'   => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
             'id_product'        => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
-            'id_parent'         => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
-            'id_child'          => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'))
+            'id_parent'         => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'))
     );
 
     /**
@@ -85,22 +86,26 @@ class ResponsiveLinksClass extends ObjectModel
     /**
      * Return all links with parent or not
      *
-     * @param $id_lang id Customer language
-     * @param bool $has_parent check only parent link or not
+     * @param $idLang id Customer language
+     * @param bool $hasParent check only parent link or not
+     * @param string $pageCategory where the link will be display
+     * @param integer $pageCategoryColumn column number for the footer
      * @return array of ResponsiveLinksClass
      */
-    public static function findAll($id_lang, $has_parent = false)
+    public static function findAll($idLang, $hasParent = false, $pageCategory = 'header', $pageCategoryColumn = null)
     {
         $result = Db::getInstance()->ExecuteS('
             SELECT *
             FROM '._DB_PREFIX_.'responsivelinks
-            '.($has_parent == true ? ' WHERE id_parent = 0' : '').'
+            WHERE page_category LIKE \''.$pageCategory.'\'
+            '.($pageCategoryColumn != null ? ' AND page_category_column = '.(int)$pageCategoryColumn : '').'
+            '.($hasParent == true ? ' AND id_parent = 0' : '').'
             ORDER by position ASC
         ');
 
         foreach($result as $link => $value)
         {
-            $result[$link] = new ResponsiveLinksClass($value['id_responsivelinks'], $id_lang);
+            $result[$link] = new ResponsiveLinksClass($value['id_responsivelinks'], $idLang);
         }
 
         return $result;
@@ -109,22 +114,23 @@ class ResponsiveLinksClass extends ObjectModel
     /**
      * Return all links from a parent
      *
-     * @param $id parent link
-     * @param $id_lang id Customer language
+     * @param int $id parent link
+     * @param int $idLang id Customer language
      * @return array of ResponsiveLinksClass
      */
-    public static function findSub($id, $id_lang)
+    public static function findSub($id, $idLang)
     {
         $result = Db::getInstance()->ExecuteS('
             SELECT *
             FROM '._DB_PREFIX_.'responsivelinks
             WHERE id_parent = '.(int)$id.'
+            AND page_category = \'header\'
             ORDER by position ASC
         ');
 
         foreach($result as $link => $value)
         {
-            $result[$link] = new ResponsiveLinksClass($value['id_responsivelinks'], $id_lang);
+            $result[$link] = new ResponsiveLinksClass($value['id_responsivelinks'], $idLang);
         }
 
         return $result;
@@ -165,7 +171,7 @@ class ResponsiveLinksClass extends ObjectModel
         if (!$result['position']) {
             $return = 1;
         } else {
-            $return = $result['position'] + 1;
+            $return = (int)$result['position'] + 1;
         }
 
         return $return;
