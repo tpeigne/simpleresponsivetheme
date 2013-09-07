@@ -162,7 +162,7 @@
     margin: 0 0 10px 0;
 }
 #pb-left-column #buy_block #attributes label {
-    display: none;
+    display: block;
 }
 #attributes .attribute_list {
     display:inline-block;
