@@ -188,36 +188,32 @@
     <!-- right infos-->
     <div id="pb-right-column" class="six columns">
         <div class="{if isset($images) && count($images) > 1}row{/if}">
-            {if isset($images) && count($images) > 0}
-                {if isset($images) && count($images) > 1}
-                    <div class="two columns thumbs_list_row">
-                        <!-- thumbnails -->
-                        <div id="views_block" class="{if isset($images) && count($images) < 2}hidden{/if}">
-                            <div id="thumbs_list">
-                                <ul id="thumbs_list_frame" class="clearfix">
-                                    {if isset($images)}
-                                        {foreach from=$images item=image name=thumbnails}
-                                        {assign var=imageIds value="`$product->id`-`$image.id_image`"}
-                                        <li id="thumbnail_{$image.id_image}">
-                                            <a href="{$link->getImageLink($product->link_rewrite, $imageIds, thickbox_default)}" rel="other-views" class="thickbox {if $smarty.foreach.thumbnails.first}shown{/if}" title="{$image.legend|htmlspecialchars}">
-                                                <img id="thumb_{$image.id_image}" src="{$link->getImageLink($product->link_rewrite, $imageIds, 'medium_default')}" alt="{$image.legend|htmlspecialchars}" {if $mediumSize}height="{$mediumSize.height}" width="{$mediumSize.width}"{else}height="58" width="58"{/if} />
-                                            </a>
-                                        </li>
-                                        {/foreach}
-                                    {/if}
-                                </ul>
-                            </div>
-                            {if isset($images) && count($images) > 3}
-                                <div id="view_scroll_container" class="clearfix">
-                                    <a id="view_scroll_left" class="hidden" title="{l s='Other views'}" href="javascript:{ldelim}{rdelim}">{l s='Previous'}</a>
-                                    <a id="view_scroll_right" title="{l s='Other views'}" href="javascript:{ldelim}{rdelim}">{l s='Next'}</a>
-                                </div>
+            <div class="two columns thumbs_list_row">
+                <!-- thumbnails -->
+                <div id="views_block" class="{if isset($images) && count($images) < 2}hidden{/if}">
+                    <div id="thumbs_list">
+                        <ul id="thumbs_list_frame" class="clearfix">
+                            {if isset($images)}
+                                {foreach from=$images item=image name=thumbnails}
+                                {assign var=imageIds value="`$product->id`-`$image.id_image`"}
+                                <li id="thumbnail_{$image.id_image}">
+                                    <a href="{$link->getImageLink($product->link_rewrite, $imageIds, thickbox_default)}" rel="other-views" class="thickbox {if $smarty.foreach.thumbnails.first}shown{/if}" title="{$image.legend|htmlspecialchars}">
+                                        <img id="thumb_{$image.id_image}" src="{$link->getImageLink($product->link_rewrite, $imageIds, 'medium_default')}" alt="{$image.legend|htmlspecialchars}" {if $mediumSize}height="{$mediumSize.height}" width="{$mediumSize.width}"{else}height="58" width="58"{/if} />
+                                    </a>
+                                </li>
+                                {/foreach}
                             {/if}
-                        </div>
-                        {if isset($images) && count($images) > 1}<p class="resetimg clear"><span id="wrapResetImages" style="display: none;"><img src="{$img_dir}icon/cancel_11x13.gif" alt="{l s='Cancel'}" width="11" height="13"/> <a id="resetImages" href="{$link->getProductLink($product)}" onclick="$('span#wrapResetImages').hide('slow');return (false);">{l s='Display all pictures'}</a></span></p>{/if}
+                        </ul>
                     </div>
-                {/if}
-            {/if}
+                    {if isset($images) && count($images) > 4}
+                        <div id="view_scroll_container" class="clearfix">
+                            <a id="view_scroll_left" class="hidden" title="{l s='Other views'}" href="javascript:{ldelim}{rdelim}">{l s='Previous'}</a>
+                            <a id="view_scroll_right" title="{l s='Other views'}" href="javascript:{ldelim}{rdelim}">{l s='Next'}</a>
+                        </div>
+                    {/if}
+                </div>
+                {if isset($images) && count($images) > 1}<p class="resetimg clear"><span id="wrapResetImages" style="display: none;"><img src="{$img_dir}icon/cancel_11x13.gif" alt="{l s='Cancel'}" width="11" height="13"/> <a id="resetImages" href="{$link->getProductLink($product)}" onclick="$('span#wrapResetImages').hide('slow');return (false);">{l s='Display all pictures'}</a></span></p>{/if}
+            </div>
             <!-- product img-->
             <div id="image-block" class="{if isset($images) && count($images) > 1}ten columns{/if}">
                 {if $have_image}
