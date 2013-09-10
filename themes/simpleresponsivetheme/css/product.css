@@ -263,6 +263,9 @@
     font-size: 1.9em;
     color: #EF4135;
 }
+.tax_display {
+    font-size: 75%;
+}
 #reduction_percent,
 #reduction_amount {
     display: block;

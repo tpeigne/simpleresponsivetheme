@@ -269,9 +269,9 @@
                         <p class="our_price_display">
                             {if $priceDisplay >= 0 && $priceDisplay <= 2}
                                 <span id="our_price_display" itemprop="price">{convertPrice price=$productPrice}</span>
-                                {*{if $tax_enabled  && ((isset($display_tax_label) && $display_tax_label == 1) OR !isset($display_tax_label))}
-                                    {if $priceDisplay == 1}{l s='tax excl.'}{else}{l s='tax incl.'}{/if}
-                                {/if}*}
+                                {if $tax_enabled  && ((isset($display_tax_label) && $display_tax_label == 1) OR !isset($display_tax_label))}
+                                    <span class="tax_display">{if $priceDisplay == 1}{l s='tax excl.'}{else}{l s='tax incl.'}{/if}</span>
+                                {/if}
                             {/if}
                             {if $product->on_sale}
                                 <span class="advert">{l s='On sale!'}</span>
@@ -300,9 +300,9 @@
                                 {if $priceDisplay >= 0 && $priceDisplay <= 2}
                                     {if $productPriceWithoutRedution > $productPrice}
                                         <span id="old_price_display">{convertPrice price=$productPriceWithoutRedution}</span>
-                                        {*{if $tax_enabled && $display_tax_label == 1}
-                                            {if $priceDisplay == 1}{l s='tax excl.'}{else}{l s='tax incl.'}{/if}
-                                        {/if}*}
+                                        {if $tax_enabled && $display_tax_label == 1}
+                                            <span class="tax_display">{if $priceDisplay == 1}{l s='tax excl.'}{else}{l s='tax incl.'}{/if}</span>
+                                        {/if}
                                     {/if}
                                 {/if}
                             </span>
