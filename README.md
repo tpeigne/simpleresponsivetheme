@@ -10,7 +10,7 @@ Fonctionnalities
 
 * Full HTML5 & CSS3 theme
 * Successful W3C validation
-* Browser and Device Support (Chrome, Firefox, Opera, Safari, IE7+, iOS, Android 2+, Windows Phone 7)
+* Browser and Device Support (Chrome, Firefox, Opera, Safari, IE8+, iOS, Android 2+, Windows Phone 7)
 * 6 responsive modules fully customizable
 * Beautiful top and main bar menu with dropdown for tablet and mobile
 * Responsive slider, home featured and main nav menu with an administration
@@ -56,6 +56,9 @@ Note
 
 Versions 1.1.x and later are based on 2 columns. Versions above are based on 1 column.
 
+Official Prestashop topic : [www.prestashop.com/forums/topic/244041-free-simple-responsive-theme-15x/][4
+
 [1]: http://foundation.zurb.com/
 [2]: https://github.com/tpeigne/simpleresponsivetheme/releases
 [3]: http://demo.thomaspeigne.com/
+[4]: http://www.prestashop.com/forums/topic/244041-free-simple-responsive-theme-15x/
