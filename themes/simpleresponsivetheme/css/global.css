@@ -513,7 +513,7 @@ ul.product_list .product_description_short{
     overflow: hidden;
 }
 
-ul.product_list span.new {
+ul.product_list span.advert {
     position: absolute;
     background: #EF4135;
     color: white;
@@ -522,6 +522,10 @@ ul.product_list span.new {
     -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+ul.product_list span.advert.online_only {
+    background: #2ba6cb;
+    right: 0;
 }
 
 ul.product_list .compare{
@@ -1693,7 +1697,6 @@ tr.subitem > td:first-child + td {
     text-align: right
 }
 .blockstore p.store_image {
-    padding-bottom:10px;
     text-align:center
 }
 

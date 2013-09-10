@@ -4,54 +4,9 @@
 
 #product_list a.product_image {
     overflow:hidden;
-}
-
-#product_list li span.newold {
-    display: block;
-    position: absolute;
-    top: 15px;
-    right:-30px;
-    padding: 1px 4px;
-    width: 101px;
-    font-size:10px;
-    color: #fff;
-    text-align: center;
-    text-transform: uppercase;
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -o-transform:rotate(45deg);
-    -ms-transform: rotate(45deg);
-    background-color: #990000
-}
-#product_list li .discount, ul#product_list li .on_sale, ul#product_list li .online_only {
-    display: block;
-    font-weight: bold;
-    color: #990000;
-    text-transform: uppercase
-}
-#product_list li .discount {
-    position:absolute;
-    top:0;
-    right:0;
-    display: inline-block;
-    font-weight: bold;
-    padding: 1px 5px;
-    font-size: 10px;
-    color: #fff;
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -o-transform:rotate(45deg);
-    -ms-transform: rotate(45deg);
-    text-transform: uppercase;
-    background: none repeat scroll 0 0 #9B0000
-}
-#product_list li .online_only {
-    margin:0 0 10px 0
-}
-#product_list li .price {
-    margin-bottom: 5px;
+    position: relative;
 }
 #product_list li span.availability {
-    display:none;
-    color: #488C40
+    right: 0;
+    bottom: 3px;
 }

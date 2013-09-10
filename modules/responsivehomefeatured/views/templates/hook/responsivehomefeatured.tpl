@@ -15,7 +15,7 @@
                         <li class="ajax_block_product">
                             <a class="product_image" href="{$link->getProductLink($product.product)}" title="{$product.product->name|escape:html:'UTF-8'}">
                                 {if isset($product.reduction) && $product.reduction && isset($product.product->show_price) && $product.product->show_price && !$PS_CATALOG_MODE}
-                                    <span class="new">{l s='Reduced price !' mod='responsivehomefeatured'}</span>
+                                    <span class="advert">{l s='Reduced price !' mod='responsivehomefeatured'}</span>
                                 {/if}
                                 <img src="{$product.image}" height="205" width="205" alt="{$product.product->name|escape:html:'UTF-8'}" />
                             </a>
