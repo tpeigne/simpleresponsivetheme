@@ -56,7 +56,7 @@ Note
 
 Versions 1.1.x and later are based on 2 columns. Versions above are based on 1 column.
 
-Official Prestashop topic : [www.prestashop.com/forums/topic/244041-free-simple-responsive-theme-15x/][4
+Official Prestashop topic : [www.prestashop.com/forums/topic/244041-free-simple-responsive-theme-15x/][4]
 
 [1]: http://foundation.zurb.com/
 [2]: https://github.com/tpeigne/simpleresponsivetheme/releases
