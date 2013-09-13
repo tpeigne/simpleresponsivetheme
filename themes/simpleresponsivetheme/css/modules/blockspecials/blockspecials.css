@@ -5,8 +5,13 @@
     text-align:right
 }
 
+#special_block_right .products {
+    padding-top: 10px;
+}
+
 #special_block_right .products li {
     float : left;
+    border: none;
 }
 #special_block_right li .s_title_block, #special_block_right li h5 {
     font-size:12px;
