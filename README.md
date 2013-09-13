@@ -10,6 +10,7 @@ Fonctionnalities
 
 * Full HTML5 & CSS3 theme
 * Successful W3C validation
+* Support for Google rich snippets on product page
 * Browser and Device Support (Chrome, Firefox, Opera, Safari, IE8+, iOS, Android 2+, Windows Phone 7)
 * 6 responsive modules fully customizable
 * Beautiful top and main bar menu with dropdown for tablet and mobile
@@ -38,6 +39,9 @@ The theme comes with several responsives modules :
 Instead of theses modules, PrestaShop modules are compatible with the theme :
 * blockcategories (Categories block) : displayed on the left column
 * blockmanufacturer (Manufacturers block) : displayed on the left column
+* blocktags (Tags block) : displayed on the left column
+* blocksupplier (Suppliers block) : displayed on the left column
+* blockstore (Store locator block) : displayed on the left column
 * blocklayered (Layered navigation block) : displayed on the left column (but only on the category page)
 * blocknewsletter (Newsletter block) : displayed on the footer
 * blockspecials (Specials block) : displayed on the left column
