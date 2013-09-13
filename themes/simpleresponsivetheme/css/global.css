@@ -526,6 +526,7 @@ ul.product_list span.advert {
 ul.product_list span.advert.online_only {
     background: #2ba6cb;
     right: 0;
+    bottom: 3px;
 }
 
 ul.product_list .compare{
