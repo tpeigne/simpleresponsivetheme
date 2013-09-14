@@ -294,13 +294,13 @@
                     </div>
                     <p id="reduction_percent" {if !$product->specificPrice OR $product->specificPrice.reduction_type != 'percentage'} style="display:none;"{/if}><span id="reduction_percent_display">{if $product->specificPrice AND $product->specificPrice.reduction_type == 'percentage'}-{$product->specificPrice.reduction*100}%{/if}</span></p>
                     <p id="reduction_amount" {if !$product->specificPrice OR $product->specificPrice.reduction_type != 'amount' || $product->specificPrice.reduction|intval ==0} style="display:none"{/if}>
-				<span id="reduction_amount_display">
-				{if $product->specificPrice AND $product->specificPrice.reduction_type == 'amount' AND $product->specificPrice.reduction|intval !=0}
-					-{convertPrice price=$productPriceWithoutReduction-$productPrice|floatval}
-				{/if}
-				</span>
-				    </p>
-                    {if $product->specificPrice AND $product->specificPrice.reduction}
+                        <span id="reduction_amount_display">
+                        {if $product->specificPrice AND $product->specificPrice.reduction_type == 'amount' AND $product->specificPrice.reduction|intval !=0}
+                            -{convertPrice price=$productPriceWithoutReduction-$productPrice|floatval}
+                        {/if}
+                        </span>
+                    </p>
+                    {if $product->specificPrice AND $product->specificPrice.reduction && $product->specificPrice.reduction > 0}
                         <p id="old_price" class="old_price">
                             <span>
                                 {if $priceDisplay >= 0 && $priceDisplay <= 2}
