@@ -29,13 +29,13 @@ $(document).ready(function () {
 	if(!$('ul.tree.dhtml').hasClass('dynamized'))
 	{
 		//add growers to each ul.tree elements
-		$('ul.tree.dhtml ul').prev().before("<a class='grower OPEN'> </a>");
+		$('ul.tree.dhtml ul').prev().before("<span class='grower OPEN'> </span>");
 		
 		//dynamically add the '.last' class on each last item of a branch
 		$('ul.tree.dhtml ul li:last-child, ul.tree.dhtml li:last-child').addClass('last');
 		
 		//collapse every expanded branch
-		$('ul.tree.dhtml a.grower.OPEN').addClass('CLOSE').removeClass('OPEN').parent().find('ul:first').hide();
+		$('ul.tree.dhtml span.grower.OPEN').addClass('CLOSE').removeClass('OPEN').parent().find('ul:first').hide();
 		$('ul.tree.dhtml').show();
 		
 		//open the tree for the selected branch
@@ -46,7 +46,7 @@ $(document).ready(function () {
 			toggleBranch( $('ul.tree.dhtml .selected').prev(), true);
 		
 		//add a fonction on clicks on growers
-		$('ul.tree.dhtml a.grower').click(function(){
+		$('ul.tree.dhtml span.grower').click(function(){
 			toggleBranch($(this));
 		});
 		//mark this 'ul.tree' elements as already 'dynamized'
