@@ -15,6 +15,7 @@ if (!defined('_PS_VERSION_'))
 class ResponsiveHomeFeatured extends Module
 {
     private $_html = '';
+    private $_postErrors = array();
 
     public function __construct()
     {
