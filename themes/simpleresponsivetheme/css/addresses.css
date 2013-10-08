@@ -1,9 +1,13 @@
-#order div.addresses {
+#order .addresses {
     margin-top : 15px;
     padding-top : 10px;
 }
+/*#order .addresses .custom.dropdown {
+    float: left;
+}*/
 
-#order .address_delivery select{
+#order .address_delivery select,
+#address_invoice_form select {
     width: auto;
 }
 
@@ -11,7 +15,7 @@
     margin-top : 15px;
 }
 
-div.addresses {
+.addresses {
     padding:0px 15px;
     font-size:12px;
     background: #F8F8F8;
@@ -32,8 +36,9 @@ ul li.address p.actions{
 }
 
 ul.address {
-   list-style-type:none;
-   float:left;
+    list-style-type:none;
+    float:left;
+    width: 33.33%;
 }
 #address_delivery {margin-right:35px;}
 #address_invoice {margin-right:0}
@@ -51,6 +56,9 @@ ul.address li.address_company {
 }
 label[for=id_address_delivery], label[for=id_address_invoice] {
     display: inline;
+    float: left;
+    margin-top: 6px;
+    margin-right: 5px;
 }
 .addressesAreEquals label {
     margin-left: 5px;
@@ -66,7 +74,6 @@ label[for=id_address_delivery], label[for=id_address_invoice] {
 .address .address_title {
     font-size: 1.1em;
     color: #222;
-    text-rendering: optimizeLegibility;
     line-height: 1.1;
     font-weight:bold;
 }

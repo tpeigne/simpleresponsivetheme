@@ -100,19 +100,11 @@ a {
 a:hover {text-decoration:underline}
 
 /* form **************************************************************************************** */
-form.std fieldset {
-    margin:20px 0;
-    border:1px solid #ccc
-}
 
 /* table *************************************************************************************** */
 table.std,
 table.table_block {
-    margin-bottom:20px;
     width:100%;
-    border:1px solid #999;
-    border-bottom:none;
-    background:white;
 }
 table.std th,
 table.table_block th {
@@ -126,8 +118,13 @@ table.table_block  td {
     padding:12px;
     border-right:1px solid #e9e9e9;
     border-bottom:1px solid #e9e9e9;
-    font-size:12px;
     vertical-align:top
+}
+table.std > tbody > tr:last-child td,
+table.table_block > tbody > tr:last-child td,
+table.std > tfoot > tr:last-child td,
+table.table_block > tfoot > tr:last-child td {
+    border-bottom: none;
 }
 
 /* BLOCK .block ******************************************************************************** */
@@ -172,7 +169,7 @@ ul.footer_links li .icon {
     float: right;
     margin-bottom: 0;
 }
-#productsSortForm label{
+.productsSortForm label{
     float : left;
     margin-right: 10px;
     padding-top : 5px;
@@ -180,12 +177,11 @@ ul.footer_links li .icon {
 .content_sortPagiBar {margin:0;}
 #center_column .sortPagiBar strong {color:#000;}
 #center_column .sortPagiBar p {padding:0;}
-.sortPagiBar #productsSortForm {
+.sortPagiBar .productsSortForm {
     float : left;
-    margin-top: 5px;
     margin-bottom: 0;
 }
-#productsSortForm .custom.dropdown {
+.productsSortForm .custom.dropdown {
     float: left;
 }
 .sortPagiBar .selectProductSort {
@@ -627,6 +623,7 @@ table#cart_summary th {
     font-weight:bold;
     padding: 12px 10px 12px;
 }
+table#cart_summary td { border-right: none; }
 table#cart_summary  th.cart_product {text-align:center}
 table#cart_summary  td.cart_delete,
 table#cart_summary  td.price_discount_del {border-right:none;text-align: center}
@@ -1255,6 +1252,20 @@ a.iframe {font-weight:bold}
 #discount .table_block td.discount_value {white-space:nowrap}
 
 /* ************************************************************************************************
+        PAGE ORDER DETAIL
+************************************************************************************************ */
+
+.info-order-title h4 {
+    margin-top: 0;
+}
+
+.info-order-title h4 input {
+    position: relative;
+    top: -10px;
+    float:right;
+}
+
+/* ************************************************************************************************
         PAGE ORDER FOLLOW
 ************************************************************************************************ */
 #order-follow #left_column {display:none}
@@ -1833,6 +1844,19 @@ p.required.textarea textarea{
     width: 95%;
 }
 
+/* order */
+.s_title_block {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.title_block {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 /* Responsive Design ajustements */
 @media only screen and (max-width: 767px){ /* Mobile */
     .table_scroll_small {
@@ -1908,22 +1932,11 @@ p.required.textarea textarea{
 
 @media only screen and (max-width: 767px){
     /* shopping cart fix */
-    table#order-list thead tr th.payment,
-    table#order-list thead tr th.status,
-    table#order-list thead tr th.invoice,
-    table#order-list thead tr th.last_item,
     table.table_responsive thead tr th.return_allowed,
     table.table_responsive thead tr th.reference,
     table.table_responsive thead tr th.quantity,
     table.table_responsive thead tr th.returned,
     table.table_responsive thead tr th.unit_price{
-        display : none;
-    }
-
-    table#order-list tbody tr td.history_method,
-    table#order-list tbody tr td.history_state,
-    table#order-list tbody tr td.history_invoice,
-    table#order-list tbody tr td.history_detail{
         display : none;
     }
 

@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,8 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6844 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -38,7 +37,7 @@
             {/strip}
         </h1>
 
-        <div class="panel category-product-count">
+        <div class="resumecat panel category-product-count">
             {include file="$tpl_dir./category-count.tpl"}
         </div>
 
@@ -51,13 +50,13 @@
                 <!-- Category image -->
                 {if $category->id_image}
                 <div class="align_center">
-                    <img src="{$link->getCatImageLink($category->link_rewrite, $category->id_image, 'category_default')}" alt="{$category->name|escape:'htmlall':'UTF-8'}" title="{$category->name|escape:'htmlall':'UTF-8'}" id="categoryImage" width="500" height="150" />
+                    <img src="{$link->getCatImageLink($category->link_rewrite, $category->id_image, 'category_default')|escape:'html'}" alt="{$category->name|escape:'htmlall':'UTF-8'}" title="{$category->name|escape:'htmlall':'UTF-8'}" id="categoryImage" width="{$categorySize.width}" height="{$categorySize.height}" />
                 </div>
                 {/if}
             {/if}
 
             {if $category->description}
-                <div class="cat_desc align_center">
+                <div class="cat_desc">
                 {if strlen($category->description) > 120}
                     <p id="category_description_short">{$category->description|truncate:120}</p>
                     <p id="category_description_full" style="display:none">{$category->description}</p>
@@ -78,7 +77,7 @@
                 <li class="clearfix">
                     <a href="{$link->getCategoryLink($subcategory.id_category, $subcategory.link_rewrite)|escape:'htmlall':'UTF-8'}" title="{$subcategory.name|escape:'htmlall':'UTF-8'}" class="img">
                         {if $subcategory.id_image}
-                            <img src="{$link->getCatImageLink($subcategory.link_rewrite, $subcategory.id_image, 'medium_default')}" alt="" width="{$mediumSize.width}" height="{$mediumSize.height}" />
+                            <img src="{$link->getCatImageLink($subcategory.link_rewrite, $subcategory.id_image, 'medium_default')|escape:'html'}" alt="" width="{$mediumSize.width}" height="{$mediumSize.height}" />
                         {else}
                             <img src="{$img_cat_dir}default-medium_default.jpg" alt="" width="{$mediumSize.width}" height="{$mediumSize.height}" />
                         {/if}
@@ -108,11 +107,11 @@
 
             <div class="content_sortPagiBar">
                 <div class="sortPagiBar clearfix">
-                    {include file="./product-sort.tpl"}
-                    {include file="./product-compare.tpl"}
-                    {include file="./nbr-product-page.tpl"}
+                    {include file="./product-sort.tpl" paginationId='bottom'}
+                    {include file="./product-compare.tpl" paginationId='bottom'}
+                    {include file="./nbr-product-page.tpl" paginationId='bottom'}
                 </div>
-                {include file="./pagination.tpl"}
+                {include file="./pagination.tpl" paginationId='bottom'}
             </div>
         {/if}
     {elseif $category->id}

@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,8 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -31,7 +30,7 @@
 
 {if $simplifiedStoresDiplay}
     {if $stores|@count}
-    <p>{l s='Here are our store locations, please feel free to contact us:'}</p>
+    <p>{l s='Here you can find our store locations. Please feel free to contact us:'}</p>
     {foreach $stores as $store}
         <div class="store-small grid_2">
             {if $store.has_picture}<p><img src="{$img_store_dir}{$store.id_store}-medium_default.jpg" alt="" width="{$mediumSize.width}" height="{$mediumSize.height}" /></p>{/if}
@@ -58,11 +57,11 @@
         var defaultLat = '{$defaultLat}';
         var defaultLong = '{$defaultLong}';
 
-        var translation_1 = '{l s='No stores found, try selecting a wider radius' js=1}';
-        var translation_2 = '{l s='store found - see details:' js=1}';
-        var translation_3 = '{l s='stores found - see all results:' js=1}';
+        var translation_1 = '{l s='No stores were found. Please try selecting a wider radius.' js=1}';
+        var translation_2 = '{l s='store found -- see details:' js=1}';
+        var translation_3 = '{l s='stores found -- view all results:' js=1}';
         var translation_4 = '{l s='Phone:' js=1}';
-        var translation_5 = '{l s='Get Directions' js=1}';
+        var translation_5 = '{l s='Get directions' js=1}';
         var translation_6 = '{l s='Not found' js=1}';
 
         var hasStoreIcon = '{$hasStoreIcon}';

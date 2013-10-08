@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,8 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6844 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -49,14 +48,14 @@
         {assign var='requestNb' value=$link->getPaginationLink(false, false, true, false, false, true)}
     {/if}
     <!-- Pagination -->
-    <div id="pagination" class="pagination">
+    <div id="pagination{if isset($paginationId)}_{$paginationId}{/if}" class="pagination">
     {if $start!=$stop}
         <ul class="pagination">
         {if $p != 1}
             {assign var='p_previous' value=$p-1}
-            <li id="pagination_previous"><a {$no_follow_text} href="{$link->goPage($requestPage, $p_previous)}">&laquo;&nbsp;{l s='Previous'}</a></li>
+            <li id="pagination_previous{if isset($paginationId)}_{$paginationId}{/if}" class="pagination_previous"><a {$no_follow_text} href="{$link->goPage($requestPage, $p_previous)}">&laquo;&nbsp;{l s='Previous'}</a></li>
         {else}
-            <li id="pagination_previous" class="disabled"><span>&laquo;&nbsp;{l s='Previous'}</span></li>
+            <li id="pagination_previous{if isset($paginationId)}_{$paginationId}{/if}" class="disabled pagination_previous"><span>&laquo;&nbsp;{l s='Previous'}</span></li>
         {/if}
         {if $start==3}
             <li><a {$no_follow_text}  href="{$link->goPage($requestPage, 1)}">1</a></li>
@@ -89,9 +88,9 @@
         {/if}
         {if $pages_nb > 1 AND $p != $pages_nb}
             {assign var='p_next' value=$p+1}
-            <li id="pagination_next"><a {$no_follow_text} href="{$link->goPage($requestPage, $p_next)}">{l s='Next'}&nbsp;&raquo;</a></li>
+            <li id="pagination_next{if isset($paginationId)}_{$paginationId}{/if}" class="pagination_next"><a {$no_follow_text} href="{$link->goPage($requestPage, $p_next)}">{l s='Next'}&nbsp;&raquo;</a></li>
         {else}
-            <li id="pagination_next" class="disabled"><span>{l s='Next'}&nbsp;&raquo;</span></li>
+            <li id="pagination_next{if isset($paginationId)}_{$paginationId}{/if}" class="disabled pagination_next"><span>{l s='Next'}&nbsp;&raquo;</span></li>
         {/if}
         </ul>
     {/if}

@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,8 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -37,13 +36,26 @@
     {/if}
 
     {if $products}
-        <div class="sortPagiBar clearfix">
-            {include file="$tpl_dir./product-sort.tpl"}
-            {include file="./product-compare.tpl"}
-        </div>
-        {include file="$tpl_dir./product-list.tpl" products=$products}
+    <div class="content_sortPagiBar">
         {include file="$tpl_dir./pagination.tpl"}
-        {include file="./product-compare.tpl"}
+
+        <div class="sortPagiBar clearfix">
+            {include file="./product-sort.tpl"}
+            {include file="./product-compare.tpl"}
+            {include file="./nbr-product-page.tpl"}
+        </div>
+    </div>
+
+    {include file="./product-list.tpl" products=$products}
+
+    <div class="content_sortPagiBar">
+        <div class="sortPagiBar clearfix">
+            {include file="./product-sort.tpl" paginationId='bottom'}
+            {include file="./product-compare.tpl" paginationId='bottom'}
+            {include file="./nbr-product-page.tpl" paginationId='bottom'}
+        </div>
+        {include file="./pagination.tpl" paginationId='bottom'}
+    </div>
     {else}
         <p class="warning">{l s='No products for this supplier.'}</p>
     {/if}

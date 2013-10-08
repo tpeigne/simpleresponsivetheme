@@ -10,3 +10,7 @@
     right: 0;
     bottom: 3px;
 }
+
+#product_list li .lnk_view {
+    margin-top: 5px;
+}

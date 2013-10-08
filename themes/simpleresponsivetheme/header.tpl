@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,17 +18,16 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
 <!doctype html>
-<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="{$lang_iso}"> <![endif]-->
-<!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="{$lang_iso}"> <![endif]-->
-<!--[if IE 8]>    <html class="lt-ie9" lang="{$lang_iso}"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="" lang="{$lang_iso}"> <!--<![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 " lang="{$lang_iso}"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8 ie7" lang="{$lang_iso}"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9 ie8" lang="{$lang_iso}"> <![endif]-->
+<!--[if gt IE 8]> <html class="no-js ie9" lang="{$lang_iso}"> <![endif]-->
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,10 +42,10 @@
         <link rel="icon" type="image/vnd.microsoft.icon" href="{$favicon_url}?{$img_update_time}" />
         <link rel="shortcut icon" type="image/x-icon" href="{$favicon_url}?{$img_update_time}" />
         <script type="text/javascript">
-            var baseDir = '{$content_dir}';
-            var baseUri = '{$base_uri}';
-            var static_token = '{$static_token}';
-            var token = '{$token}';
+            var baseDir = '{$content_dir|addslashes}';
+            var baseUri = '{$base_uri|addslashes}';
+            var static_token = '{$static_token|addslashes}';
+            var token = '{$token|addslashes}';
             var priceDisplayPrecision = {$priceDisplayPrecision*$currency->decimals};
             var priceDisplayMethod = {$priceDisplay};
             var roundMode = {$roundMode};
@@ -74,7 +73,7 @@
         {$HOOK_HEADER}
     </head>
 
-    <body {if isset($page_name)}id="{$page_name|escape:'htmlall':'UTF-8'}"{/if} class="{if $hide_left_column}hide-left-column{/if} {if $hide_right_column}hide-right-column{/if}">
+    <body {if isset($page_name)}id="{$page_name|escape:'htmlall':'UTF-8'}"{/if} class="{if $hide_left_column}hide-left-column {/if} {if $hide_right_column}hide-right-column {/if} {if $content_only} content_only {/if}">
     {if !$content_only}
         {if isset($restricted_country_mode) && $restricted_country_mode}
         <div id="restricted-country">

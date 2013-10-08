@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,23 +18,23 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {if $comparator_max_item}
+{if !isset($paginationId) || $paginationId == ''}
 <script type="text/javascript">
 // <![CDATA[
     var min_item = '{l s='Please select at least one product' js=1}';
     var max_item = "{l s='You cannot add more than %d product(s) to the product comparison' sprintf=$comparator_max_item js=1}";
 //]]>
 </script>
-
-    <form method="post" action="{$link->getPageLink('products-comparison')}" onsubmit="true" id="form_compare">
+{/if}
+    <form method="post" action="{$link->getPageLink('products-comparison')|escape:'html'}" onsubmit="true" id="form_compare">
         <p>
-        <input type="submit" id="bt_compare" class="button radius" value="{l s='Compare'}" />
+        <input type="submit" id="bt_compare{if isset($paginationId)}_{$paginationId}{/if}" class="button radius bt_compare" value="{l s='Compare'}" />
         <input type="hidden" name="compare_product_list" class="compare_product_list" value="" />
         </p>
     </form>

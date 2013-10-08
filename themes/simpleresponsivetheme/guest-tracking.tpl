@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,13 +18,12 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-{capture name=path}{l s='Guest tracking'}{/capture}
+{capture name=path}{l s='Guest Tracking'}{/capture}
 {include file="./breadcrumb.tpl"}
 
 <h1>{l s='Guest Tracking'}</h1>
@@ -67,7 +66,7 @@
     {include file="$tpl_dir./errors.tpl"}
 
     {if isset($transformSuccess)}
-        <p class="success">{l s='Your guest account has been successfully transformed into a customer account. You can now log in on this'} <a href="{$link->getPageLink('authentication', true)}">{l s='page'}</a></p>
+        <p class="success">{l s='Your guest account has been successfully transformed into a customer account. You can now login as a registered shopper. '} <a href="{$link->getPageLink('authentication', true)|escape:'html'}">{l s='page.'}</a></p>
     {else}
         <form method="post" action="{$action|escape:'htmlall':'UTF-8'}#guestToCustomer" class="std">
             <fieldset class="description_box">
@@ -93,7 +92,7 @@
 {else}
     {include file="$tpl_dir./errors.tpl"}
     {if isset($show_login_link) && $show_login_link}
-        <p><img src="{$img_dir}icon/userinfo.gif" alt="{l s='Information'}" class="icon" /><a href="{$link->getPageLink('my-account', true)}">{l s='Click here to log in to your customer account'}</a><br /><br /></p>
+        <p><img src="{$img_dir}icon/userinfo.gif" alt="{l s='Information'}" class="icon" /><a href="{$link->getPageLink('my-account', true)|escape:'html'}">{l s='Click here to login to your customer account.'}</a><br /><br /></p>
     {/if}
     <form method="post" action="{$action|escape:'htmlall':'UTF-8'}" class="std">
         <fieldset class="description_box">
@@ -105,8 +104,8 @@
             </p>
 
             <p class="text">
-                <label>{l s='E-mail:'}</label>
-                <input type="email" name="email" value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'htmlall':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'}{/if}{/if}" />
+                <label>{l s='Email'}</label>
+                <input type="text" name="email" value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'htmlall':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'}{/if}{/if}" />
             </p>
 
             <p class="center"><input type="submit" class="button" name="submitGuestTracking" value="{l s='Send'}" /></p>

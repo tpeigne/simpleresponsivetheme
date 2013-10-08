@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,8 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 7476 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -27,7 +26,7 @@
 {capture name=path}{l s='Your shopping cart'}{/capture}
 {include file="$tpl_dir./breadcrumb.tpl"}
 
-<h1 id="cart_title">{l s='Shopping cart summary'}</h1>
+<h1 id="cart_title">{l s='Shopping-cart summary'}</h1>
 
 {if isset($account_created)}
     <p class="success">
@@ -49,8 +48,8 @@
     var currencyRate = '{$currencyRate|floatval}';
     var currencyFormat = '{$currencyFormat|intval}';
     var currencyBlank = '{$currencyBlank|intval}';
-    var txtProduct = "{l s='product'}";
-    var txtProducts = "{l s='products'}";
+    var txtProduct = "{l s='product' js=1}";
+    var txtProducts = "{l s='products' js=1}";
     var deliveryAddress = {$cart->id_address_delivery|intval};
     // ]]>
     </script>
@@ -60,9 +59,9 @@
         <div class="cart_last_product_header">
             <div class="left">{l s='Last product added'}</div>
         </div>
-        <a  class="cart_last_product_img" href="{$link->getProductLink($lastProductAdded.id_product, $lastProductAdded.link_rewrite, $lastProductAdded.category, null, null, $lastProductAdded.id_shop)|escape:'htmlall':'UTF-8'}"><img src="{$link->getImageLink($lastProductAdded.link_rewrite, $lastProductAdded.id_image, 'small_default')}" alt="{$lastProductAdded.name|escape:'htmlall':'UTF-8'}"/></a>
+        <a  class="cart_last_product_img" href="{$link->getProductLink($lastProductAdded.id_product, $lastProductAdded.link_rewrite, $lastProductAdded.category, null, null, $lastProductAdded.id_shop)|escape:'htmlall':'UTF-8'}"><img src="{$link->getImageLink($lastProductAdded.link_rewrite, $lastProductAdded.id_image, 'small_default')|escape:'html'}" alt="{$lastProductAdded.name|escape:'htmlall':'UTF-8'}"/></a>
         <div class="cart_last_product_content">
-            <h5><a href="{$link->getProductLink($lastProductAdded.id_product, $lastProductAdded.link_rewrite, $lastProductAdded.category, null, null, null, $lastProductAdded.id_product_attribute)|escape:'htmlall':'UTF-8'}">{$lastProductAdded.name|escape:'htmlall':'UTF-8'}</a></h5>
+            <p class="s_title_block"><a href="{$link->getProductLink($lastProductAdded.id_product, $lastProductAdded.link_rewrite, $lastProductAdded.category, null, null, null, $lastProductAdded.id_product_attribute)|escape:'htmlall':'UTF-8'}">{$lastProductAdded.name|escape:'htmlall':'UTF-8'}</a></p>
             {if isset($lastProductAdded.attributes) && $lastProductAdded.attributes}<a href="{$link->getProductLink($lastProductAdded.id_product, $lastProductAdded.link_rewrite, $lastProductAdded.category, null, null, null, $lastProductAdded.id_product_attribute)|escape:'htmlall':'UTF-8'}">{$lastProductAdded.attributes|escape:'htmlall':'UTF-8'}</a>{/if}
         </div>
         <br class="clear" />
@@ -70,7 +69,7 @@
 {/if}
 <p>{l s='Your shopping cart contains:'} <span id="summary_products_quantity">{$productNumber} {if $productNumber == 1}{l s='product'}{else}{l s='products'}{/if}</span></p>
 <div id="order-detail-content" class="table_block">
-    <table id="cart_summary" class="table_responsive">
+    <table id="cart_summary" class="std table_responsive">
         <thead>
             <tr>
                 <th class="cart_product first_item table-hide-small">{l s='Product'}</th>
@@ -142,9 +141,9 @@
                 <td class="table-hide-small"></td>
                 <td>
                 {if $use_taxes}
-                    {if $display_tax_label}{l s='Total gift-wrapping (tax incl.):'}{else}{l s='Total gift-wrapping:'}{/if}
+                    {if $display_tax_label}{l s='Total gift wrapping (tax incl.):'}{else}{l s='Total gift-wrapping:'}{/if}
                 {else}
-                    {l s='Total gift-wrapping:'}
+                    {l s='Total gift-wrapping cost:'}
                 {/if}
                 </td>
                 <td class="table-hide-small"></td>
@@ -164,7 +163,7 @@
                 <td class="table-hide-small"></td>
             </tr>
             {if $total_shipping_tax_exc <= 0 && !isset($virtualCart)}
-                <tr class="cart_total_delivery">
+                <tr class="cart_total_delivery" style="{if !isset($carrier->id) || is_null($carrier->id)}display:none;{/if}">
                     <td class="table-hide-small"></td>
                     <td>{l s='Shipping:'}</td>
                     <td class="table-hide-small"></td>
@@ -174,7 +173,7 @@
                     <td class="table-hide-small"></td>
                 </tr>
             {else}
-                {if $use_taxes}
+                {if $use_taxes && $total_shipping_tax_exc != $total_shipping}
                     {if $priceDisplay}
                         <tr class="cart_total_delivery" {if $total_shipping_tax_exc <= 0} style="display:none;"{/if}>
                             <td class="table-hide-small"></td>
@@ -241,16 +240,16 @@
                     {/if}
                     <form action="{if $opc}{$link->getPageLink('order-opc', true)}{else}{$link->getPageLink('order', true)}{/if}" method="post" id="voucher">
                         <fieldset>
-                            <h4><label for="discount_name">{l s='Vouchers'}</label></h4>
-                            <p>
+                            <p class="title_block"><label for="discount_name">{l s='Vouchers'}</label></p>
+                            <p class="discount_name_block">
                                 <input type="text" class="discount_name" id="discount_name" name="discount_name" value="{if isset($discount_name) && $discount_name}{$discount_name}{/if}" />
                             </p>
                             <p class="submit"><input type="hidden" name="submitDiscount" /><input type="submit" name="submitAddDiscount" value="{l s='OK'}" class="button radius" /></p>
                         {if $displayVouchers}
-                            <h4 class="title_offers">{l s='Take advantage of our offers:'}</h4>
+                            <p id="title" class="title_offers">{l s='Take advantage of our exclusive offers:'}</p>
                             <div id="display_cart_vouchers">
                             {foreach $displayVouchers as $voucher}
-                                <span onclick="$('#discount_name').val('{$voucher.name}');return false;" class="voucher_name">{$voucher.name}</span> - {$voucher.description} <br />
+                                {if $voucher.code != ''}<span onclick="$('#discount_name').val('{$voucher.code}');return false;" class="voucher_name">{$voucher.code}</span> - {/if}{$voucher.name}<br />
                             {/foreach}
                             </div>
                         {/if}
@@ -276,14 +275,15 @@
             </tr>
         </tfoot>
         <tbody>
+        {assign var='odd' value=0}
         {foreach $products as $product}
             {assign var='productId' value=$product.id_product}
             {assign var='productAttributeId' value=$product.id_product_attribute}
             {assign var='quantityDisplayed' value=0}
-            {assign var='odd' value=$product@iteration%2}
+            {assign var='odd' value=($odd+1)%2}
             {assign var='ignoreProductLast' value=isset($customizedDatas.$productId.$productAttributeId) || count($gift_products)}
             {* Display the product line *}
-            {include file="./shopping-cart-product-line.tpl" productLast=$product@last productFirst=$product@first}
+            {include file="$tpl_dir./shopping-cart-product-line.tpl" productLast=$product@last productFirst=$product@first}
             {* Then the customized datas ones*}
             {if isset($customizedDatas.$productId.$productAttributeId)}
                 {foreach $customizedDatas.$productId.$productAttributeId[$product.id_address_delivery] as $id_customization=>$customization}
@@ -321,10 +321,10 @@
                             {if isset($cannotModify) AND $cannotModify == 1}
                                 <span style="float:left">{if $quantityDisplayed == 0 AND isset($customizedDatas.$productId.$productAttributeId)}{$customizedDatas.$productId.$productAttributeId|@count}{else}{$product.cart_quantity-$quantityDisplayed}{/if}</span>
                             {else}
-                                <div id="cart_quantity_button" class="cart_quantity_button" style="float:left">
-                                <a rel="nofollow" class="cart_quantity_up" id="cart_quantity_up_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}" href="{$link->getPageLink('cart', true, NULL, "add&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_address_delivery={$product.id_address_delivery}&amp;id_customization={$id_customization}&amp;token={$token_cart}")}" title="{l s='Add'}"><img src="{$img_dir}icon/quantity_up.gif" alt="{l s='Add'}" width="14" height="9" /></a><br />
+                                <div class="cart_quantity_button">
+                                <a rel="nofollow" class="cart_quantity_up" id="cart_quantity_up_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}" href="{$link->getPageLink('cart', true, NULL, "add=1&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_address_delivery={$product.id_address_delivery}&amp;id_customization={$id_customization}&amp;token={$token_cart}")|escape:'html'}" title="{l s='Add'}"><img src="{$img_dir}icon/quantity_up.gif" alt="{l s='Add'}" width="14" height="9" /></a><br />
                                 {if $product.minimal_quantity < ($customization.quantity -$quantityDisplayed) OR $product.minimal_quantity <= 1}
-                                <a rel="nofollow" class="cart_quantity_down" id="cart_quantity_down_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}" href="{$link->getPageLink('cart', true, NULL, "add&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_address_delivery={$product.id_address_delivery}&amp;id_customization={$id_customization}&amp;op=down&amp;token={$token_cart}")}" title="{l s='Subtract'}">
+                                <a rel="nofollow" class="cart_quantity_down" id="cart_quantity_down_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}" href="{$link->getPageLink('cart', true, NULL, "add=1&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_address_delivery={$product.id_address_delivery}&amp;id_customization={$id_customization}&amp;op=down&amp;token={$token_cart}")|escape:'html'}" title="{l s='Subtract'}">
                                     <img src="{$img_dir}icon/quantity_down.gif" alt="{l s='Subtract'}" width="14" height="9" />
                                 </a>
                                 {else}
@@ -333,7 +333,7 @@
                                 </a>
                                 {/if}
                                 </div>
-                                <input type="hidden" value="{$customization.quantity}" name="quantity_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_hidden"/>
+                                <input type="hidden" value="{$customization.quantity}" name="quantity_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}_hidden"/>
                                 <input size="2" type="text" value="{$customization.quantity}" class="cart_quantity_input" name="quantity_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}"/>
                             {/if}
                         </td>
@@ -341,7 +341,7 @@
                             {if isset($cannotModify) AND $cannotModify == 1}
                             {else}
                                 <div>
-                                    <a rel="nofollow" class="cart_quantity_delete" id="{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}" href="{$link->getPageLink('cart', true, NULL, "delete&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;id_address_delivery={$product.id_address_delivery}&amp;token={$token_cart}")}">{l s='Delete'}</a>
+                                    <a rel="nofollow" class="cart_quantity_delete" id="{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_{$product.id_address_delivery|intval}" href="{$link->getPageLink('cart', true, NULL, "delete=1&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;id_address_delivery={$product.id_address_delivery}&amp;token={$token_cart}")|escape:'html'}">{l s='Delete'}</a>
                                 </div>
                             {/if}
                         </td>
@@ -349,7 +349,7 @@
                     {assign var='quantityDisplayed' value=$quantityDisplayed+$customization.quantity}
                 {/foreach}
                 {* If it exists also some uncustomized products *}
-                {if $product.quantity-$quantityDisplayed > 0}{include file="./shopping-cart-product-line.tpl" productLast=$product@last productFirst=$product@first}{/if}
+                {if $product.quantity-$quantityDisplayed > 0}{include file="$tpl_dir./shopping-cart-product-line.tpl" productLast=$product@last productFirst=$product@first}{/if}
             {/if}
         {/foreach}
         {assign var='last_was_odd' value=$product@iteration%2}
@@ -361,7 +361,7 @@
             {assign var='ignoreProductLast' value=isset($customizedDatas.$productId.$productAttributeId)}
             {assign var='cannotModify' value=1}
             {* Display the gift product line *}
-            {include file="./shopping-cart-product-line.tpl" productLast=$product@last productFirst=$product@first}
+            {include file="$tpl_dir./shopping-cart-product-line.tpl" productLast=$product@last productFirst=$product@first}
         {/foreach}
         </tbody>
     {if sizeof($discounts)}
@@ -390,15 +390,15 @@
 
 {if $show_option_allow_separate_package}
 <p>
-    <input type="checkbox" name="allow_seperated_package" id="allow_seperated_package" {if $cart->allow_seperated_package}checked="checked"{/if} />
-    <label for="allow_seperated_package">{l s='Send the available products first'}</label>
+    <input type="checkbox" name="allow_seperated_package" id="allow_seperated_package" {if $cart->allow_seperated_package}checked="checked"{/if} autocomplete="off"/>
+    <label for="allow_seperated_package">{l s='Send available products first'}</label>
 </p>
 {/if}
 {if !$opc}
     {if Configuration::get('PS_ALLOW_MULTISHIPPING')}
         <p>
             <input type="checkbox" {if $multi_shipping}checked="checked"{/if} id="enable-multishipping" />
-            <label for="enable-multishipping">{l s='I want to specify a delivery address for each individual product.'}</label>
+            <label for="enable-multishipping">{l s='I would like to specify a delivery address for each individual product.'}</label>
         </p>
     {/if}
 {/if}
@@ -423,10 +423,10 @@
 
 {if ((!empty($delivery_option) AND !isset($virtualCart)) OR $delivery->id OR $invoice->id) AND !$opc}
 <div class="order_delivery clearfix">
-    {if !isset($formattedAddresses)}
+    {if !isset($formattedAddresses) || (count($formattedAddresses.invoice) == 0 && count($formattedAddresses.delivery) == 0) || (count($formattedAddresses.invoice.formated) == 0 && count($formattedAddresses.delivery.formated) == 0)}
     {if $delivery->id}
     <ul id="delivery_address" class="address item">
-        <li class="address_title">{l s='Delivery address'}</li>
+        <li class="address_title">{l s='Delivery address'}&nbsp;<span class="address_alias">({$delivery->alias})</span></li>
         {if $delivery->company}<li class="address_company">{$delivery->company|escape:'htmlall':'UTF-8'}</li>{/if}
         <li class="address_name">{$delivery->firstname|escape:'htmlall':'UTF-8'} {$delivery->lastname|escape:'htmlall':'UTF-8'}</li>
         <li class="address_address1">{$delivery->address1|escape:'htmlall':'UTF-8'}</li>
@@ -437,7 +437,7 @@
     {/if}
     {if $invoice->id}
     <ul id="invoice_address" class="address alternate_item">
-        <li class="address_title">{l s='Invoice address'}</li>
+        <li class="address_title">{l s='Invoice address'}&nbsp;<span class="address_alias">({$invoice->alias})</span></li>
         {if $invoice->company}<li class="address_company">{$invoice->company|escape:'htmlall':'UTF-8'}</li>{/if}
         <li class="address_name">{$invoice->firstname|escape:'htmlall':'UTF-8'} {$invoice->lastname|escape:'htmlall':'UTF-8'}</li>
         <li class="address_address1">{$invoice->address1|escape:'htmlall':'UTF-8'}</li>
@@ -447,9 +447,9 @@
     </ul>
     {/if}
     {else}
-        {foreach $formattedAddresses as $address}
+        {foreach from=$formattedAddresses key=k item=address}
             <ul class="address {if $address@last}last_item{elseif $address@first}first_item{/if} {if $address@index % 2}alternate_item{else}item{/if}">
-                <li class="address_title">{$address.object.alias}</li>
+                <li class="address_title">{if $k eq 'invoice'}{l s='Invoice address'}{elseif $k eq 'delivery' && $delivery->id}{l s='Delivery address'}{/if}{if isset($address.object.alias)}&nbsp;<span class="address_alias">({$address.object.alias})</span>{/if}</li>
                 {foreach $address.ordered as $pattern}
                     {assign var=addressKey value=" "|explode:$pattern}
                     <li>
@@ -464,7 +464,7 @@
                 {/foreach}
                 </ul>
         {/foreach}
-        <p class="clear" />
+        <br class="clear"/>
     {/if}
 </div>
 {/if}

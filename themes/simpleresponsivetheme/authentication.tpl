@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,21 +18,25 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-{capture name=path}{l s='Login'}{/capture}
+{capture name=path}
+    {if !isset($email_create)}{l s='Authentication'}{else}
+        <a href="{$link->getPageLink('authentication', true)|escape:'html'}" rel="nofollow" title="{l s='Authentication'}">{l s='Authentication'}</a>
+        <span class="navigation-pipe">{$navigationPipe}</span>{l s='Create your account'}
+    {/if}
+{/capture}
 {include file="$tpl_dir./breadcrumb.tpl"}
 
 <script type="text/javascript">
 // <![CDATA[
-idSelectedCountry = {if isset($smarty.post.id_state)}{$smarty.post.id_state|intval}{else}false{/if};
-countries = new Array();
-countriesNeedIDNumber = new Array();
-countriesNeedZipCode = new Array();
+var idSelectedCountry = {if isset($smarty.post.id_state)}{$smarty.post.id_state|intval}{else}false{/if};
+var countries = new Array();
+var countriesNeedIDNumber = new Array();
+var countriesNeedZipCode = new Array();
 {if isset($countries)}
     {foreach from=$countries item='country'}
         {if isset($country.states) && $country.contains_states}
@@ -53,39 +57,38 @@ $(function(){ldelim}
     $('.id_state option[value={if isset($smarty.post.id_state)}{$smarty.post.id_state|intval}{else}{if isset($address)}{$address->id_state|intval}{/if}{/if}]').attr('selected', true);
 {rdelim});
 //]]>
-{if $vat_management}
-    {literal}
-    $(document).ready(function() {
-        $('#company').blur(function(){
-            vat_number();
-        });
+{literal}
+$(document).ready(function() {
+$('#company').on('input',function(){
         vat_number();
-        function vat_number()
-        {
-            if ($('#company').val() != '')
-                $('#vat_number').show();
-            else
-                $('#vat_number').hide();
-        }
     });
-    {/literal}
-{/if}
+    vat_number();
+    function vat_number()
+    {
+        if ($('#company').val() != '')
+            $('#vat_number').show();
+        else
+            $('#vat_number').hide();
+    }
+});
+{/literal}
 </script>
 
-<h1 style="margin-bottom: 0px;">{if !isset($email_create)}{l s='Log in'}{else}{l s='Create your account'}{/if}</h1>
-
+<h1 style="margin-bottom: 0px;">{if !isset($email_create)}{l s='Authentication'}{else}{l s='Create an account'}{/if}</h1>
+{if !isset($back) || $back != 'my-account'}{assign var='current_step' value='login'}{include file="$tpl_dir./order-steps.tpl"}{/if}
 {include file="$tpl_dir./errors.tpl"}
 {assign var='stateExist' value=false}
+{assign var="postCodeExist" value=false}
 {if !isset($email_create)}
     <script type="text/javascript">
     {literal}
     $(document).ready(function(){
+        // Retrocompatibility with 1.4
+        if (typeof baseUri === "undefined" && typeof baseDir !== "undefined")
+        baseUri = baseDir;
         $('#create-account_form').submit(function(){
             submitFunction();
             return false;
-        });
-        $('#SubmitCreate').click(function(){
-            submitFunction();
         });
     });
     function submitFunction()
@@ -103,6 +106,7 @@ $(function(){ldelim}
                 SubmitCreate: 1,
                 ajax: true,
                 email_create: $('#email_create').val(),
+                back: $('input[name=back]').val(),
                 token: token
             },
             success: function(jsonData)
@@ -124,9 +128,10 @@ $(function(){ldelim}
                         $('#noSlide').html(jsonData.page);
                         // update the state (when this file is called from AJAX you still need to update the state)
                         bindStateInputAndUpdate();
+                        $(this).fadeIn('slow', function(){
+                            document.location = '#account-creation';
                     });
-                    $('#noSlide').fadeIn('slow');
-                    document.location = '#account-creation';
+                    });
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -140,7 +145,7 @@ $(function(){ldelim}
     <!--{if isset($authentification_error)}
     <div class="error">
         {if {$authentification_error|@count} == 1}
-            <p>{l s='There is one error'} :</p>
+            <p>{l s='There\'s at least one error'} :</p>
             {else}
             <p>{l s='There are %s errors' sprintf=[$account_error|@count]} :</p>
         {/if}
@@ -152,7 +157,7 @@ $(function(){ldelim}
     </div>
     {/if}-->
     <div class="row">
-        <form action="{$link->getPageLink('authentication', true)}" method="post" id="login_form" class="six columns">
+        <form action="{$link->getPageLink('authentication', true)|escape:'html'}" method="post" id="login_form" class="six columns">
             <fieldset>
                 <h3>{l s='Already registered?'}</h3>
                 <div class="form_content clearfix">
@@ -185,7 +190,7 @@ $(function(){ldelim}
                     </p>
                     <p class="submit">
                         {if isset($back)}<input type="hidden" class="hidden" name="back" value="{$back|escape:'htmlall':'UTF-8'}" />{/if}
-                        <input type="button" id="SubmitCreate" name="SubmitCreate" class="button_large button radius" value="{l s='Create your account'}" />
+                        <input type="submit" id="SubmitCreate" name="SubmitCreate" class="button_large button radius" value="{l s='Create your account'}" />
                         <input type="hidden" class="hidden" name="SubmitCreate" value="{l s='Create your account'}" />
                     </p>
                 </div>
