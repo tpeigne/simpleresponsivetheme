@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,8 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -38,7 +37,7 @@
 <ul class="step block-grid five-up" id="order_step">
     <li class="{if $current_step=='summary'}step_current{else}{if $current_step=='payment' || $current_step=='shipping' || $current_step=='address' || $current_step=='login'}step_done{else}step_todo{/if}{/if}">
         {if $current_step=='payment' || $current_step=='shipping' || $current_step=='address' || $current_step=='login'}
-        <a href="{$link->getPageLink('order', true, NULL, "{$smarty.capture.url_back}&multi-shipping={$multi_shipping}")}">
+		<a href="{$link->getPageLink('order', true)}">
             <span class="bullet">1</span> <span class="content">{l s='Summary'}</span>
         </a>
         {else}
@@ -47,7 +46,7 @@
     </li>
     <li class="{if $current_step=='login'}step_current{else}{if $current_step=='payment' || $current_step=='shipping' || $current_step=='address'}step_done{else}step_todo{/if}{/if}">
         {if $current_step=='payment' || $current_step=='shipping' || $current_step=='address'}
-        <a href="{$link->getPageLink('order', true, NULL, "{$smarty.capture.url_back}&step=1&multi-shipping={$multi_shipping}")}">
+		<a href="{$link->getPageLink('order', true, NULL, "{$smarty.capture.url_back}&step=1&multi-shipping={$multi_shipping}")|escape:'html'}">
             <span class="bullet">2</span> <span class="content">{l s='Login'}</span>
         </a>
         {else}
@@ -56,7 +55,7 @@
     </li>
     <li class="{if $current_step=='address'}step_current{else}{if $current_step=='payment' || $current_step=='shipping'}step_done{else}step_todo{/if}{/if}">
         {if $current_step=='payment' || $current_step=='shipping'}
-        <a href="{$link->getPageLink('order', true, NULL, "{$smarty.capture.url_back}&step=1&multi-shipping={$multi_shipping}")}">
+		<a href="{$link->getPageLink('order', true, NULL, "{$smarty.capture.url_back}&step=1&multi-shipping={$multi_shipping}")|escape:'html'}">
             <span class="bullet">3</span> <span class="content">{l s='Address'}</span>
         </a>
         {else}
@@ -65,7 +64,7 @@
     </li>
     <li class="{if $current_step=='shipping'}step_current{else}{if $current_step=='payment'}step_done{else}step_todo{/if}{/if}">
         {if $current_step=='payment'}
-        <a href="{$link->getPageLink('order', true, NULL, "{$smarty.capture.url_back}&step=2&multi-shipping={$multi_shipping}")}">
+		<a href="{$link->getPageLink('order', true, NULL, "{$smarty.capture.url_back}&step=2&multi-shipping={$multi_shipping}")|escape:'html'}">
             <span class="bullet">4</span> <span class="content">{l s='Shipping'}</span>
         </a>
         {else}

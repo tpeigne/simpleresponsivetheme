@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,8 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 7471 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -72,12 +71,12 @@
     var currencyRate = '{$currencyRate|floatval}';
     var currencyFormat = '{$currencyFormat|intval}';
     var currencyBlank = '{$currencyBlank|intval}';
-    var txtProduct = "{l s='product'}";
-    var txtProducts = "{l s='products'}";
+	var txtProduct = "{l s='product' js=1}";
+	var txtProducts = "{l s='products' js=1}";
     {/if}
 
-    var addressMultishippingUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{'&multi-shipping=1'|urlencode}{if $back}&mod={$back|urlencode}{/if}")}";
-    var addressUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")}";
+	var addressMultishippingUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{'&multi-shipping=1'|urlencode}{if $back}&mod={$back|urlencode}{/if}")|addslashes}";
+	var addressUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")|addslashes}";
 
     var formatedAddressFieldsValuesList = new Array();
 
@@ -86,12 +85,12 @@
         {ldelim}
             'ordered_fields':[
                 {foreach from=$type.ordered_fields key=num_field item=field_name name=inv_loop}
-                    {if !$smarty.foreach.inv_loop.first},{/if}"{$field_name}"
+					{if !$smarty.foreach.inv_loop.first},{/if}{$field_name|json_encode}
                 {/foreach}
             ],
             'formated_fields_values':{ldelim}
                     {foreach from=$type.formated_fields_values key=pattern_name item=field_name name=inv_loop}
-                        {if !$smarty.foreach.inv_loop.first},{/if}"{$pattern_name}":"{$field_name}"
+						{if !$smarty.foreach.inv_loop.first},{/if}{$pattern_name|json_encode}:{$field_name|json_encode}
                     {/foreach}
                 {rdelim}
         {rdelim}
@@ -100,15 +99,16 @@
     function getAddressesTitles()
     {
         return {
-                        'invoice': "{l s='Your billing address'}",
-                        'delivery': "{l s='Your delivery address'}"
+			'invoice': "{l s='Your billing address' js=1}",
+			'delivery': "{l s='Your delivery address' js=1}"
             };
-
     }
-
 
     function buildAddressBlock(id_address, address_type, dest_comp)
     {
+		if (isNaN(id_address))
+			return;
+
         var adr_titles_vals = getAddressesTitles();
         var li_content = formatedAddressFieldsValuesList[id_address]['formated_fields_values'];
         var ordered_fields_name = ['title'];
@@ -119,7 +119,7 @@
         dest_comp.html('');
 
         li_content['title'] = adr_titles_vals[address_type];
-        li_content['update'] = '<a href="{$link->getPageLink('address', true, NULL, "id_address")}'+id_address+'&amp;back={$back_order_page}?step=1{if $back}&mod={$back}{/if}" title="{l s='Update'}">&raquo; {l s='Update'}</a>';
+		li_content['update'] = '<a href="{$link->getPageLink('address', true, NULL, "id_address")|addslashes}'+id_address+'&amp;back={$back_order_page}?step=1{if $back}&mod={$back}{/if}" title="{l s='Update' js=1}">&raquo; {l s='Update' js=1}</a>';
 
         appendAddressList(dest_comp, li_content, ordered_fields_name);
     }
@@ -174,23 +174,23 @@
         <div class="button_multishipping_mode" id="multishipping_mode_box">
             <div class="title">{l s='Multi-shipping'}</div>
             <div class="description">
-                <a href="{$link->getPageLink('order', true, NULL, 'step=1&multi-shipping=1')}"/>
+				<a href="{$link->getPageLink('order', true, NULL, 'step=1&multi-shipping=1')|escape:'html'}"/>
                     {l s='Specify a delivery address for each product ordered.'}
                 </a>
             </div>
         </div>
     {/if}
-<form action="{$link->getPageLink($back_order_page, true)}" method="post">
+<form action="{$link->getPageLink($back_order_page, true)|escape:'html'}" method="post" class="">
 {else}
     {if {Configuration::get('PS_ALLOW_MULTISHIPPING')} && !$cart->isVirtualCart()}
         <div class="address-form-multishipping">
             <div class="button_multishipping_mode" id="multishipping_mode_box">
                 <div class="title">{l s='Multi-shipping'}</div>
                 <div class="description">
-                    <input type="checkbox" id="multishipping_mode_checkbox" onchange="multishippingMode(this); return false;"/><label for="multishipping_mode_checkbox">{l s='I want to specify a delivery address for each product I order.'}</label>
+					<input type="checkbox" id="multishipping_mode_checkbox" onchange="multishippingMode(this); return false;" autocomplete="off"/><label for="multishipping_mode_checkbox">{l s='I\'d like to specify a delivery address for each product ordered.'}</label>
                 </div>
                 <div class="description_off">
-                    <a href="{$link->getPageLink('order-opc', true, NULL, 'ajax=1&multi-shipping=1&method=multishipping')}" id="link_multishipping_form" title="{l s='Choose the delivery addresses'}">
+					<a href="{$link->getPageLink('order-opc', true, NULL, 'ajax=1&multi-shipping=1&method=multishipping')|escape:'html'}" id="link_multishipping_form" title="{l s='Choose the delivery address(es)'}">
                         {l s='Specify a delivery address for each product.'}
                     </a>
                 </div>
@@ -209,32 +209,32 @@
     <div id="opc_account-overlay" class="opc-overlay" style="display: none;"></div>
 {/if}
     <div class="addresses clearfix">
-        <p class="address_delivery select">
+        <p class="address_delivery select clearfix">
             <label for="id_address_delivery">{if $cart->isVirtualCart()}{l s='Choose a billing address:'}{else}{l s='Choose a delivery address:'}{/if}</label>
             <select name="id_address_delivery" id="id_address_delivery" class="address_select" onchange="updateAddressesDisplay();{if $opc}updateAddressSelection();{/if}">
 
-            {foreach from=$addresses key=k item=address}
-                <option value="{$address.id_address|intval}" {if $address.id_address == $cart->id_address_delivery}selected="selected"{/if}>{$address.alias|escape:'htmlall':'UTF-8'}</option>
-            {/foreach}
+                {foreach from=$addresses key=k item=address}
+                    <option value="{$address.id_address|intval}" {if $address.id_address == $cart->id_address_delivery}selected="selected"{/if}>{$address.alias|escape:'htmlall':'UTF-8'}</option>
+                {/foreach}
 
             </select>
         </p>
         <p class="checkbox addressesAreEquals" {if $cart->isVirtualCart()}style="display:none;"{/if}>
-            <input type="checkbox" name="same" id="addressesAreEquals" value="1" onclick="updateAddressesDisplay();{if $opc}updateAddressSelection();{/if}" {if $cart->id_address_invoice == $cart->id_address_delivery || $addresses|@count == 1}checked="checked"{/if} />
+			<input type="checkbox" name="same" id="addressesAreEquals" value="1" onclick="updateAddressesDisplay();{if $opc}updateAddressSelection();{/if}"{if $cart->id_address_invoice == $cart->id_address_delivery || $addresses|@count == 1} checked="checked"{/if} autocomplete="off"/>
             <label for="addressesAreEquals">{l s='Use the delivery address as the billing address.'}</label>
         </p>
 
-        <p id="address_invoice_form" class="select" {if $cart->id_address_invoice == $cart->id_address_delivery}style="display: none;"{/if}>
+		<p id="address_invoice_form" class="select clearfix" {if $cart->id_address_invoice == $cart->id_address_delivery}style="display: none;"{/if}>
 
-        {if $addresses|@count > 1}
-            <label for="id_address_invoice" class="strong">{l s='Choose a billing address:'}</label>
-            <select name="id_address_invoice" id="id_address_invoice" class="address_select" onchange="updateAddressesDisplay();{if $opc}updateAddressSelection();{/if}">
-            {section loop=$addresses step=-1 name=address}
-                <option value="{$addresses[address].id_address|intval}" {if $addresses[address].id_address == $cart->id_address_invoice && $cart->id_address_delivery != $cart->id_address_invoice}selected="selected"{/if}>{$addresses[address].alias|escape:'htmlall':'UTF-8'}</option>
-            {/section}
-            </select>
+            {if $addresses|@count > 1}
+                <label for="id_address_invoice" class="strong">{l s='Choose a billing address:'}</label>
+                <select name="id_address_invoice" id="id_address_invoice" class="address_select" onchange="updateAddressesDisplay();{if $opc}updateAddressSelection();{/if}">
+                {section loop=$addresses step=-1 name=address}
+                    <option value="{$addresses[address].id_address|intval}" {if $addresses[address].id_address == $cart->id_address_invoice && $cart->id_address_delivery != $cart->id_address_invoice}selected="selected"{/if}>{$addresses[address].alias|escape:'htmlall':'UTF-8'}</option>
+                {/section}
+                </select>
             {else}
-                <a style="margin-left: 221px;" href="{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1&select_address=1{if $back}&mod={$back}{/if}")}" title="{l s='Add'}" class="button_largee button radius">{l s='Add a new address'}</a>
+				<a style="margin-left: 221px;" href="{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1&select_address=1{if $back}&mod={$back}{/if}")|escape:'html'}" title="{l s='Add'}" class="button_large button radius">{l s='Add a new address'}</a>
             {/if}
         </p>
         <div class="clearfix">
@@ -244,11 +244,11 @@
             </ul>
         </div>
         <p class="address_add submit">
-            <a href="{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")}" title="{l s='Add'}" class="button_large button radius">{l s='Add a new address'}</a>
+			<a href="{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")|escape:'html'}" title="{l s='Add'}" class="button_large button radius">{l s='Add a new address'}</a>
         </p>
         {if !$opc}
         <div id="ordermsg" class="clearfix">
-            <p class="txt">{l s='If you would like to add a comment about your order, please write it below.'}</p>
+			<p class="txt">{l s='If you would like to add a comment about your order, please write it in the field below.'}</p>
             <p class="textarea"><textarea cols="60" rows="3" name="message">{if isset($oldMessage)}{$oldMessage}{/if}</textarea></p>
         </div>
         {/if}
@@ -257,8 +257,8 @@
     <p class="cart_navigation submit">
         <input type="hidden" class="hidden" name="step" value="2" />
         <input type="hidden" name="back" value="{$back}" />
-        <a href="{$link->getPageLink($back_order_page, true, NULL, "step=0{if $back}&back={$back}{/if}")}" title="{l s='Previous'}" class="button radius">&laquo; {l s='Previous'}</a>
-        <input type="submit" name="processAddress" value="{l s='Next'} &raquo;" class="exclusive button radius" />
+		<a href="{$link->getPageLink($back_order_page, true, NULL, "step=0{if $back}&back={$back}{/if}")|escape:'html'}" title="{l s='Previous'}" class="button radius">&laquo; {l s='Previous'}</a>
+		<input type="submit" name="processAddress" value="{l s='Next'} &raquo;" class="exclusive button radius" />
     </p>
 </form>
 {else}

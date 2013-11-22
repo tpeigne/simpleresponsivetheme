@@ -1,5 +1,5 @@
 {*
-* 2007-2012 PrestaShop
+* 2007-2013 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,16 +18,15 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
+*  @copyright  2007-2013 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
 <form action="{if isset($opc) && $opc}{$link->getPageLink('order-opc', true)}{else}{$link->getPageLink('order', true)}{/if}" method="post" class="submit">
-    <div>
+    <div class="panel info-order-title">
         <input type="hidden" value="{$order->id}" name="id_order"/>
-        <h4>
+        <h4 class="title_block">
             <input type="submit" value="{l s='Reorder'}" name="submitReorder" class="button radius exclusive" />
             {l s='Order Reference %s - placed on' sprintf=$order->getUniqReference()} {dateFormat date=$order->date_add full=0}
         </h4>
@@ -35,27 +34,27 @@
 </form>
 
 <div class="info-order">
-{if $carrier->id}<p><strong>{l s='Carrier:'}</strong> {if $carrier->name == "0"}{$shop_name|escape:'htmlall':'UTF-8'}{else}{$carrier->name|escape:'htmlall':'UTF-8'}{/if}</p>{/if}
-<p><strong>{l s='Payment method:'}</strong> <span class="color-myaccount">{$order->payment|escape:'htmlall':'UTF-8'}</span></p>
+{if $carrier->id}<p><strong>{l s='Carrier'}</strong> {if $carrier->name == "0"}{$shop_name|escape:'htmlall':'UTF-8'}{else}{$carrier->name|escape:'htmlall':'UTF-8'}{/if}</p>{/if}
+<p><strong>{l s='Payment method'}</strong> <span class="color-myaccount">{$order->payment|escape:'htmlall':'UTF-8'}</span></p>
 {if $invoice AND $invoiceAllowed}
 <p>
     <img src="{$img_dir}icon/pdf.gif" alt="" class="icon" />
-    <a href="{$link->getPageLink('pdf-invoice', true)}?id_order={$order->id|intval}{if $is_guest}&secure_key={$order->secure_key}{/if}">{l s='Download your invoice as a PDF file'}</a>
+    <a target="_blank" href="{$link->getPageLink('pdf-invoice', true)}?id_order={$order->id|intval}{if $is_guest}&secure_key={$order->secure_key}{/if}">{l s='Download your invoice as a PDF file.'}</a>
 </p>
 {/if}
 {if $order->recyclable}
 <p><img src="{$img_dir}icon/recyclable.gif" alt="" class="icon" />&nbsp;{l s='You have given permission to receive your order in recycled packaging.'}</p>
 {/if}
 {if $order->gift}
-    <p><img src="{$img_dir}icon/gift.gif" alt="" class="icon" />&nbsp;{l s='You requested gift-wrapping for your order.'}</p>
-    <p>{l s='Message:'} {$order->gift_message|nl2br}</p>
+    <p><img src="{$img_dir}icon/gift.gif" alt="" class="icon" />&nbsp;{l s='You have requested gift wrapping for this order.'}</p>
+    <p>{l s='Message'} {$order->gift_message|nl2br}</p>
 {/if}
 </div>
 
 {if count($order_history)}
-<h3>{l s='Follow your order step-by-step'}</h3>
+<h3>{l s='Follow your order\'s status step-by-step'}</h3>
 <div class="table_block table_responsive">
-    <table class="detail_step_by_step">
+    <table class="detail_step_by_step std">
         <thead>
             <tr>
                 <th class="first_item">{l s='Date'}</th>
@@ -108,19 +107,19 @@
 </ul>
 </div>
 {$HOOK_ORDERDETAILDISPLAYED}
-{if !$is_guest}<form action="{$link->getPageLink('order-follow', true)}" method="post">{/if}
+{if !$is_guest}<form action="{$link->getPageLink('order-follow', true)|escape:'html'}" method="post">{/if}
 <div id="order-detail-content" class="table_block">
-    <table class="table_responsive">
+    <table class="table_responsive std">
         <thead>
             <tr>
-                {if $return_allowed}<th class="first_item return_allowed"><input type="checkbox" /></th>{/if}
-                <th class="{if $return_allowed}item{else}first_item{/if} reference">{l s='Reference'}</th>
+                {if $return_allowed}<th class="first_item table-hide-small"><input type="checkbox" /></th>{/if}
+                <th class="table-hide-small {if $return_allowed}item{else}first_item{/if}">{l s='Reference'}</th>
                 <th class="item">{l s='Product'}</th>
-                <th class="item quantity">{l s='Quantity'}</th>
+                <th class="item table-hide-small">{l s='Quantity'}</th>
                 {if $order->hasProductReturned()}
-                    <th class="item returned">{l s='Returned'}</th>
+                    <th class="item table-hide-small">{l s='Returned'}</th>
                 {/if}
-                <th class="item unit_price">{l s='Unit price'}</th>
+                <th class="item table-hide-small">{l s='Unit price'}</th>
                 <th class="last_item">{l s='Total price'}</th>
             </tr>
         </thead>
@@ -252,10 +251,7 @@
                         <td class="bold">
                             <label for="cb_{$product.id_order_detail|intval}">{$product.product_name|escape:'htmlall':'UTF-8'}</label>
                         </td>
-                        <td class="align_center table-hide-small">
-                            <input class="order_qte_input"  name="order_qte_input[{$smarty.foreach.products.index}]" type="text" size="2" value="{$product.customizationQuantityTotal|intval}" />
-                            <label for="cb_{$product.id_order_detail|intval}"><span class="order_qte_span editable">{$product.customizationQuantityTotal|intval}</span></label>
-                        </td>
+                        <td class="align_center table-hide-small"><input class="order_qte_input"  name="order_qte_input[{$smarty.foreach.products.index}]" type="text" size="2" value="{$product.customizationQuantityTotal|intval}" /><label for="cb_{$product.id_order_detail|intval}"><span class="order_qte_span editable">{$product.customizationQuantityTotal|intval}</span></label></td>
                         {if $order->hasProductReturned()}
                             <td class="table-hide-small">
                                 {$product['qty_returned']}
@@ -345,7 +341,7 @@
                         </td>
                         <td class="table-hide-small"><input class="order_qte_input" name="order_qte_input[{$product.id_order_detail|intval}]" type="text" size="2" value="{$productQuantity|intval}" /><label for="cb_{$product.id_order_detail|intval}"><span class="order_qte_span editable">{$productQuantity|intval}</span></label></td>
                         {if $order->hasProductReturned()}
-                            <td>
+                            <td class="table-hide-small">
                                 {$product['qty_returned']}
                             </td>
                         {/if}
@@ -374,7 +370,7 @@
         {foreach from=$discounts item=discount}
             <tr class="item">
                 <td>{$discount.name|escape:'htmlall':'UTF-8'}</td>
-                <td>{l s='Voucher:'} {$discount.name|escape:'htmlall':'UTF-8'}</td>
+                <td>{l s='Voucher'} {$discount.name|escape:'htmlall':'UTF-8'}</td>
                 <td><span class="order_qte_span editable">1</span></td>
                 <td>&nbsp;</td>
                 <td>{if $discount.value != 0.00}-{/if}{convertPriceWithCurrency price=$discount.value currency=$currency}</td>
@@ -386,9 +382,24 @@
         </tbody>
     </table>
 </div>
+    {if $return_allowed}
+    <div id="returnOrderMessage">
+        <h3>{l s='Merchandise return'}</h3>
+        <p>{l s='If you wish to return one or more products, please mark the corresponding boxes and provide an explanation for the return. When complete, click the button below.'}</p>
+        <p class="textarea">
+            <textarea cols="67" rows="3" name="returnText"></textarea>
+        </p>
+        <p class="submit">
+            <input type="submit" value="{l s='Make an RMA slip'}" name="submitReturnMerchandise" class="button_large button radius" />
+            <input type="hidden" class="hidden" value="{$order->id|intval}" name="id_order" />
+        </p>
+    </div>
+    <br />
+    {/if}
+    </form>
 <div class="table_block">
 {if $order->getShipping()|count > 0}
-    <table class="table_responsive">
+    <table class="std table_responsive">
         <thead>
             <tr>
                 <th class="first_item">{l s='Date'}</th>
@@ -401,8 +412,8 @@
         <tbody>
             {foreach from=$order->getShipping() item=line}
             <tr class="item">
-                <td>{$line.date_add}</td>
-                <td>{$line.state_name}</td>
+                <td>{dateFormat date=$line.date_add full=0}</td>
+                <td>{$line.carrier_name}</td>
                 <td class="table-hide-small">{if $line.weight > 0}{$line.weight|string_format:"%.3f"} {Configuration::get('PS_WEIGHT_UNIT')}{else}-{/if}</td>
                 <td class="table-hide-small">{if $order->getTaxCalculationMethod() == $smarty.const.PS_TAX_INC}{displayPrice price=$line.shipping_cost_tax_incl currency=$currency->id}{else}{displayPrice price=$line.shipping_cost_tax_excl currency=$currency->id}{/if}</td>
                 <td>
@@ -416,26 +427,10 @@
 </div>
 <br />
 {if !$is_guest}
-    {if $return_allowed}
-    <div id="returnOrderMessage">
-        <h3>{l s='Merchandise return'}</h3>
-        <p>{l s='If you wish to return one or more products, please mark the corresponding boxes and provide an explanation for the return. Then click the button below.'}</p>
-        <p class="textarea">
-            <textarea cols="67" rows="3" name="returnText"></textarea>
-        </p>
-        <p class="submit">
-            <input type="submit" value="{l s='Make an RMA slip'}" name="submitReturnMerchandise" class="button_large button radiuss"/>
-            <input type="hidden" class="hidden" value="{$order->id|intval}" name="id_order" />
-        </p>
-    </div>
-    <br />
-    {/if}
-    </form>
-
     {if count($messages)}
     <h3>{l s='Messages'}</h3>
-    <div class="table_block table_scroll_small">
-        <table class="detail_step_by_step">
+    <div class="table_block">
+        <table class="detail_step_by_step std">
             <thead>
                 <tr>
                     <th class="first_item" style="width:150px;">{l s='From'}</th>
@@ -473,9 +468,14 @@
             </ol>
         </div>
     {/if}
-    <form action="{$link->getPageLink('order-detail', true)}" method="post" class="" id="sendOrderMessage">
-        <h3>{l s='Add a message:'}</h3>
-        <p>{l s='If you would like to add a comment about your order, please write it below.'}</p>
+    {if isset($message_confirmation) && $message_confirmation}
+    <p class="success">
+        {l s='Message successfully sent'}
+    </p>
+    {/if}
+    <form action="{$link->getPageLink('order-detail', true)|escape:'html'}" method="post" class="std" id="sendOrderMessage">
+        <h3>{l s='Add a message'}</h3>
+        <p>{l s='If you would like to add a comment about your order, please write it in the field below.'}</p>
         <p>
         <label for="id_product">{l s='Product'}</label>
             <select name="id_product" style="width:300px;">
@@ -494,5 +494,5 @@
         </p>
     </form>
 {else}
-<p><img src="{$img_dir}icon/infos.gif" alt="" class="icon" />&nbsp;{l s='You cannot make a merchandise return with a guest account'}</p>
+<p><img src="{$img_dir}icon/infos.gif" alt="" class="icon" />&nbsp;{l s='You cannot return merchandise with a guest account'}</p>
 {/if}
