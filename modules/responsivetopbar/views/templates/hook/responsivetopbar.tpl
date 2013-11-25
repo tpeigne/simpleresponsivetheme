@@ -87,7 +87,7 @@
                 </li>
                 {/if}
 
-                <div id="cart_block" class="">
+                <li id="cart_block">
                     <div class="block_content">
                         <!-- block summary -->
                         <div id="cart_block_summary" class="collapsed">
@@ -210,7 +210,7 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                </li>
             </ul>
         </div>
 
