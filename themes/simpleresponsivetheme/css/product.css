@@ -21,8 +21,9 @@
     padding: 5px;
 }
 #pb-right-column  #image-block #view_full_size {
-    display:block;
-    cursor:pointer
+    display: block;
+    cursor: pointer;
+    text-align: center;
 }
 #pb-right-column  #image-block .zoomdiv .bigimg {
     max-width: none;
