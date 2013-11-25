@@ -80,7 +80,7 @@ class ResponsiveHomeFeatured extends Module
         $this->session();
         $this->displaySessionMessage();
 
-        if (Tools::getIsset('action') && Tools::getValue('action') == 'delete') {
+        if (Tools::getIsset('action') && Tools::getValue('action') == 'delete' && Tools::getValue('target') == 'category') {
             $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass((int)Tools::getValue('id'));
 
             if ($responsiveHomeFeatured->delete()) {
@@ -298,7 +298,7 @@ class ResponsiveHomeFeatured extends Module
             foreach($productsResponsiveHomeFeaturedAll as $productsResponsiveHomeFeatured)
             {
                 $this->_html .= '
-                        <tr class="'.$responsiveHomeFeatured->id.'_product hidden subcategory nodrag nodrop">
+                        <tr class="'.$responsiveHomeFeatured->id.'_product subcategory nodrag nodrop">
                             <td class="center"></td>
                             <td>
                                 '.$productsResponsiveHomeFeatured->name.'
@@ -374,7 +374,7 @@ class ResponsiveHomeFeatured extends Module
         return $this->display(__FILE__, 'responsivehomefeatured.tpl');
     }
 
-    public function hookHeader($params)
+    public function hookHeader()
     {
         $this->context->controller->addCSS(($this->_path).'responsivehomefeatured.css', 'all');
     }
@@ -437,6 +437,11 @@ class ResponsiveHomeFeatured extends Module
         return true;
     }
 
+    /**
+     * Return current session if not exist
+     *
+     * @return void
+     */
     protected function session() {
         if(!session_id()) {
             session_start();
@@ -444,6 +449,11 @@ class ResponsiveHomeFeatured extends Module
 
     }
 
+    /**
+     * Add session messages into module html
+     *
+     * @return void
+     */
     protected function displaySessionMessage()
     {
         if (isset($_SESSION[$this->name]) && $_SESSION[$this->name]['message'] != '') {

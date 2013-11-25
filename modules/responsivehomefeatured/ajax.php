@@ -7,9 +7,9 @@ include_once('responsivehomefeatured.php');
 $homeFeatured = new ResponsiveHomeFeatured();
 
 if (Tools::getValue('action') == 'updatePositionHomeFeatured') {
-    $id_responsive_homefeatured = (int)(Tools::getValue('id_responsive_homefeatured'));
-    $way = (int)(Tools::getValue('way'));
-    $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass($id_responsive_homefeatured);
+    $idResponsiveHomefeatured = (int) Tools::getValue('id_responsive_homefeatured');
+    $way = (int) Tools::getValue('way');
+    $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass($idResponsiveHomefeatured);
     $positions = Tools::getValue('categories');
 
     if (Validate::isLoadedObject($responsiveHomeFeatured))
@@ -20,7 +20,5 @@ if (Tools::getValue('action') == 'updatePositionHomeFeatured') {
     else
         die('{"hasError" : true, "errors" : "This category can not be loaded"}');
 
-    exit();
+    exit;
 }
-
-?>
