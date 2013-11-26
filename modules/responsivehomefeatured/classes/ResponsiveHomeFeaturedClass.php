@@ -77,31 +77,56 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     }
 
     /**
-     * Delete a homefeatured category
+     * Delete all products for a given featured category
      *
      * @param $idHomeFeatured
      * @return bool
      */
-    public static function deleteHomeFeaturedProduct($idHomeFeatured)
+    public static function deleteHomeFeaturedProducts($idHomeFeatured)
     {
-        return Db::getInstance()->Execute('
-        DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
-        WHERE id_responsivehomefeatured = '.(int)$idHomeFeatured.'');
+        $query = '
+            DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
+            WHERE id_responsivehomefeatured = '.(int) $idHomeFeatured.'
+        ';
+
+        return Db::getInstance()->Execute($query);
+    }
+
+    public static function deleteHomeFeaturedProduct($idHomeFeatured, $productId)
+    {
+        $query = '
+            DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
+            WHERE
+                id_responsivehomefeatured = '.(int) $idHomeFeatured.'
+                AND id_product = '.(int) $productId.'
+        ';
+
+        return Db::getInstance()->Execute($query);
     }
 
 
     /**
-     * Get products of a homefeatured category
+     * Get all products of a homefeatured category depending of the current store
      *
      * @return array of Product
      */
-    public function getProducts(){
+    public function getProducts()
+    {
         $return = array();
 
-        $result = Db::getInstance()->ExecuteS('
-        SELECT r.*
-        FROM '._DB_PREFIX_.'responsivehomefeaturedproducts r
-        WHERE id_category = '.(int)$this->id_category.'');
+        $query = '
+            SELECT rhfp.*
+            FROM '._DB_PREFIX_.'responsivehomefeatured
+                AS rhf
+            INNER JOIN '._DB_PREFIX_.'responsivehomefeaturedproducts
+                AS rhfp
+                ON (rhf.id_responsivehomefeatured = rhfp.id_responsivehomefeatured)
+            WHERE
+                rhfp.id_category = '.(int) $this->id_category.'
+                AND rhf.id_shop = '.(int) Context::getContext()->shop->id.'
+        ';
+
+        $result = Db::getInstance()->ExecuteS($query);
 
         foreach($result as $responsiveHomeFeatured)
         {
@@ -121,7 +146,8 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      * @param int $idCategory a PrestaShop Category id
      * @return int
      */
-    public static function getResponsiveHomeFeaturedId($idCategory){
+    public static function getResponsiveHomeFeaturedId($idCategory)
+    {
         $result = Db::getInstance()->getRow('
         SELECT r.id_responsivehomefeatured
         FROM '._DB_PREFIX_.'responsivehomefeatured r
@@ -137,7 +163,8 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      * @param int $idCategory PrestaShop Category id
      * @return bool
      */
-    public static function existCategory($idCategory){
+    public static function existCategory($idCategory)
+    {
         $result = Db::getInstance()->getRow('
         SELECT r.id_category
         FROM '._DB_PREFIX_.'responsivehomefeatured r
@@ -151,7 +178,8 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      *
      * @return array
      */
-    public static function findAll(){
+    public static function findAll()
+    {
         $result = Db::getInstance()->ExecuteS('
         SELECT r.*
         FROM '._DB_PREFIX_.'responsivehomefeatured r
@@ -171,7 +199,8 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      *
      * @return int
      */
-    public static function getMaxPosition(){
+    public static function getMaxPosition()
+    {
         $return = 0;
         $result = Db::getInstance()->getRow('
         SELECT MAX(r.position) as position
@@ -193,7 +222,8 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      * @param array $positions
      * @return bool
      */
-    public function updatePosition($positions){
+    public function updatePosition($positions)
+    {
         $i = 1;
 
         foreach($positions as $idHomeFeatured){

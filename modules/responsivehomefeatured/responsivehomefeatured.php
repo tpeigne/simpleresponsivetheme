@@ -81,10 +81,10 @@ class ResponsiveHomeFeatured extends Module
         $this->displaySessionMessage();
 
         if (Tools::getIsset('action') && Tools::getValue('action') == 'delete' && Tools::getValue('target') == 'category') {
-            $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass((int)Tools::getValue('id'));
+            $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass((int) Tools::getValue('id'));
 
             if ($responsiveHomeFeatured->delete()) {
-                if (ResponsiveHomeFeaturedClass::deleteHomeFeaturedProduct((int)Tools::getValue('id'))) {
+                if (ResponsiveHomeFeaturedClass::deleteHomeFeaturedProducts((int) Tools::getValue('id'))) {
                     $_SESSION[$this->name]['message'] = $this->l('The category has been deleted');
                     $_SESSION[$this->name]['type'] = 'confirm';
 
@@ -98,14 +98,28 @@ class ResponsiveHomeFeatured extends Module
             }
         }
 
+        if (Tools::getIsset('action') && Tools::getValue('action') == 'delete' && Tools::getValue('target') == 'product') {
+            if (ResponsiveHomeFeaturedClass::deleteHomeFeaturedProduct((int) Tools::getValue('id_homefeatured'), (int) Tools::getValue('id_product'))) {
+                $_SESSION[$this->name]['message'] = $this->l('The product has been deleted');
+                $_SESSION[$this->name]['type'] = 'confirm';
+
+                Tools::redirectAdmin($this->getPageUrl());
+            } else {
+                $_SESSION[$this->name]['message'] = $this->l('An error has occurred while deleting the product');
+                $_SESSION[$this->name]['type'] = 'error';
+
+                Tools::redirectAdmin($this->getPageUrl());
+            }
+        }
+
         if (Tools::isSubmit('addCategory')) {
             //check if this category already exist
-            if (ResponsiveHomeFeaturedClass::existCategory((int)Tools::getValue('id_category'))) {
-                $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass(ResponsiveHomeFeaturedClass::getResponsiveHomeFeaturedId((int)Tools::getValue('id_category')));
-                $responsiveHomeFeatured->id_category = (int)Tools::getValue('id_category');
+            if (ResponsiveHomeFeaturedClass::existCategory((int) Tools::getValue('id_category'))) {
+                $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass(ResponsiveHomeFeaturedClass::getResponsiveHomeFeaturedId((int) Tools::getValue('id_category')));
+                $responsiveHomeFeatured->id_category = (int) Tools::getValue('id_category');
             } else {
                 $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass();
-                $responsiveHomeFeatured->id_category = (int)Tools::getValue('id_category');
+                $responsiveHomeFeatured->id_category = (int) Tools::getValue('id_category');
                 $responsiveHomeFeatured->position = ResponsiveHomeFeaturedClass::getMaxPosition();
             }
 
@@ -125,10 +139,10 @@ class ResponsiveHomeFeatured extends Module
         }
 
         if (Tools::isSubmit('addProduct')) {
-            $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass((int)Tools::getValue('id_category'));
+            $responsiveHomeFeatured = new ResponsiveHomeFeaturedClass((int) Tools::getValue('id_category'));
 
             if (Tools::getIsset('id_product')) {
-                $responsiveHomeFeatured->addProduct((int)Tools::getValue('id_product'));
+                $responsiveHomeFeatured->addProduct((int) Tools::getValue('id_product'));
 
                 $_SESSION[$this->name]['message'] = $this->l('The product has been added to the category');
                 $_SESSION[$this->name]['type'] = 'confirm';
@@ -273,8 +287,12 @@ class ResponsiveHomeFeatured extends Module
 
         foreach(ResponsiveHomeFeaturedClass::findAll() as $responsiveHomeFeatured)
         {
-            $category = null;
-            $category = new Category((int)$responsiveHomeFeatured->id_category, $this->context->cookie->id_lang);
+            $category = new Category(
+                (int) $responsiveHomeFeatured->id_category,
+                $this->context->cookie->id_lang
+            );
+
+            // Retrieve all products for this category
             $productsResponsiveHomeFeaturedAll = $responsiveHomeFeatured->getProducts();
 
             $this->_html .= '
@@ -289,7 +307,7 @@ class ResponsiveHomeFeatured extends Module
                         </td>
                         <td class="center">';
             $this->_html .= '
-                            <a class="delete" href="'.$this->getPageUrl(array('id='.$responsiveHomeFeatured->id, 'action=delete')).'" id="'.$responsiveHomeFeatured->id.'" title="'.$this->l('Delete the category ?').'">
+                            <a class="delete" href="'.$this->getPageUrl(array('id='.$responsiveHomeFeatured->id, 'action=delete', 'target=category')).'" id="'.$responsiveHomeFeatured->id.'" title="'.$this->l('Delete the category ?').'">
                                 <img src="../img/admin/delete.gif" alt="'.$this->l('Delete').'" alt="'.$this->l('Delete').'">
                             </a>
                         </td>
@@ -308,7 +326,7 @@ class ResponsiveHomeFeatured extends Module
 
                             </td>
                             <td class="center">
-                                <a class="delete" href="'.$this->getPageUrl(array('id='.$productsResponsiveHomeFeatured->id, 'action=delete')).'" id="'.$productsResponsiveHomeFeatured->id.'" title="'.$this->l('Delete the product ?').'">
+                                <a class="delete" href="'.$this->getPageUrl(array('id_homefeatured='.$responsiveHomeFeatured->id, 'id_product='.$productsResponsiveHomeFeatured->id, 'action=delete', 'target=product')).'" id="'.$productsResponsiveHomeFeatured->id.'" title="'.$this->l('Delete the product ?').'">
                                     <img src="../img/admin/delete.gif" alt="'.$this->l('Delete').'" alt="'.$this->l('Delete').'">
                                 </a>
                             </td>
@@ -386,51 +404,57 @@ class ResponsiveHomeFeatured extends Module
      */
     public function installDemoLinks()
     {
+        $shops = Shop::getShops();
+
         //first category
         if (Category::categoryExists(3)) {
-            $firstHomeFeatured = new ResponsiveHomeFeaturedClass();
-            $firstHomeFeatured->id_category = 3;
-            $firstHomeFeatured->position = 1;
-            $firstHomeFeatured->id_shop = (int)Configuration::get('PS_SHOP_DEFAULT');
+            foreach ($shops as $shop) {
+                $firstHomeFeatured = new ResponsiveHomeFeaturedClass();
+                $firstHomeFeatured->id_category = 3;
+                $firstHomeFeatured->position    = 1;
+                $firstHomeFeatured->id_shop     = (int) $shop['id_shop'];
 
-            $firstHomeFeatured->save();
+                $firstHomeFeatured->save();
 
-            //and add some products
-            $results = Db::getInstance()->executeS('
-                SELECT `id_product`
-                FROM `'._DB_PREFIX_.'product`
-                WHERE `id_category_default` = 3
-                LIMIT 0,3
-            ');
+                //and add some products
+                $results = Db::getInstance()->executeS('
+                    SELECT `id_product`
+                    FROM `'._DB_PREFIX_.'product`
+                    WHERE `id_category_default` = 3
+                    LIMIT 0,3
+                ');
 
-            foreach($results as $product)
-            {
-                if (!$firstHomeFeatured->addProduct((int)$product['id_product']))
-                    return false;
+                foreach($results as $product) {
+                    if (!$firstHomeFeatured->addProduct((int) $product['id_product'])) {
+                        return false;
+                    }
+                }
             }
         }
 
         //second category
         if (Category::categoryExists(5)) {
-            $secondHomeFeatured = new ResponsiveHomeFeaturedClass();
-            $secondHomeFeatured->id_category = 5;
-            $secondHomeFeatured->position = 1;
-            $secondHomeFeatured->id_shop = (int)Configuration::get('PS_SHOP_DEFAULT');
+            foreach ($shops as $shop) {
+                $secondHomeFeatured = new ResponsiveHomeFeaturedClass();
+                $secondHomeFeatured->id_category = 5;
+                $secondHomeFeatured->position    = 1;
+                $secondHomeFeatured->id_shop     = (int) $shop['id_shop'];
 
-            $secondHomeFeatured->save();
+                $secondHomeFeatured->save();
 
-            //and add some products
-            $results = Db::getInstance()->executeS('
-                SELECT `id_product`
-                FROM `'._DB_PREFIX_.'product`
-                WHERE `id_category_default` = 5
-                LIMIT 0,2
-            ');
+                //and add some products
+                $results = Db::getInstance()->executeS('
+                    SELECT `id_product`
+                    FROM `'._DB_PREFIX_.'product`
+                    WHERE `id_category_default` = 5
+                    LIMIT 0,2
+                ');
 
-            foreach($results as $product)
-            {
-                if (!$secondHomeFeatured->addProduct((int)$product['id_product']))
-                    return false;
+                foreach($results as $product) {
+                    if (!$secondHomeFeatured->addProduct((int) $product['id_product'])) {
+                        return false;
+                    }
+                }
             }
         }
 
