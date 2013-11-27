@@ -21,10 +21,23 @@ $(window).load(function() {
         $(this).html(i+1);
     });
 
+    $('.product-count').click( function() {
+        var categoryId       = $(this).parent().parent().attr('id');
+        var productsCategory = $('.product-'+categoryId);
+
+        if (productsCategory.is(':visible')) {
+            productsCategory.hide();
+        } else {
+            productsCategory.show();
+        }
+    });
+
     // Dynamic ajax position update
     $('table.tableDnD').tableDnD({
-        onDragStart: function(table, row) {
+        onDragStart: function() {
             originalOrder = $.tableDnD.serialize();
+
+            $('.subcategory').hide();
         },
         onDrop: function(table, row) {
             if (originalOrder != $.tableDnD.serialize()){
@@ -43,6 +56,12 @@ $(window).load(function() {
                     success: function(data){
                         $('#categories').find('td.position').each(function(i) {
                             $(this).html(i+1);
+
+                            // Re-order the list of products for this category
+                            var category         = $(this).parent();
+                            var productsCategory = $('.product-'+category.attr('id'));
+
+                            productsCategory.insertAfter(category);
                         });
                     }
                 });

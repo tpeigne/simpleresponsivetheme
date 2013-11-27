@@ -1,16 +1,12 @@
 <?php
 
-/**
- * ResponsiveHomeFeatured module for Prestashop, responsivehomefeaturedslider.php
- *
- * Created by Thomas Peigné (thomas.peigne@gmail.com)
- */
-
 if (!defined('_PS_VERSION_'))
     exit;
 
 /**
- * Class ResponsiveHomeFeatured
+ * ResponsiveHomeFeatured module for Prestashop
+ *
+ * @author Thomas Peigné <thomas.peigne@gmail.com>
  */
 class ResponsiveHomeFeatured extends Module
 {
@@ -303,7 +299,7 @@ class ResponsiveHomeFeatured extends Module
                             (<b><a target="_blank" href="'.(isset($category) ? $this->context->link->getCategoryLink($category) : '').'">'.$this->l('Category link').'</a></b>)
                         </td>
                         <td class="center">
-                            <span><b>'.count($productsResponsiveHomeFeaturedAll).' '.(count($productsResponsiveHomeFeaturedAll) > 1 ? $this->l('products') : $this->l('product')).'</b></span>
+                            <span class="product-count"><b>'.count($productsResponsiveHomeFeaturedAll).' '.(count($productsResponsiveHomeFeaturedAll) > 1 ? $this->l('products') : $this->l('product')).'</b></span>
                         </td>
                         <td class="center">';
             $this->_html .= '
@@ -316,7 +312,7 @@ class ResponsiveHomeFeatured extends Module
             foreach($productsResponsiveHomeFeaturedAll as $productsResponsiveHomeFeatured)
             {
                 $this->_html .= '
-                        <tr class="'.$responsiveHomeFeatured->id.'_product subcategory nodrag nodrop">
+                        <tr class="product-'.$responsiveHomeFeatured->id.' subcategory nodrag nodrop">
                             <td class="center"></td>
                             <td>
                                 '.$productsResponsiveHomeFeatured->name.'

@@ -5,3 +5,11 @@ tr.hidden{
 tr.subcategory{
     background-color: #F7F7E8;
 }
+
+.product-count {
+    cursor: pointer;
+}
+
+.subcategory {
+    display: none;
+}
