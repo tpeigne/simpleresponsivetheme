@@ -16,7 +16,7 @@ class ResponsiveHomeFeatured extends Module
     {
         $this->name = 'responsivehomefeatured';
         $this->tab = 'front_office_features';
-        $this->version = '2.3';
+        $this->version = '2.4';
         $this->author = 'Thomas Peigné';
         $this->need_instance = 0;
 
@@ -39,6 +39,8 @@ class ResponsiveHomeFeatured extends Module
         `id_shop` int(10) unsigned NOT NULL,
         `id_category` int(10) unsigned NOT NULL,
         `position` int(10) NOT NULL,
+        `date_add` datetime NOT NULL,
+        `date_upd` datetime NOT NULL,
         PRIMARY KEY (`id_responsivehomefeatured`))
         ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8'))
             return false;
@@ -47,7 +49,8 @@ class ResponsiveHomeFeatured extends Module
         CREATE TABLE `'._DB_PREFIX_.'responsivehomefeaturedproducts` (
         `id_responsivehomefeatured` int(10) unsigned NOT NULL,
         `id_category` int(10) unsigned NOT NULL,
-        `id_product` int(10) unsigned NOT NULL)
+        `id_product` int(10) unsigned NOT NULL,
+        `date_add` datetime NOT NULL)
         ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8'))
             return false;
 

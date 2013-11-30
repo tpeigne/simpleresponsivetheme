@@ -10,6 +10,8 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     public $id_category;
     public $position;
     public $id_shop;
+    public $date_add;
+    public $date_upd;
 
     public static $definition = array(
         'table' => 'responsivehomefeatured',
@@ -17,20 +19,11 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         'fields' => array(
             'id_shop'     => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true),
             'id_category' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true),
-            'position'    => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true)
+            'position'    => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true),
+            'date_add'    => array('type' => self::TYPE_DATE, 'validate' => 'isDateFormat'),
+            'date_upd'    => array('type' => self::TYPE_DATE, 'validate' => 'isDateFormat')
         )
     );
-
-    public function getFields()
-    {
-        parent::validateFields();
-        $fields['id_responsivehomefeatured'] = (int)$this->id;
-        $fields['id_shop']                   = (int)$this->id_shop;
-        $fields['position']                  = (int)$this->position;
-        $fields['id_category']               = (int)$this->id_category;
-
-        return $fields;
-    }
 
     public function copyFromPost()
     {
@@ -65,31 +58,28 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         $data = array(
             'id_responsivehomefeatured' => (int)$this->id,
             'id_category' => (int)$this->id_category,
-            'id_product' => (int)$idProduct
+            'id_product' => (int)$idProduct,
+            'date_add' => date('Y-m-d H:i:s')
         );
 
-        $result = Db::getInstance()->insert(
-            _DB_PREFIX_.'responsivehomefeaturedproducts',
+        return Db::getInstance()->insert(
+            'responsivehomefeaturedproducts',
             $data
         );
-
-        return $result;
     }
 
     /**
-     * Delete a product of a homefeatured category
+     * Delete a product of a featured category
      *
      * @param int $idProduct
      * @return bool
      */
     public static function deleteProduct($idProduct)
     {
-        $query = '
-            DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
-            WHERE id_product = '.(int)$idProduct.'
-        ';
-
-        return Db::getInstance()->Execute($query);
+        return Db::getInstance()->delete(
+            'responsivehomefeaturedproducts',
+            'id_product = '.(int)$idProduct
+        );
     }
 
     /**
@@ -100,29 +90,23 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
      */
     public static function deleteHomeFeaturedProducts($idHomeFeatured)
     {
-        $query = '
-            DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
-            WHERE id_responsivehomefeatured = '.(int) $idHomeFeatured.'
-        ';
-
-        return Db::getInstance()->Execute($query);
+        return Db::getInstance()->delete(
+            'responsivehomefeaturedproducts',
+            'id_responsivehomefeatured = '.(int) $idHomeFeatured
+        );
     }
 
     public static function deleteHomeFeaturedProduct($idHomeFeatured, $productId)
     {
-        $query = '
-            DELETE FROM '._DB_PREFIX_.'responsivehomefeaturedproducts
-            WHERE
-                id_responsivehomefeatured = '.(int) $idHomeFeatured.'
-                AND id_product = '.(int) $productId.'
-        ';
-
-        return Db::getInstance()->Execute($query);
+        return Db::getInstance()->delete(
+            'responsivehomefeaturedproducts',
+            'id_responsivehomefeatured = '.(int) $idHomeFeatured.' AND id_product = '.(int) $productId
+        );
     }
 
 
     /**
-     * Get all products of a homefeatured category depending of the current store
+     * Get all products of a featured category depending of the current store
      *
      * @return array of Product
      */
@@ -131,7 +115,8 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
         $return = array();
 
         $query = '
-            SELECT rhfp.*
+            SELECT
+                rhfp.*
             FROM '._DB_PREFIX_.'responsivehomefeatured
                 AS rhf
             INNER JOIN '._DB_PREFIX_.'responsivehomefeaturedproducts
@@ -156,7 +141,7 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     }
 
     /**
-     * Get homefeatured category id
+     * Get featured category id
      *
      * @param int $idCategory a PrestaShop Category id
      * @return int
@@ -164,8 +149,10 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     public static function getResponsiveHomeFeaturedId($idCategory)
     {
         $query = '
-            SELECT rhf.id_responsivehomefeatured
-            FROM '._DB_PREFIX_.'responsivehomefeatured AS rhf
+            SELECT
+                rhf.id_responsivehomefeatured
+            FROM '._DB_PREFIX_.'responsivehomefeatured
+                AS rhf
             WHERE
                 rhf.id_category = '.(int) $idCategory.'
                 AND rhf.id_shop = '.(int) Context::getContext()->shop->id.'
@@ -185,8 +172,10 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     public static function existCategory($idCategory)
     {
         $query = '
-            SELECT r.id_category
-            FROM '._DB_PREFIX_.'responsivehomefeatured AS r
+            SELECT
+                r.id_category
+            FROM '._DB_PREFIX_.'responsivehomefeatured
+                AS r
             WHERE
                 r.id_category = '.(int)$idCategory.'
                 AND r.id_shop = '.(int)Context::getContext()->shop->id.'
@@ -198,7 +187,7 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     }
 
     /**
-     * Get all homefeatured category
+     * Get all featured category
      *
      * @return array
      */
@@ -221,16 +210,19 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     }
 
     /**
-     * Get the highest homefeatured category position
+     * Get the highest featured category position
      *
      * @return int
      */
     public static function getMaxPosition()
     {
         $query = '
-            SELECT MAX(r.position) as position
-            FROM '._DB_PREFIX_.'responsivehomefeatured r
-            WHERE r.id_shop = '.(int)Context::getContext()->shop->id.'
+            SELECT
+                MAX(r.position) as position
+            FROM '._DB_PREFIX_.'responsivehomefeatured
+                AS r
+            WHERE
+                r.id_shop = '.(int)Context::getContext()->shop->id.'
         ';
 
         $result = Db::getInstance()->getRow($query);
@@ -245,7 +237,7 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
     }
 
     /**
-     * Update positions for each homefeatured category
+     * Update positions for each featured category
      *
      * @param array $positions
      * @return bool
@@ -256,13 +248,13 @@ class ResponsiveHomeFeaturedClass extends ObjectModel
 
         foreach ($positions as $idHomeFeatured) {
             if ($idHomeFeatured <> '') {
-                $query = '
-                    UPDATE '._DB_PREFIX_.'responsivehomefeatured
-                    SET position = '.$i.'
-                    WHERE id_responsivehomefeatured = '.$idHomeFeatured.'
-                ';
+                $result = Db::getInstance()->update(
+                    'responsivehomefeatured',
+                    array('position' => $i),
+                    'id_responsivehomefeatured = '.$idHomeFeatured
+                );
 
-                if (!Db::getInstance()->Execute($query)) {
+                if (!$result) {
                     return false;
                 }
 
