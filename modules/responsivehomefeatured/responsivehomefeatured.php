@@ -299,7 +299,6 @@ class ResponsiveHomeFeatured extends Module
                         <td class="center position"></td>
                         <td>
                             '.$category->name.'
-                            (<b><a target="_blank" href="'.(isset($category) ? $this->context->link->getCategoryLink($category) : '').'">'.$this->l('Category link').'</a></b>)
                         </td>
                         <td class="center">
                             <span class="product-count"><b>'.count($productsResponsiveHomeFeaturedAll).' '.(count($productsResponsiveHomeFeaturedAll) > 1 ? $this->l('products') : $this->l('product')).'</b></span>
@@ -319,7 +318,6 @@ class ResponsiveHomeFeatured extends Module
                             <td class="center"></td>
                             <td>
                                 '.$productsResponsiveHomeFeatured->name.'
-                                (<b><a target="_blank" href="'.$this->context->link->getProductLink($productsResponsiveHomeFeatured).'">'.$this->l('Product link').'</a></b>)
                             </td>
                             <td class="center">
 
