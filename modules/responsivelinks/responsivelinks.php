@@ -45,6 +45,8 @@ class ResponsiveLinks extends Module
         `id_parent` int(10) UNSIGNED NOT NULL,
         `page_category` VARCHAR(50) NOT NULL,
         `page_category_column` int(10) UNSIGNED NOT NULL,
+        `date_add` datetime NOT NULL,
+        `date_upd` datetime NOT NULL,
         PRIMARY KEY (`id_responsivelinks`))
         ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8'))
             return false;

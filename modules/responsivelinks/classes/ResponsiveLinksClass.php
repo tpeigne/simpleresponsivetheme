@@ -2,6 +2,8 @@
 
 /**
  * Class ResponsiveLinksClass
+ *
+ * @author Thomas Peigné <thomas.peigne@gmail.com>
  */
 class ResponsiveLinksClass extends ObjectModel
 {
@@ -15,22 +17,27 @@ class ResponsiveLinksClass extends ObjectModel
     public $id_cms_category;
     public $id_product;
     public $id_parent;
+    public $date_add;
+    public $date_upd;
 
     public static $definition = array(
         'table' => 'responsivelinks',
         'primary' => 'id_responsivelinks',
         'multilang' => true,
         'fields' => array(
-            'position'          => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
-            'title'             => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
-            'url'               => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
+        'position'                  => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'title'                 => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
+            'url'                   => array('type' => self::TYPE_STRING, 'lang' => true, 'size' => 255),
             'page_category'         => array('type' => self::TYPE_STRING, 'values' => array('header', 'footer'), 'default' => 'header'),
             'page_category_column'  => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'values' => array('1', '2', '3'), 'default' => '1'),
-            'id_category'       => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
-            'id_cms'            => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
-            'id_cms_category'   => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
-            'id_product'        => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
-            'id_parent'         => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'))
+            'id_category'           => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_cms'                => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_cms_category'       => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_product'            => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'id_parent'             => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'default' => '0'),
+            'date_add'              => array('type' => self::TYPE_DATE, 'validate' => 'isDateFormat'),
+            'date_upd'              => array('type' => self::TYPE_DATE, 'validate' => 'isDateFormat')
+        )
     );
 
     /**
@@ -49,7 +56,7 @@ class ResponsiveLinksClass extends ObjectModel
         foreach ($languages as $language)
         {
             $fields[$language['id_lang']]['id_lang'] = (int)($language['id_lang']);
-            $fields[$language['id_lang']][$this->identifier] = (int)($this->id);
+            $fields[$language['id_lang']][self::$definition['primary']] = (int)($this->id);
             foreach ($fieldsArray as $field)
             {
                 if (!Validate::isTableOrIdentifier($field))
@@ -69,7 +76,7 @@ class ResponsiveLinksClass extends ObjectModel
     {
         /* Classical fields */
         foreach ($_POST AS $key => $value)
-            if (key_exists($key, $this) AND $key != 'id_'.$this->table)
+            if (array_key_exists($key, $this) AND $key != 'id_'.self::$definition['table'])
                 $this->{$key} = $value;
 
         /* Multilingual fields */
@@ -190,7 +197,13 @@ class ResponsiveLinksClass extends ObjectModel
         foreach ($positions as $idLink)
         {
             if ($idLink <> '') {
-                if (!Db::getInstance()->update('responsivelinks', array('position' => $i), 'id_responsivelinks = '.$idLink)) {
+                $result = Db::getInstance()->update(
+                    'responsivelinks',
+                    array('position' => $i),
+                    'id_responsivelinks = '.$idLink
+                );
+
+                if (!$result) {
                     return false;
                 }
 
