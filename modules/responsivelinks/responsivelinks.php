@@ -575,14 +575,15 @@ class ResponsiveLinks extends Module
             $cms = null;
             $product = null;
 
-            if($responsiveLink->id_category <> 0)
+            if ($responsiveLink->id_category <> 0) {
                 $category = new Category((int)$responsiveLink->id_category, $this->context->cookie->id_lang);
-            elseif($responsiveLink->id_cms <> 0)
+            } elseif($responsiveLink->id_cms <> 0) {
                 $cms = new CMS((int)$responsiveLink->id_cms, $this->context->cookie->id_lang);
-            elseif($responsiveLink->id_cms_category <> 0)
+            } elseif($responsiveLink->id_cms_category <> 0) {
                 $cmsCategory = new CMSCategory((int)$responsiveLink->id_cms_category, $this->context->cookie->id_lang);
-            elseif($responsiveLink->id_product <> 0)
+            } elseif($responsiveLink->id_product <> 0) {
                 $product = new Product((int)$responsiveLink->id_product, false, $this->context->cookie->id_lang);
+            }
 
             $this->_html .= '
                     <tr id="node-'.$responsiveLink->id.'">
@@ -590,16 +591,19 @@ class ResponsiveLinks extends Module
                         <td class="center">'.$responsiveLink->id.'</td>
                         <td class="center position"></td>
                         <td>';
-            if(isset($category))
-                $this->_html .= $category->name.'(<b><a target="_blank" href="'.$this->context->link->getCategoryLink($category).'">'.$this->l('link').'</b>)';
-            elseif(isset($cms))
-                $this->_html .= $cms->meta_title.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cms).'">'.$this->l('link').'</b>)';
-            elseif(isset($cmsCategory))
-                $this->_html .= $cmsCategory->name.'(<b><a target="_blank" href="'.$this->context->link->getCMSCategoryLink($cmsCategory).'">'.$this->l('link').'</b>)';
-            elseif(isset($product))
-                $this->_html .= $product->name.'(<b><a target="_blank" href="'.$this->context->link->getProductLink($product).'">'.$this->l('link').'</b>)';
-            else
-                $this->_html .= $responsiveLink->title.'(<b><a target="_blank" href="'.$responsiveLink->url.'">'.$this->l('link').'</b>)';
+
+            if (isset($category)) {
+                $this->_html .= $category->name;
+            } elseif(isset($cms)) {
+                $this->_html .= $cms->meta_title;
+            } elseif(isset($cmsCategory)) {
+                $this->_html .= $cmsCategory->name;
+            } elseif(isset($product)) {
+                $this->_html .= $product->name;
+            } else {
+                $this->_html .= $responsiveLink->title;
+            }
+
             $this->_html .= '
                         </td>
                         <td class="center">
@@ -657,16 +661,18 @@ class ResponsiveLinks extends Module
                         <td class="center">'.$responsiveLink->id.'</td>
                         <td class="center position"></td>
                         <td>';
-            if(isset($category))
-                $this->_html .= $category->name.'(<b><a target="_blank" href="'.$this->context->link->getCategoryLink($category).'">'.$this->l('link').'</b>)';
-            elseif(isset($cms))
-                $this->_html .= $cms->meta_title.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cms).'">'.$this->l('link').'</b>)';
-            elseif(isset($cmsCategory))
-                $this->_html .= $cmsCategory->name.'(<b><a target="_blank" href="'.$this->context->link->getCMSCategoryLink($cmsCategory).'">'.$this->l('link').'</b>)';
-            elseif(isset($product))
-                $this->_html .= $product->name.'(<b><a target="_blank" href="'.$this->context->link->getProductLink($product).'">'.$this->l('link').'</b>)';
-            else
-                $this->_html .= $responsiveLink->title.'(<b><a target="_blank" href="'.$responsiveLink->url.'">'.$this->l('link').'</b>)';
+            if (isset($category)) {
+                $this->_html .= $category->name;
+            } elseif(isset($cms)) {
+                $this->_html .= $cms->meta_title;
+            } elseif(isset($cmsCategory)) {
+                $this->_html .= $cmsCategory->name;
+            } elseif(isset($product)) {
+                $this->_html .= $product->name;
+            } else {
+                $this->_html .= $responsiveLink->title;
+            }
+
             $this->_html .= '
                         </td>
                         <td class="center">
@@ -702,30 +708,33 @@ class ResponsiveLinks extends Module
             $cms = null;
             $product = null;
 
-            if($responsiveLink->id_category <> 0)
+            if ($responsiveLink->id_category <> 0) {
                 $category = new Category((int)$responsiveLink->id_category, $this->context->cookie->id_lang);
-            elseif($responsiveLink->id_cms <> 0)
+            } elseif($responsiveLink->id_cms <> 0) {
                 $cms = new CMS((int)$responsiveLink->id_cms, $this->context->cookie->id_lang);
-            elseif($responsiveLink->id_cms_category <> 0)
+            } elseif($responsiveLink->id_cms_category <> 0) {
                 $cmsCategory = new CMSCategory((int)$responsiveLink->id_cms_category, $this->context->cookie->id_lang);
-            elseif($responsiveLink->id_product <> 0)
+            } elseif($responsiveLink->id_product <> 0) {
                 $product = new Product((int)$responsiveLink->id_product, false, $this->context->cookie->id_lang);
+            }
 
             $this->_html .= '
                     <tr id="node-'.$responsiveLink->id.'">
                         <td class="center">'.$responsiveLink->id.'</td>
                         <td class="center position"></td>
                         <td>';
-            if(isset($category))
-                $this->_html .= $category->name.'(<b><a target="_blank" href="'.$this->context->link->getCategoryLink($category).'">'.$this->l('link').'</b>)';
-            elseif(isset($cms))
-                $this->_html .= $cms->meta_title.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cms).'">'.$this->l('link').'</b>)';
-            elseif(isset($cmsCategory))
-                $this->_html .= $cmsCategory->name.'(<b><a target="_blank" href="'.$this->context->link->getCMSCategoryLink($cmsCategory).'">'.$this->l('link').'</b>)';
-            elseif(isset($product))
-                $this->_html .= $product->name.'(<b><a target="_blank" href="'.$this->context->link->getProductLink($product).'">'.$this->l('link').'</b>)';
-            else
-                $this->_html .= $responsiveLink->title.'(<b><a target="_blank" href="'.$responsiveLink->url.'">'.$this->l('link').'</b>)';
+            if (isset($category)) {
+                $this->_html .= $category->name;
+            } elseif(isset($cms)) {
+                $this->_html .= $cms->meta_title;
+            } elseif(isset($cmsCategory)) {
+                $this->_html .= $cmsCategory->name;
+            } elseif(isset($product)) {
+                $this->_html .= $product->name;
+            } else {
+                $this->_html .= $responsiveLink->title;
+            }
+
             $this->_html .= '
                         </td>
                         <td class="center">
@@ -830,14 +839,15 @@ class ResponsiveLinks extends Module
             $cms = null;
             $product = null;
 
-            if($responsiveSubLink->id_category <> 0)
+            if ($responsiveSubLink->id_category <> 0) {
                 $category = new Category((int)$responsiveSubLink->id_category, $idLang);
-            elseif($responsiveSubLink->id_cms <> 0)
+            } elseif($responsiveSubLink->id_cms <> 0) {
                 $cms = new CMS((int)$responsiveSubLink->id_cms, $idLang);
-            elseif($responsiveSubLink->id_cms_category <> 0)
+            } elseif($responsiveSubLink->id_cms_category <> 0) {
                 $cmsCategory = new CMSCategory((int)$responsiveSubLink->id_cms_category, $idLang);
-            elseif($responsiveSubLink->id_product <> 0)
+            } elseif($responsiveSubLink->id_product <> 0) {
                 $product = new Product((int)$responsiveSubLink->id_product, false, $idLang);
+            }
 
             $this->_html .= '
                 <tr id="node-'.$responsiveSubLink->id.'" class="child-of-node-'.$idParent.'">
@@ -845,16 +855,18 @@ class ResponsiveLinks extends Module
                     <td class="center">'.$responsiveSubLink->id.'</td>
                     <td class="center position"></td>
                     <td>';
-            if(isset($category))
-                $this->_html .= $category->name.'(<b><a target="_blank" href="'.$this->context->link->getCategoryLink($category).'">'.$this->l('link').'</b>)';
-            elseif(isset($cms))
-                $this->_html .= $cms->meta_title.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cms).'">'.$this->l('link').'</b>)';
-            elseif(isset($cmsCategory))
-                $this->_html .= $cmsCategory->name.'(<b><a target="_blank" href="'.$this->context->link->getCMSLink($cmsCategory).'">'.$this->l('link').'</b>)';
-            elseif(isset($product))
-                $this->_html .= $product->name.'(<b><a target="_blank" href="'.$this->context->link->getProductLink($product).'">'.$this->l('link').'</b>)';
-            else
-                $this->_html .= $responsiveSubLink->title.'(<b><a target="_blank" href="'.$responsiveSubLink->url.'">'.$this->l('link').'</b>)';
+            if (isset($category)) {
+                $this->_html .= $category->name;
+            } elseif(isset($cms)) {
+                $this->_html .= $cms->meta_title;
+            } elseif(isset($cmsCategory)) {
+                $this->_html .= $cmsCategory->name;
+            } elseif(isset($product)) {
+                $this->_html .= $product->name;
+            } else {
+                $this->_html .= $responsiveSubLink->title;
+            }
+
             $this->_html .= '
                     </td>
                     <td class="center">
