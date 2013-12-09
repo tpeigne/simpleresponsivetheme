@@ -23,7 +23,7 @@
         {/if}
 
         {capture name='links' assign='onLink'}
-            <li></li><a href="{$link_link}" title="{$link_name}">{$link_name}</a></li>
+            <li><a href="{$link_link}" title="{$link_name}">{$link_name}</a></li>
         {/capture}
 
         {assign var="browse_links" value=$browse_links|cat:$onLink}
@@ -49,7 +49,7 @@
         {/if}
 
         {capture name='links' assign='onLink'}
-            <li></li><a href="{$link_link}" title="{$link_name}">{$link_name}</a></li>
+            <li><a href="{$link_link}" title="{$link_name}">{$link_name}</a></li>
         {/capture}
 
         {assign var="siteinfo_links" value=$siteinfo_links|cat:$onLink}
