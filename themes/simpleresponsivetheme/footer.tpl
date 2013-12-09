@@ -26,9 +26,9 @@
         {if !$content_only}
                 </section>
 
-                <section id="sidebar" role="complementary">
+                <aside id="sidebar" role="complementary">
                     {$HOOK_LEFT_COLUMN}
-                </section>
+                </aside>
             </div>
 
             <footer id="footer">
