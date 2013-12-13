@@ -1,0 +1,37 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_74b6e18246947a620f11636f0ff6913a'] = 'Productos responsives en la página de inicio';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_507c312b884eccd4140b7f20418b3b7f'] = 'Añada productos en la página de inicio';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_c18c4d875bdc90881712513e3297ecfe'] = 'La categoría ha sido suprimida';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_cb8f83d87c81d2b6119038cf67fdf2fa'] = 'Ha habido un error al elimiinar la categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_c7c38a92733ff4f7918a3172b0d3079d'] = 'La categoría ha sido eliminada';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_3b3c2814eb94ab37a413f814b1a4d4ce'] = 'Ha habido un error al añadir la categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_2d7fd79c0857a4699ec3b6ac1bc8cd4c'] = 'El producto ha sido añadido a la categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_ce43cd9a693d68076a3d1216e939af56'] = 'Ha habido un error al añadir el producto a la categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_8f1eb233869ed674e4feaee88290a511'] = 'No se han encontrado productos en la categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_abd23ceebb3203d9dace4ad8102853c4'] = 'Añadir una categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_4b6c6cda10a23d1bdc920f2e47e5f46f'] = 'Añadir un producto';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_46c8280e993148f9cc6e26875d972169'] = 'Añadir una categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_1ead1fa401f83e8de302715bc40060d4'] = 'Elija la categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_c9cc8cce247e49bae79f15173ce97354'] = 'Guardar';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_d144d85fc8b89f6deba2eef20d1deee7'] = 'Añadir un nuevo producto';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_95c1b632786a64d970a95e8ce5fa7f4a'] = 'No se han encontrado categorías';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_7b19de25075c825844b5534972a65daf'] = 'Elegir producto';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_22a5615b48e6a060b43f3090dcd290b7'] = 'Introduzca una palabra para buscar el producto';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_88b1d1510798afcd1192844ac81c7c4d'] = 'Gestionar categorías';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_c24fec5511e2048b4ea1f0c6a4dd71d0'] = 'Editar las categorías';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_52f5e0bc3859bc5f5e25130b6c7e8881'] = 'Posición';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_49ee3087348e8d44e1feda1917443987'] = 'Nombre';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_068f80c7519d0528fb08e82137a72131'] = 'Productos';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_06df33001c1d7187fdd81ea1f5b277aa'] = 'Actiones';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_14518e3a2b971a4c4de50b3d4a25fe93'] = 'Enlace a categoría';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_86024cad1e83101d97359d7351051156'] = 'productos';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_f5bf48aa40cad7891eb709fcf1fde128'] = 'producto';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_85e2d77a4f1a30aaf1a2f3751388d03c'] = 'Eliminar la categoría ?';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_f2a6c498fb90ee345d997f888fce3b18'] = 'Eliminar';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_e9deac183231cfa28f7e61f6fdb12d0b'] = 'Enlace al producto';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_e739951c13afc002e36159bd5bbf60eb'] = '¿Eliminar el producto?';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_22a14cf770523809678d4dd4189ace54'] = '¡Oferta!';
+$_MODULE['<{responsivehomefeatured}prestashop>responsivehomefeatured_e0e572ae0d8489f8bf969e93d469e89c'] = 'No hay productos disponibles';
