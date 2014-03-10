@@ -77,6 +77,10 @@ class ResponsiveLinks extends Module
             'option' => 1,
             'value'  => 'http://www.twitter.com'
         );
+        $responsiveLinksConfiguration['FOLLOWLINKEDIN'] = array(
+            'option' => 1,
+            'value'  => 'http://www.linkedin.com'
+        );
 
         //configuration update
         if (!Configuration::updateValue('RESPONSIVELINKS_CONFIGURATION', serialize($responsiveLinksConfiguration)))
@@ -228,6 +232,10 @@ class ResponsiveLinks extends Module
             $responsiveLinksConfiguration['FOLLOWTWITTER'] = array(
                 'option' => (int)Tools::getValue('istwitter'),
                 'value'  => Tools::getValue('twittercontent')
+            );
+            $responsiveLinksConfiguration['FOLLOWLINKEDIN'] = array(
+                'option' => (int)Tools::getValue('islinkedin'),
+                'value'  => Tools::getValue('linkedincontent')
             );
 
             //configuration update
@@ -812,6 +820,24 @@ class ResponsiveLinks extends Module
                 <div class="margin-form">
                     <input type="text" name="twittercontent" size="150" value="'.$responsiveLinksConfiguration['FOLLOWTWITTER']['value'].'"/>
                     <p class="clear">'.$this->l('Enter your Twitter page').'</p>
+                </div>
+            </div>
+
+            <div class="option">
+                <label for="islinkedin">'.$this->l('LinkedIn').' : </label>
+                <div class="margin-form">
+                    <input type="radio" name="islinkedin" class="link-option" value="1" '.((isset($responsiveLinksConfiguration['FOLLOWLINKEDIN']) && $responsiveLinksConfiguration['FOLLOWLINKEDIN']['option'] == 1) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
+                    <input type="radio" name="istwitter" class="link-option" value="0" '.((!isset($responsiveLinksConfiguration['FOLLOWLINKEDIN']) || $responsiveLinksConfiguration['FOLLOWLINKEDIN']['option'] == 0) ? 'checked="checked"' : '' ).'>
+                    <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
+                </div>
+            </div>
+
+            <div class="option-block '.((isset($responsiveLinksConfiguration['FOLLOWLINKEDIN']) && $responsiveLinksConfiguration['FOLLOWLINKEDIN']['option'] == 1) ? 'active' : '' ).'">
+                <label for="linkedincontent">'.$this->l('LinkedIn page').' : </label>
+                <div class="margin-form">
+                    <input type="text" name="linkedincontent" size="150" value="'.$responsiveLinksConfiguration['FOLLOWLINKEDIN']['value'].'"/>
+                    <p class="clear">'.$this->l('Enter your LinkedIn page').'</p>
                 </div>
             </div>
 

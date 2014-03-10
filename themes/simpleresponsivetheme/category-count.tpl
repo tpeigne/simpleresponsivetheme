@@ -23,7 +23,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <h5>
-    {if $category->id == 1 OR $nb_products == 0}
+    {if $category->id == 1 OR !isset($nb_products) OR $nb_products == 0}
     {l s='There are no products in  this category'}
     {else}
         {if $nb_products == 1}

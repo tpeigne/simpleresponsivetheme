@@ -97,6 +97,11 @@
                 <a href="{$responsiveLinksConfiguration.FOLLOWYOUTUBE.value}" title="{l s='YouTube' mod='responsivelinks'}"><img src="{$img_dir}social-youtube.png" alt="{l s='YouTube' mod='responsivelinks'}" width="38" height="38"/></a>
             </li>
         {/if}
+        {if isset($responsiveLinksConfiguration) && $responsiveLinksConfiguration.FOLLOWLINKEDIN.option == 1}
+            <li>
+                <a href="{$responsiveLinksConfiguration.FOLLOWLINKEDIN.value}" title="{l s='LinkedIn' mod='responsivelinks'}"><img src="{$img_dir}social-linkedin.png" alt="{l s='LinkedIn' mod='responsivelinks'}" width="38" height="38"/></a>
+            </li>
+        {/if}
         {if isset($responsiveLinksConfiguration) && $responsiveLinksConfiguration.FOLLOWTWITTER.option == 1}
             <li class="last">
                 <a href="{$responsiveLinksConfiguration.FOLLOWTWITTER.value}" title="{l s='Twitter' mod='responsivelinks'}"><img src="{$img_dir}social-twitter.png" alt="{l s='Twitter' mod='responsivelinks'}" width="38" height="38"/></a>

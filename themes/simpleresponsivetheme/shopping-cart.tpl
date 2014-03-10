@@ -259,19 +259,16 @@
                 </td>
                 <td class="table-hide-small"></td>
                 <td class="table-hide-small"></td>
-                <td></td>
+                <td class="table-hide-small"></td>
+                <td colspan="2" class="price total_price_container cart_total_price_last" id="total_price_container">
                 {if $use_taxes}
-                <td class="price total_price_container cart_total_price_last" id="total_price_container">
                     <p>{l s='Total:'}</p>
                     <span id="total_price">{displayPrice price=$total_price}</span>
-                </td>
                 {else}
-                <td class="price total_price_container cart_total_price_last" id="total_price_container">
                     <p>{l s='Total:'}</p>
                     <span id="total_price">{displayPrice price=$total_price_without_tax}</span>
-                </td>
                 {/if}
-                <td class="table-hide-small"></td>
+	            </td>
             </tr>
         </tfoot>
         <tbody>
