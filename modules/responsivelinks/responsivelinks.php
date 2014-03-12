@@ -828,7 +828,7 @@ class ResponsiveLinks extends Module
                 <div class="margin-form">
                     <input type="radio" name="islinkedin" class="link-option" value="1" '.((isset($responsiveLinksConfiguration['FOLLOWLINKEDIN']) && $responsiveLinksConfiguration['FOLLOWLINKEDIN']['option'] == 1) ? 'checked="checked"' : '' ).'>
                     <label class="t"> <img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'"></label>
-                    <input type="radio" name="istwitter" class="link-option" value="0" '.((!isset($responsiveLinksConfiguration['FOLLOWLINKEDIN']) || $responsiveLinksConfiguration['FOLLOWLINKEDIN']['option'] == 0) ? 'checked="checked"' : '' ).'>
+                    <input type="radio" name="islinkedin" class="link-option" value="0" '.((!isset($responsiveLinksConfiguration['FOLLOWLINKEDIN']) || $responsiveLinksConfiguration['FOLLOWLINKEDIN']['option'] == 0) ? 'checked="checked"' : '' ).'>
                     <label class="t"> <img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'"></label>
                 </div>
             </div>
